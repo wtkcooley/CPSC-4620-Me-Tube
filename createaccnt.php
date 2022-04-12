@@ -1,5 +1,4 @@
 <?php
-
 $db_host = 'mysql1.cs.clemson.edu';
 $db_username = 'MeTube_sjoz';
 $db_password = '4620Project!';
@@ -17,20 +16,21 @@ $email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-//mysqli_select_db($conn, $db_name);
-
-$query = "SELECT * FROM `User` WHERE `username` = '$username'";
+$query = "SELECT * FROM User WHERE username = '{$username}'";
 $sqlsearch = mysqli_query($mysqli, $query);
 $resultcount = mysqli_num_rows($sqlsearch);
 if ($resultcount > 0) {
     echo "<script>alert(\"Username already exists\");</script>";
-    echo "Error: " . mysqli_error();
+    echo "Error: " . mysqli_error($mysqli);
     exit();
 }
 else {
-    $query = "INSERT INTO `User` (`username`, `password`, `email`, `fname`, `lname`) VALUES ('$username', '$password', '$email','$fname', '$lname')";
-    sqli_query($mysqli, $query) or die(mysqli_error());
+    $query = "INSERT INTO User (username, password, email, fname, lname) VALUES ('{$username}', '{$password}', '{$email}','{$fname}', '{$lname}')";
+    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 }
 
-mysqli_close();
+mysqli_close($mysqli);
+
+header("Location: http://127.0.0.1:80/index.html", true, 301);
+exit();
 ?>
