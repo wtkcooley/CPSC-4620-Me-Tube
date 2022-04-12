@@ -20,8 +20,7 @@ $query = "SELECT * FROM User WHERE username = '{$username}'";
 $sqlsearch = mysqli_query($mysqli, $query);
 $resultcount = mysqli_num_rows($sqlsearch);
 if ($resultcount > 0) {
-    echo "<script>alert(\"Username already exists\");</script>";
-    echo "Error: " . mysqli_error($mysqli);
+    header("Location: /unametaken.html", true, 301);
     exit();
 }
 else {
@@ -31,6 +30,6 @@ else {
 
 mysqli_close($mysqli);
 
-header("Location: http://127.0.0.1:80/index.html", true, 301);
+header("Location: /accntsuccess.html", true, 301);
 exit();
 ?>
