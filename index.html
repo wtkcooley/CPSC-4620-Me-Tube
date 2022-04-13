@@ -37,7 +37,7 @@
 
     <!--FRAME: BROWSE VIDEOS-->
 
-    <!-- login modal
+    <!-- login modal -->
     <div id="loginmodal" class="modal">
         <div class="modal-content row">
             <form class="col s12">
@@ -50,19 +50,56 @@
                         <input id="username" type="text" class="validate">
                         <label for="username">username</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Password</label>
+                </form>
+            </div>
+        </div>
+
+        <!--create account modal-->
+        <div id="createaccountmodal" class="modal">
+            <div class="modal-content row">
+                <form action="createaccnt.php" method="post" class="col s12">
+                    <div class="row">
+                        <h4>Create Account</h4>
                     </div>
-                </div>
-                <div class="row">
-                    <a class="createaccountbtn waves-effect waves-light btn col s5 left">Create Account</a>
-                    <a class="modal-close waves-effect waves-light btn col s5 right" type="submit" href="#!">Login</a>
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person</i>
+                            <input name="fname" id="fname" type="text" class="validate">
+                            <label for="fname">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person</i>
+                            <input name="lname" id="lname" type="text" class="validate">
+                            <label for="lname">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input name="email" id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input name="username" id="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <input name ="password" id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Create Account"/>
+                        <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>-->
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     </div>
@@ -109,7 +146,7 @@
                 </div>
                 <div class="row">
                     <input type="submit" value="Create Account" />
-                    <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>
+                    <a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>
     </div>
     </form>
     </div>
