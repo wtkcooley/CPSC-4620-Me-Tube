@@ -18,10 +18,10 @@
 <body class="blue-grey darken-3">
     <nav>
         <div class="nav-wrapper row teal lighten-2">
-            <a href="index.html" class="brand-logo left col-s1">Logo</a>
+            <a href="/metube/index.html" class="brand-logo left col-s1">Logo</a>
             <ul id="nav-mobile" class="right">
                 <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
-                <li><a class="waves-effect waves-light btn teal darken-3 modal-trigger" href="#loginmodal">Login</a></li>
+                <li><a class="waves-effect waves-light btn teal darken-3 modal-trigger" href="/metube/login.html">Login</a></li>
             </ul>
             <form class="col s4 offset-s4">
                 <div class="input-field">
@@ -35,7 +35,7 @@
 
     <!--page content goes here-->
 
-    <!--login modal-->
+    <!-- login modal
     <div id="loginmodal" class="modal">
         <div class="modal-content row">
             <form class="col s12">
@@ -65,7 +65,7 @@
     </div>
     </div>
 
-    <!--create account modal-->
+    <!--create account modal
     <div id="createaccountmodal" class="modal">
         <div class="modal-content row">
             <form action="/createaccnt.php" method="POST" class="col s12">
@@ -107,12 +107,12 @@
                 </div>
                 <div class="row">
                     <input type="submit" value="Create Account" />
-                    <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>-->
-                </div>
-            </form>
-        </div>
+                    <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>
+    </div>
+    </form>
     </div>
     </div>
+    </div>-->
     <script>
         $(document).ready(function() {
             $('.modal').modal();
@@ -122,7 +122,7 @@
                 M.Modal.getInstance($("#createaccountmodal")).open();
             })
         })
-    </script>
+    </script> -->
 </body>
 
 </html>
