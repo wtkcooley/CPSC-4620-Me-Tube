@@ -19,9 +19,9 @@
         $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
-            //$results = array_unique($results);
+            $results = array_unique(mysqli_result());
             $resultcount = mysqli_num_rows($results);
-            while ($row = mysql_fetch_array($results, MYSQL_ASSOC)) {
+            while ($row = mysql_fetch_assoc($results)) {
                 $i++;
 
                 if ($row['mediaType'] == "IMAGE") {
