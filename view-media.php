@@ -64,7 +64,7 @@
             $result = $mysqli->query($query);
 
             // Print query results
-            echo "$result";
+            echo "$result['description']";
             ?>
         </div>
 
