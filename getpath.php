@@ -1,8 +1,8 @@
 <?php
 // Get mediaID from URL sent by video browse page
 $mediaID = -1;
-if (isset($_GET["mediaID"])) {
-    $mediaID = $_GET["mediaID"];
+if (isset($_GET['mediaID'])) {
+    $mediaID = $_GET['mediaID'];
 } else {
     die("Could not get mediaID! Is it valid?");
 }
@@ -26,7 +26,7 @@ $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
 $result = $mysqli->query($query);
 
 // Echo back path
-if($result->num_rows() == 1) {
+if($result->num_rows == 1) {
     $path = $result -> fetch_assoc();
     echo "$path";
 }
