@@ -62,9 +62,10 @@
             // Query for path based on mediaID
             $query = "SELECT description FROM Media WHERE mediaID=$mediaID";
             $result = $mysqli->query($query);
+            $desc = fetch_assoc($result)
 
             // Print query results
-            echo "$result['description']";
+            echo "$desc['description']";
             ?>
         </div>
 
