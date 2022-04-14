@@ -61,8 +61,7 @@
     }
 
     
-    $querys;
-    array_push($querys, "SELECT mediaID, mediaType, mediaTitle, `description` FROM Media");
+    $querys = ["SELECT mediaID, mediaType, mediaTitle, `description` FROM Media"];
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         if (isset($_GET['category']) && $_GET['category'] !== 0) {
             if (isset($_GET['search']) && $_GET['search'] !== "") {
