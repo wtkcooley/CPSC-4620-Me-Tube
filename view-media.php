@@ -44,6 +44,7 @@
 
             <?php
             // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
             if (isset($_GET['mediaID'])) {
                 $mediaID = $_GET['mediaID'];
             } else {
