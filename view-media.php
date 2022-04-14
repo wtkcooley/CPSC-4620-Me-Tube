@@ -65,7 +65,7 @@
             $desc = fetch_assoc($result);
 
             // Print query results
-            echo "$desc['description']";
+            echo "$desc";
             ?>
         </div>
 
