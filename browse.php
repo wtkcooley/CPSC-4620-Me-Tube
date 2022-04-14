@@ -19,7 +19,7 @@
         $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
-            $results = array_unique($result);
+            $results = array_unique($results);
             $resultcount = mysqli_num_rows($sqlsearch);
             while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
                 $i++;
