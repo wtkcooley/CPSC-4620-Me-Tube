@@ -200,7 +200,9 @@
         $result = $mysqli->query($query);
 
         while($row = mysqli_fetch_array($result)) {
-            echo "User $row['commentUser']: $row['comment']";
+            $commentUser = $row['commentUser'];
+            $comment = $row['comment'];
+            echo "User $commentUser: $comment";
         }
         ?>
 
