@@ -1,6 +1,10 @@
 <?php
 // Get mediaID from URL sent by video browse page
-$mediaID = $_GET['mediaID'];
+if (isset($_GET['mediaID'])) {
+    $mediaID = $_GET['mediaID'];
+} else {
+    die("Could not get mediaID! Is it valid?");
+}
 
 // Save DB info
 $db_host = 'mysql1.cs.clemson.edu';
@@ -19,9 +23,10 @@ if (mysqli_connect_errno()) {
 // Query for path based on mediaID
 $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
 $result = $mysqli->query($query);
+$path = fetch_assoc($result);
 
 // Download from path
-if (file_exists($path) && $result->num_rows() == 1) {
+if (file_exists($path)) {
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename="'.basename($path).'"');

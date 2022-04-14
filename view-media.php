@@ -43,7 +43,11 @@
 
             <?php
             // Get mediaID from URL sent by video browse page
-            $mediaID = $_GET['mediaID'];
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                die("Could not get mediaID! Is it valid?");
+            }
 
             // Save DB info
             $db_host = 'mysql1.cs.clemson.edu';
