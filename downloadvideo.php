@@ -23,7 +23,7 @@ if (mysqli_connect_errno()) {
 // Query for path based on mediaID
 $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
 $result = $mysqli->query($query);
-$path = fetch_assoc($result);
+$path = $result -> fetch_assoc();
 
 // Download from path
 if (file_exists($path)) {
