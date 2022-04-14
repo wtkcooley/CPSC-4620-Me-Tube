@@ -3,7 +3,7 @@
 if (isset($_GET['mediaID'])) {
     $mediaID = $_GET['mediaID'];
 } else {
-    die("Could not get mediaID:$mediaID ! Is it valid?");
+    die("Could not get mediaID! Is it valid?");
 }
 
 // Save DB info
