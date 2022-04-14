@@ -14,14 +14,16 @@
       $values[$input] = $_POST[$input];
     }
 
-  //connect to our database
-  $db_host = 'mysql1.cs.clemson.edu';
-  $db_username = 'MeTube_sjoz';
-  $db_password = '4620Project!';
-  $db_name = 'MeTube_24dp';
-  $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+// Save DB info
+$db_host = 'mysql1.cs.clemson.edu';
+$db_username = 'MeTube_sjoz';
+$db_password = '4620Project!';
+$db_name = 'MeTube_24dp';
 
-  if (mysqli_connect_errno()) {
+// Connect to DB and handle error
+$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+if (mysqli_connect_errno()) {
+    // Connection failed!
     echo "Connection failed: " . mysqli_connect_error();
     exit();
   }

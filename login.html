@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MeTube</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Import jquery-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--Import materialize.js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body style="background-image: url('/metube/images/main_bg.jpg');background-repeat: no-repeat">
+    <div style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); text-align: center;">
+        <form class="z-depth-5" style="color:#37474f;background-color: white; padding: 50px; border-radius: 15px 50px;" class="col s12">
+            <div class="row">
+                <h4>Login</h4>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" type="text" class="validate">
+                    <label for="username">username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <a class="createaccountbtn waves-effect waves-light btn col s5 left" href="/metube/createaccnt.php">Create Account</a>
+                <a class="modal-close waves-effect waves-light btn col s5 right" type="submit">Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
