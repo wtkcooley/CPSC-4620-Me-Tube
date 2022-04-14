@@ -37,6 +37,7 @@
     $query = "INSERT INTO User (username, password, email, fname, lname) VALUES 
       ('{$values["username"]}', '{$values["password"]}', '{$values["email"]}','{$values["fname"]}', '{$values["lname"]}')";
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    header("Location: /~cguynup/metube/accntsuccess.php", true, 301);
     exit;
   }
 }
@@ -57,11 +58,43 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+    body {
+      background-image: url('/~cguynup/metube/images/main_bg.jpg');
+      background-repeat: no-repeat;
+    }
+    div.centerform {
+      margin: 0; 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      -ms-transform: translate(-50%, -50%); 
+      transform: translate(-50%, -50%); 
+      text-align: center;
+    }
+    form.main {
+      color: #37474f;
+      background-color: white; 
+      padding: 50px; 
+      border-radius: 15px 50px; 
+    }
+    .formbtn {
+      background-color: #37474f; 
+      border: none; 
+      color: white; 
+      padding: 16px 32px; 
+      text-decoration: none; 
+      margin: 4px 2px; 
+      cursor: pointer; 
+      border-radius: 3px;
+    }
+  </style>
     </head>
 
-    <body style="background-image: url('/metube/main_bg.jpg');background-repeat: no-repeat">
-        <div style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); text-align: center;">
-            <form class="z-depth-5" style="color:#37474f;background-color: white; padding: 50px; border-radius: 15px 50px;" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="col s12">
+    <body>
+        <div class="centerform">
+            <form class="z-depth-5 main col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="row">
                     <h4 style="color: #37474f">Create Account</h4>
                 </div>
@@ -104,7 +137,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input class="z-depth-5" style="background-color: #37474f; border: none; color: white; padding: 16px 32px; text-decoration: none; margin: 4px 2px; cursor: pointer; border-radius: 3px;" type="submit" value="Create Account" />
+                    <input class="z-depth-5 formbtn" type="submit" value="Create Account" />
+                    <br><a href="/~cguynup/metube/login.php">Return to log in...</a>
                     <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>-->
                 </div>
             </form>
