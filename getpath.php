@@ -26,6 +26,7 @@ $result = $mysqli->query($query);
 
 // Echo back path
 if($result->num_rows() == 1) {
-    echo "$result['path']";
+    $path = fetch_assoc($result);
+    echo "$path";
 }
 ?>
