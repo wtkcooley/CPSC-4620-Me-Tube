@@ -20,6 +20,7 @@
 
 <body class="blue-grey darken-3">
     <div class="view-media row">
+        <!--MEDIA PLAYER-->
         <div class="row">
             <iframe width="720" height="576" src="
             <?php
@@ -61,6 +62,7 @@
         <div class="row">
             <h5 class="col s6">Title</h5>
             <div class="col s6">
+                <!--DOWNLOAD/PLAYLIST BUTTONS-->
                 <div class="right">
                     <a class="waves-effect waves-light btn " href="
                     <?php
@@ -89,21 +91,13 @@
                     // Query for path based on mediaID
                     $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
                     $result = $mysqli->query($query);
-                    $path = $result -> fetch_assoc();
 
-                    // Download from path
-                    if (file_exists($path)) {
-                        header('Content-Description: File Transfer');
-                        header('Content-Type: application/octet-stream');
-                        header('Content-Disposition: attachment; filename="'.basename($path).'"');
-                        header('Expires: 0');
-                        header('Cache-Control: must-revalidate');
-                        header('Pragma: public');
-                        header('Content-Length: ' . filesize($path));
-                        readfile($file);
-                        exit;
+                    // Echo back path
+                    if($result->num_rows == 1) {
+                        $path = $result -> fetch_assoc();
+                        echo "$path";
                     }
-                    ?>"><i class="material-icons left">download</i>Download</a>
+                    ?>" download><i class="material-icons left">download</i>Download</a>
 
                     <a class="waves-effect waves-light btn "><i class="material-icons left">playlist_add</i>Add to playlist</a>
 
@@ -113,6 +107,7 @@
             </div>
         </div>
 
+        <!--DESCRIPTION FETCH-->
         <div class="row">
             <p class="col s12">Description</p>
 
@@ -150,25 +145,64 @@
             ?>
         </div>
 
+        <!--COMMENT SUBMISSION-->
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" action="submitComment.php" method="POST">
                 <div class="row">
                     <div class="input-field col s11">
-                        <textarea id="comment" class="materialize-textarea"></textarea>
+                        <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
                         <label for="comment">Add a comment...</label>
                     </div>
                     <div class="col s1">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit Comment
-
-                            <!--INSERT CODE TO SEND COMMENT-->
-
-                        </button>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit Comment</button>
                     </div>
                 </div>
+                <!--hidden media id parameter-->
+                <input type="hidden" name="mediaID" value=
+                <?php
+                $mediaID = -1;
+                if (isset($_GET['mediaID'])) {
+                    $mediaID = $_GET['mediaID'];
+                    echo $mediaID;
+                } else {
+                    die("Could not get mediaID! Is it valid?");
+                }
+                ?>/>
             </form>
         </div>
 
-        <!--INSERT CODE TO DISPLAY COMMENTS-->
+        <!--DISPLAY COMMENTS-->
+        <?php
+        // Get mediaID from URL sent by video browse page
+        $mediaID = -1;
+        if (isset($_GET['mediaID'])) {
+            $mediaID = $_GET['mediaID'];
+        } else {
+            die("Could not get mediaID! Is it valid?");
+        }
+
+        // Save DB info
+        $db_host = 'mysql1.cs.clemson.edu';
+        $db_username = 'MeTube_sjoz';
+        $db_password = '4620Project!';
+        $db_name = 'MeTube_24dp';
+
+        // Connect to DB and handle error
+        $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+        if (mysqli_connect_errno()) {
+            // Connection failed!
+            echo "Connection failed: " . mysqli_connect_error();
+            exit();
+        }
+
+        // Set up query
+        $query = "SELECT commentUser, commentTime, comment FROM Comment WHERE mediaID=$mediaID ORDER BY commentTime DESC";
+        $result = $mysqli->query($query);
+
+        while($row = mysqli_fetch_array($result)) {
+            echo "User $row['commentUser']: $row['comment']";
+        }
+        ?>
 
     </div>
 </body>
