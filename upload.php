@@ -47,8 +47,8 @@ uploadIP INT
 uploadTime datetime
 title varchar(50)
 description varchar(240)
-mediaType varchar(5)            <-- THIS NEEDS TO BE IMPLEMENTED
-mediaExt varchar(5)             <-- THIS NEEDS TO BE IMPLEMENTED
+mediaType varchar(5)
+mediaExt varchar(5)
 path varchar(100) */
 
 // save DB info
