@@ -21,7 +21,7 @@ $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
 $result = $mysqli->query($query);
 
 // Echo back path
-if($result->num_rows == 1) {
+if($result->num_rows() == 1) {
     echo "$result";
 }
 ?>

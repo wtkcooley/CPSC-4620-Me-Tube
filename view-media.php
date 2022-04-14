@@ -64,7 +64,7 @@
             $result = $mysqli->query($query);
 
             // Print query results
-            if($result->num_rows == 1) {
+            if($result->num_rows() == 1) {
                 echo "$result";
             }
             ?>

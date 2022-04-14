@@ -21,7 +21,7 @@ $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
 $result = $mysqli->query($query);
 
 // Download from path
-if (file_exists($path) && $result->num_rows == 1) {
+if (file_exists($path) && $result->num_rows() == 1) {
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename="'.basename($path).'"');
