@@ -21,7 +21,8 @@
 <body class="blue-grey darken-3">
     <div class="view-media row">
         <div class="row">
-            <iframe width="720" height="576" src="./getpath.php" class="col s12" />
+            <iframe width="720" height="576" src="./getpath.php" class="col s12">
+            </iframe>
         </div>
 
         <div class="row">
