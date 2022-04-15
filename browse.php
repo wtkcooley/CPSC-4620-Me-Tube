@@ -11,44 +11,50 @@
         exit();
     }
 
-    $media = [];
-
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
+        $media = [];
         $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
             $resultcount = mysqli_num_rows($results);
             while ($row = mysql_fetch_assoc($results)) {
-                if ($row['mediaType'] == "IMAGE") {
-                    $media.array_push('
+                $mediaType = $row['mediaType'];
+                $path = $row['path'];
+                $title = $row['title'];
+                $desc = $row['description'];
+                if ($mediaType == "IMAGE") {
+                    $string = '
                         <div class="col s3">
                             <div class="row">
-                                <image src="' . $row['path'] . '" class="col s12">
+                                <image src="' . $path . '" class="col s12">
                                 </image>
                                 <div class="col s12">
-                                    <h4>' . $row['title'] . '</h4>
-                                    <p>' . $row['description'] . '</p>
+                                    <h4>' . $title . '</h4>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
-                    ');
+                    ';
+                    $media.array_push($string);
                 } else {
-                    $media.array_push('
+                    $string = '
                         <div class="col s3">
                             <div class="row">
                                 <image src="/metube/media/video.png" class="col s12">
                                 </image>
                                 <div class="col s12">
-                                    <h4>' . $row['title'] . '</h4>
-                                    <p>' . $row['description'] . '</p>
+                                    <h4>' . $title . '</h4>
+                                    <p>' . $desc . '</p>
                                 </div>
                             </div>
                         </div>
-                    ');
+                    ';
+                    $media.array_push($string);
                 }
             }
         }
+        return $media;
     }
 
     
@@ -81,7 +87,7 @@
             }
         }
     }
-    setMedia($querys, $mysqli);
+    $media = setMedia($querys, $mysqli);
 ?>
 
 <!DOCTYPE html>
