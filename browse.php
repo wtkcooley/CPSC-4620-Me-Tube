@@ -85,7 +85,7 @@
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = {$word})");
             }
         } else {
-            array_push($querys, "SELECT mediaID, mediaType, mediaTitle, `description` FROM Media");
+            array_push($querys, "SELECT mediaID, mediaType, mediaTitle, description FROM Media");
         }
         $media = setMedia($querys, $mysqli);
     }
