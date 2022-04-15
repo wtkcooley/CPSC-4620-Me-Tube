@@ -11,21 +11,17 @@
         exit();
     }
 
-    $media = "";
-    $i = 0;
+    $media = [];
 
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
         $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
-            $results = array_unique(mysqli_result());
             $resultcount = mysqli_num_rows($results);
             while ($row = mysql_fetch_assoc($results)) {
-                $i++;
-
                 if ($row['mediaType'] == "IMAGE") {
-                    $media .= '
+                    $media.array_push('
                         <div class="col s3">
                             <div class="row">
                                 <image src="' . $row['path'] . '" class="col s12">
@@ -36,9 +32,9 @@
                                 </div>
                             </div>
                         </div>
-                    ';
+                    ');
                 } else {
-                    $media .= '
+                    $media.array_push('
                         <div class="col s3">
                             <div class="row">
                                 <image src="/metube/media/video.png" class="col s12">
@@ -49,12 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                    ';
-                }
-                
-                if($i == 4) {
-                    $media .= "<div class='row'>";
-                    $i = 0;
+                    ');
                 }
             }
         }
@@ -63,10 +54,12 @@
     
     $querys = ["SELECT mediaID, mediaType, mediaTitle, `description` FROM Media"];
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        $querys = [];
         if (isset($_GET['category']) && $_GET['category'] !== 0) {
             if (isset($_GET['search']) && $_GET['search'] !== "") {
                 foreach($_GET['category'] as $category) {
-                    foreach($word as $word) {
+                    $words = explode(' ', $_GET['search']);
+                    foreach($words as $word) {
                         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
                             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
@@ -82,7 +75,7 @@
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
             $words = explode(' ', $_GET['search']);
-            foreach($word as $word) {
+            foreach($words as $word) {
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = {$word})");
             }
@@ -158,7 +151,16 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                
+                    <?php
+                        $i = 0;
+                        foreach($media as $m) {
+                            $i++;
+                            echo $m;
+                            if($i == 4) {
+                                echo "</div>\n<div class=row>\n";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>
