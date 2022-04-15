@@ -1,4 +1,5 @@
 <?php
+    echo "Here";
     //connect to our database
     $db_host = 'mysql1.cs.clemson.edu';
     $db_username = 'MeTube_sjoz';
