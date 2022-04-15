@@ -19,8 +19,7 @@
             echo "here";
             echo $query;
             $results = mysqli_query($mysqli, $query);
-            $resultcount = mysqli_num_rows($results);
-            while ($row = mysql_fetch_assoc($results)) {
+            while ($row = $results->fetch_assoc()) {
                 $mediaType = $row['mediaType'];
                 $path = $row['path'];
                 $title = $row['title'];
