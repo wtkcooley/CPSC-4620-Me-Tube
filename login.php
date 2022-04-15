@@ -99,7 +99,7 @@
   </style>
 
 </head>
-<body class="main">
+<body>
   <div class="centerform">
     <form class="z-depth-5 main col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
       <div class="row">
