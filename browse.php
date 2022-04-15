@@ -1,5 +1,4 @@
 <?php
-    echo "Here";
     //connect to our database
     $db_host = 'mysql1.cs.clemson.edu';
     $db_username = 'MeTube_sjoz';
@@ -14,6 +13,7 @@
 
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
+        echo "here";
         $media = [];
         $querys = array_unique($querys);
         foreach($querys as $query) {
