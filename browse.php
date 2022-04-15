@@ -59,8 +59,6 @@
         return array_unique($media);
     }
 
-    
-    $querys = ["SELECT mediaID, mediaType, mediaTitle, `description` FROM Media"];
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $querys = [];
         if (isset($_GET['category']) && $_GET['category'] !== 0) {
@@ -87,9 +85,12 @@
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = {$word})");
             }
+        } else {
+            array_push($querys, "SELECT mediaID, mediaType, mediaTitle, `description` FROM Media");
         }
+        $media = setMedia($querys, $mysqli);
     }
-    $media = setMedia($querys, $mysqli);
+    
 ?>
 
 <!DOCTYPE html>
