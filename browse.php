@@ -13,10 +13,10 @@
 
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
-        echo "here";
         $media = [];
         $querys = array_unique($querys);
         foreach($querys as $query) {
+            echo "here";
             echo $query;
             $results = mysqli_query($mysqli, $query);
             $resultcount = mysqli_num_rows($results);
