@@ -14,7 +14,7 @@
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
         $media = [];
-        $querys = array_unique($querys);
+        //$querys = array_unique($querys);
         foreach($querys as $query) {
             echo "here";
             echo $query;
