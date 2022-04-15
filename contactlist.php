@@ -23,18 +23,18 @@
   }
 
   //if the form posted back to itself, do the request
-//   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     if($_POST['status']=='accept'){
-//       $query = "UPDATE Relation SET status='{$constant(ACCEPT_VAL)}', dateModified=curdate() WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
-//       mysqli_query($mysqli, $query);
-//     } else if($_POST['status']=='deny'){
-//       $query = "UPDATE Relation SET status='{$constant(DENY_VAL)}', dateModified=curdate() WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
-//       mysqli_query($mysqli, $query);
-//     } else if($_POST['status']=='remove'){
-//       $query = "DELETE FROM Relation WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
-//       mysqli_query($mysqli, $query);
-//     }
-//   }
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_POST['status']=='accept'){
+      $query = "UPDATE Relation SET status='{$constant('ACCEPT_VAL')}', dateModified=NOW() WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
+      mysqli_query($mysqli, $query);
+    } else if($_POST['status']=='deny'){
+      $query = "UPDATE Relation SET status='{$constant('DENY_VAL')}', dateModified=NOW() WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
+      mysqli_query($mysqli, $query);
+    } else if($_POST['status']=='remove'){
+      $query = "DELETE FROM Relation WHERE uname1='{$_POST['user1']}' AND uname2='{$_POST['user2']}'";
+      mysqli_query($mysqli, $query);
+    }
+  }
 
   if(isset($_COOKIE['user'])){
     //find all the updated relations that the current user has
@@ -82,32 +82,90 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <style>
+        
+        :root {
+          --main-background-color: #37474f;
+        }
+        body {
+          background-color: var(--main-background-color);
+          text-align: center;
+          vertical-align: center;
+        }
+        div {
+          background-color: white; 
+          width: 75%;
+          margin: auto;
+          left: 50%;
+          border-radius: 10px;
+        }
+        div.main {
+          padding: 10px;
+          margin-top: 20px;
+        }
+        div.titles {
+          color: white;
+          background-color: var(--main-background-color);
+        }
+        table {
+          color: white;
+          background-color: #00796b;
+          border-radius: 5px;
+          width: 90%;
+          margin: auto;
+          left: 50%;
+        }
+        form.main {
+          color: var(--main-background-color);
+        }
+        .formbtn {
+          background-color: var(--main-background-color); 
+          border: none; 
+          color: white; 
+          text-decoration: none; 
+          cursor: pointer; 
+          border-radius: 5px;
+          padding: 5px;
+        }
+        td.name {
+          width: 80%;
+          padding-left: 5%;
+        }
+        td.requests {
+          width: 10%;
+          padding: 5px;
+        }
+      </style>
     </head>
-    <body style="text-align: center">
-        <h5>Incoming Requests...</h5><br>
-        <div style="margin: auto; right: 50%;">
+    <body>
+      <div class='main'>
+        <div class="row z-depth-2 titles">
+        <h5>Incoming Requests...</h5>
+        </div>
+        <div class="row">
         <?php
           if(empty($requests)){
             echo "<p1>No friend requests yet.</p1><br>";
           } else {
-            echo "<table width='100%'>";
+            echo "<table>";
             foreach($requests as $user => $request){
               echo "<tr>";
-              echo "<td style='text-align: left' width='75%'>".$user."</td>";
-              echo "<td style='text-align: right;' width='12.5%'>";
-              echo "<form style='margin: aut0; right: 50%;' action='<?php echo htmlspecialchars(\$_SERVER['PHP_SELF']);?>' method='post'>";
+              echo "<td class='name'>".$user."</td>";
+              echo "<td class='requests'>";
+              echo "<form class='main' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
               echo "<input type='hidden' name='user1' value=".$request['uname1'].">";
               echo "<input type='hidden' name='user2' value=".$request['uname2'].">";
               echo "<input type='hidden' name='status' value='accept'>";
-              echo "<input style='width: 100%' id='abtn' type='submit' name='submit' value='Accept'>";
+              echo "<input class='formbtn' id='abtn' type='submit' name='submit' value='Accept'>";
               echo "</form>";
               echo "</td>";
-              echo "<td style='text-align: right;' width='12.5%'>";
-              echo "<form style='margin: aut0; right: 50%;' action='<?php echo htmlspecialchars(\$_SERVER['PHP_SELF']);?>' method='post'>";
+              echo "<td class='requests'>";
+              echo "<form class='main' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
               echo "<input type='hidden' name='user1' value=".$request['uname1'].">";
               echo "<input type='hidden' name='user2' value=".$request['uname2'].">";
               echo "<input type='hidden' name='status' value='deny'>";
-              echo "<input style='width: 100%' id='dbtn' type='submit' name='submit' value='Deny'>";
+              echo "<input class='formbtn' id='dbtn' type='submit' name='submit' value='Deny'>";
               echo "</form>";
               echo "</td>";
               echo "</tr>";
@@ -116,8 +174,10 @@
           }
         ?>
         </div>
-        <h5>Outgoing Requests...</h5><br>
-        <div style="margin: auto; right: 50%;">
+        <div class="row z-depth-2 titles">
+        <h5>Outgoing Requests...</h5>
+        </div>
+        <div class="row">
         <?php
           if(empty($sentrequests)){
             echo "<p1>No pending friend requests.</p1><br>";
@@ -125,14 +185,14 @@
             echo "<table width='100%'>";
             foreach($sentrequests as $user => $request){
               echo "<tr>";
-              echo "<td style='text-align: left' width='75%'>".$user."</td>";
-              echo "<td style='text-align: right;' width='12.5%'></td>";
-              echo "<td style='text-align: right;' width='12.5%'>";
-              echo "<form style='margin: aut0; right: 50%;' action='<?php echo htmlspecialchars(\$_SERVER['PHP_SELF']);?> method='post'>";
+              echo "<td class='name'>".$user."</td>";
+              echo "<td class='requests'></td>";
+              echo "<td class='requests'>";
+              echo "<form class='main' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
               echo "<input type='hidden' name='user1' value=".$request['uname1'].">";
               echo "<input type='hidden' name='user2' value=".$request['uname2'].">";
               echo "<input type='hidden' name='status' value='remove'>";
-              echo "<input style='width: 100%' id='cbtn' type='submit' name='submit' value='Cancel'>";
+              echo "<input class='formbtn' id='cbtn' type='submit' name='submit' value='Cancel'>";
               echo "</form>";
               echo "</td>";
               echo "</tr>";
@@ -141,8 +201,10 @@
           }
         ?>
         </div>
-        <h5>Friends...</h5><br>
-        <div style="margin: auto; right: 50%;">
+        <div class="row z-depth-2 titles">
+        <h5>Friends...</h5>
+        </div>
+        <div class="row">
         <?php
           if(empty($friends)){
             echo "<p1>No friends yet.</p1><br>";
@@ -150,14 +212,14 @@
             echo "<table width='100%'>";
             foreach($friends as $user => $relation){
               echo "<tr>";
-              echo "<td style='text-align: left' width='75%'>".$user."</td>";
-              echo "<td style='text-align: right;' width='12.5%'></td>";
-              echo "<td style='text-align: right;' width='12.5%'>";
-              echo "<form style='margin: aut0; right: 50%;' action='<?php echo htmlspecialchars(\$_SERVER['PHP_SELF']);?>' method='post'>";
+              echo "<td class='name'>".$user."</td>";
+              echo "<td class='requests'></td>";
+              echo "<td class='requests'>";
+              echo "<form class='main' action='".htmlspecialchars($_SERVER['PHP_SELF'])."' method='post'>";
               echo "<input type='hidden' name='user1' value=".$relation['uname1'].">";
               echo "<input type='hidden' name='user2' value=".$relation['uname2'].">";
               echo "<input type='hidden' name='status' value='remove'>";
-              echo "<input style='width: 100%' id='cbtn' type='submit' name='submit' value='Remove'>";
+              echo "<input class='formbtn' id='cbtn' type='submit' name='submit' value='Remove'>";
               echo "</form>";
               echo "</td>";
               echo "</tr>";
@@ -166,5 +228,6 @@
           }
         ?>
         </div>
+      </div> 
     </body>
     </html>
