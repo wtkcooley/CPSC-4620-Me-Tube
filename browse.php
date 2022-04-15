@@ -41,7 +41,7 @@
                     $string = '
                         <div class="col s3">
                             <div class="row">
-                                <image src="/metube/media/video.png" class="col s12">
+                                <image src="/metube/images/videoThumbnail.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $title . '</h4>
@@ -54,7 +54,7 @@
                 }
             }
         }
-        return $media;
+        return array_unique($media);
     }
 
     
@@ -114,13 +114,6 @@
                     <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
                     <li><a class="waves-effect waves-light btn teal darken-3 modal-trigger" href="/metube/login.html">Login</a></li>
                 </ul>
-                <form class="col s4 offset-s4">
-                    <div class="input-field">
-                        <input id="search" type="search" required>
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons">close</i>
-                    </div>
-                </form>
             </div>
         </nav>
         <div class="profile-home row">
@@ -143,7 +136,7 @@
                                 </select>
                                 <label>Categorys</label>
                             </div>
-                            <div class="input-field">
+                            <div class="input-field col s4">
                                 <input id="search" type="search">
                                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                                 <i class="material-icons">close</i>
