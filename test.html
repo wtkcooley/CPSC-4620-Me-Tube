@@ -4,58 +4,8 @@
 <head>
 
     <body>
-        <table width="100%">
-            <tr>
-                <td style="text-align: left" width="75%">Name Here</td>
-                <td style="text-align: right;" width="12.5%">
-                    <form style="margin: aut0; right: 50%;" action="" method="post">
-                        <input type="hidden" name="user1" value="user1" />
-                        <input type="hidden" name="user2" value="user2" />
-                        <input type="hidden" name="status" value="accept" />
-                        <input style="width: 100%" id="abtn" type="submit" name="submit" value="accept">
-                    </form>
-                </td>
-                <td style="text-align: right;" width="12.5%">
-                    <form style="margin: auto; right: 50%;" action="" method="post">
-                        <input type="hidden" name="user1" value="user1" />
-                        <input type="hidden" name="user2" value="user2" />
-                        <input type="hidden" name="status" value="deny" />
-                        <input style="width: 100%" id="dbtn" type="submit" name="submit" value="deny">
-                    </form>
-                </td>
-            </tr>
-        </table>
+        <iframe src="/~cguynup/metube/test.php?test=mytest"></iframe>
 
     </body>
 
 </html>
-
-<?php
-                if(isempty($requests)){
-                    echo "<p1>No friend requests yet.</p1><br>";
-                } else {
-                    echo "<table width='100%'>";
-                    foreach($requests as $user => $request){
-                        echo "<tr>";
-                            echo "<td style='text-align: left' width='75%'>$user</td>";
-                            echo "<td style='text-align: right;' width='12.5%'>";
-                                echo "<form style='margin: aut0; right: 50%;' action='' method='post'>";
-                                    echo "<input type='hidden' name='user1' value=".$request['uname1']."/>";
-                                    echo "<input type='hidden' name='user2' value=".$request['uname2']."/>";
-                                    echo "<input type='hidden' name='status' value='accept' />";
-                                    echo "<input style='width: 100%' id='abtn' type='submit' name='submit' value='accept'>";
-                                echo "</form>";
-                            echo "</td>";
-                            echo "<td style='text-align: right;' width='12.5%'>";
-                                echo "<form style='margin: aut0; right: 50%;' action='' method='post'>";
-                                    echo "<input type='hidden' name='user1' value=".$request['uname1']."/>";
-                                    echo "<input type='hidden' name='user2' value=".$request['uname2']."/>";
-                                    echo "<input type='hidden' name='status' value='deny' />";
-                                    echo "<input style='width: 100%' id='dbtn' type='submit' name='submit' value='accept'>";
-                                echo "</form>";
-                            echo "</td>";
-                        echo "</tr>";
-                    }
-                    echo "</table>";
-                }
-            ?>
