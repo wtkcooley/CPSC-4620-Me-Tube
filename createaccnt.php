@@ -93,6 +93,8 @@ if (mysqli_connect_errno()) {
     }
   </style>
     </head>
+    <div class="centerform">
+            <form class="z-depth-5 main col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="row">
                     <h4 style="color: #37474f">Create Account</h4>
                 </div>
