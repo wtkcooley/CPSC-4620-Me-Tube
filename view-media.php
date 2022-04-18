@@ -1,3 +1,35 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $playlistName = $_POST['playlistName'];
+
+    // get playlists
+    $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$_COOKIE['user']";
+    $result = $mysqli->query($query);
+    
+    if(in_array($playlistName, $result)) {
+        // get ID of playlist
+        $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$_COOKIE['user'] AND playlistName=$playlistName";
+        $result = $mysqli->query($query);
+        // add to playlist_media
+        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ($result['playlistID'], $_GET['mediaID'])";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    } else {
+        // create playlist
+        $query = "INSERT INTO Playlist (playlistName, createUser) VALUES ($playlistName, $_COOKIE['user'])";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        // get playlist ID
+        $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$_COOKIE['user']'";
+        $result = $mysqli->query($query);
+        // insert into user playlist table
+        $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ($_COOKIE['user'], $result['playlistID'])";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        // insert into playlist media table
+        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ($result['playlistID'], $_GET['mediaID'])";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -120,10 +152,13 @@
                     }
                     ?>" download><i class="material-icons left">download</i>Download</a>
 
-                    <a class="waves-effect waves-light btn "><i class="material-icons left">playlist_add</i>Add to playlist</a>
-
-                    <!--INSERT CODE TO ADD TO A PLAYLIST-->
-
+                    <!--PLAYLIST-->
+                    <!--<a class="waves-effect waves-light btn "><i class="material-icons left">playlist_add</i>Add to playlist</a>-->
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+                        <input name="playlistName" type="text"/>
+                        <label>Add To Playlist</label>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Add to Playlist</button>
+                    </form>
                 </div>
             </div>
         </div>
