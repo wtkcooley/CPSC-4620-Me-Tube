@@ -44,11 +44,12 @@
     $userID = $_COOKIE['user'];
     $querys = [];
     $playlist = [];
+    $playlistIDs = [];
     $query = "SELECT playlistID FROM User_Playlist WHERE (username = '$userID')";
     $results = mysqli_query($mysqli, $query);
     if($results) {
         while($row = mysqli_fetch_array($results)) {
-            array_push($playlistIDS, $row['playlistID']);
+            array_push($playlistIDs, $row['playlistID']);
         }
         foreach($playlistIDs as $playlistID) {
             $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = '$playlistID'";
@@ -57,7 +58,7 @@
         $playlist = setPlaylist($querys, $mysqli);
     }
 
-    $query = `SELECT fname, lname, email FROM User WHERE username='$userID'`;
+    $query = "SELECT fname, lname, email FROM User WHERE username='$userID'";
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     $array = sql_fetch_row($result);
     $name = $array['fname'] . $array[$lname];
