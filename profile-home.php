@@ -59,42 +59,82 @@
     $email = $array['email'];
     
 ?>
-<div class="profile-home row">
-    <div class="row">
-        <div class="col s12">
-            <div class="row">
-                <h5 class="col s4">Name: 
-                    <?php echo $name; ?>
-                </h5>
-                <h5 class="col s4">Username: <?php echo $userID; ?></h5>
-                <h5 class="col s4">Email: <?php echo $email; ?></h5>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <h4>My Playlist:</h4>
-            <div class="row">
-                <?php
-                        $i = 0;
-                        foreach($playlists as $p) {
-                            $i++;
-                            echo $p;
-                            if($i == 4) {
-                                echo "</div>\n<div class=row>\n";
-                            }
-                        }
-                    ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <h4>My Media:</h4>
-            <div class="row">
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MeTube</title>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+        <!--Import jquery-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!--Import materialize.js-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
 
+    <body class="blue-grey darken-3">
+        <ul id="page" class="dropdown-content">
+            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messages.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper row teal lighten-2">
+                <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
+                <ul id="nav-mobile" class="right">
+                    <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
             </div>
+        </nav>
+        <div class="profile-home row">
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <h5 class="col s4">Name: 
+                            <?php echo $name; ?>
+                        </h5>
+                        <h5 class="col s4">Username: <?php echo $userID; ?></h5>
+                        <h5 class="col s4">Email: <?php echo $email; ?></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h4>My Playlist:</h4>
+                    <div class="row">
+                        <?php
+                                $i = 0;
+                                foreach($playlists as $p) {
+                                    $i++;
+                                    echo $p;
+                                    if($i == 4) {
+                                        echo "</div>\n<div class=row>\n";
+                                    }
+                                }
+                            ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h4>My Media:</h4>
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+            
         </div>
-    </div>
-    
-</div>
+    </body>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
+        });
+    </script>
+</html>
