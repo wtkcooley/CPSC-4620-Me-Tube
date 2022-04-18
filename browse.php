@@ -16,6 +16,7 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
+            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
                 echo "Here";
@@ -38,7 +39,7 @@
                                 </div>
                             </div>
                         ';
-                        $media.array_push($string);
+                        array_push($media, $string);
                     } else {
                         $string = '
                             <div class="col s3">
@@ -52,7 +53,7 @@
                                 </div>
                             </div>
                         ';
-                        $media.array_push($string);
+                        array_push($media, $string);
                     }
                 }
             }
@@ -67,7 +68,7 @@
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
-                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
+                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM
                             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
                             WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
@@ -75,7 +76,7 @@
                 }
             } else {
                 foreach($_GET['category'] as $category) {
-                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
+                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                         INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                         ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
                 }
@@ -83,11 +84,11 @@
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
             $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
-                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
+                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = '$word')");
             }
         } else {
-            array_push($querys, "SELECT mediaID, mediaType, mediaTitle, description FROM Media");
+            array_push($querys, "SELECT mediaID, mediaType, title, path, description FROM Media");
         }
         $media = setMedia($querys, $mysqli);
     }
