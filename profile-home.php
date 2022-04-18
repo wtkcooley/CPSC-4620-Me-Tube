@@ -33,8 +33,17 @@
     </div>
     <div class="row">
         <div class="col s12">
+            <h4>My Playlist:</h4>
+            <div class="row">
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
             <h4>My Media:</h4>
             <div class="row">
+
             </div>
         </div>
     </div>
