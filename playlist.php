@@ -19,6 +19,7 @@
             echo $query;
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
+                $mediaID = $row['mediaID'];
                 $mediaType = $row['mediaType'];
                 $path = $row['path'];
                 $title = $row['title'];
@@ -26,7 +27,7 @@
                 if ($mediaType == "IMAGE") {
                     $string = '
                         <div class="col s3">
-                            <div class="row">
+                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                 <image src="' . $path . '" class="col s12">
                                 </image>
                                 <div class="col s12">
@@ -40,7 +41,7 @@
                 } else {
                     $string = '
                         <div class="col s3">
-                            <div class="row">
+                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                 <image src="/~cguynup/metube/images/videoThumbnail.png" class="col s12">
                                 </image>
                                 <div class="col s12">
