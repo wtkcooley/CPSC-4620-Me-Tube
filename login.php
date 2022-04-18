@@ -135,10 +135,7 @@
         </div>
         <div class="row">
           <a href="/~cguynup/metube/index.html">
-            <div>
-              <img style="width: 50px" src="/~cguynup/metube/images/metube_new.svg"/><br>
-              <p6>Return home...</p6>
-            </div>
+            <p6>Return home...</p6>
           </a>
         </div>
       </form>
