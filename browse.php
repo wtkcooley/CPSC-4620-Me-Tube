@@ -16,7 +16,6 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
                 while ($row = $results->fetch_assoc()) {
@@ -132,7 +131,7 @@
                     <div class="row">
                         <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
                             <div class="input-field col s4">
-                                <select id="category" name="category" multiple size=10>
+                                <select id="category" name="category[]" multiple size=10>
                                 <option value="0" disabled selected>Choose your categorys</option>
                                 <option value="1">Sports</option>
                                 <option value="2">Family</option>
