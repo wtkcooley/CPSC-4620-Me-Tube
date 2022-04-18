@@ -120,8 +120,7 @@
             <div class="nav-wrapper row teal lighten-2">
                 <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
                 <?php
-                    $userID = $_COOKIE['user'];
-                    if($userID) {
+                    if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
