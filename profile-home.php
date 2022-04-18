@@ -61,7 +61,7 @@
     $query = "SELECT fname, lname, email FROM User WHERE username='$userID'";
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     $array = mysqli_fetch_array($result);
-    $name = $array['fname'] . $array['lname'];
+    $name = $array['fname'] . ' ' . $array['lname'];
     $email = $array['email'];
     
 ?>
