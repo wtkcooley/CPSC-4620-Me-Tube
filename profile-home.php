@@ -18,11 +18,12 @@
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
+                $playlistName = $row['playlistID'];
                 $playlistName = $row['playlistName'];
                 
                 $string = '
                     <div class="col s3">
-                        <div class="row">
+                        <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
                             <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
                             </image>
                             <div class="col s12">
@@ -33,7 +34,6 @@
                     </div>
                 ';
                 $playlist.array_push($string);
-
             }
         }
         return array_unique($playlist);
@@ -47,7 +47,7 @@
         array_push($playlistIDS, $row['playlistID']);
     }
     foreach($playlistIDs as $playlistID) {
-        $str = "SELECT playlistName FROM Playlist WHERE playlistID = $playlistID";
+        $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = $playlistID";
         array_push($querys, $str);
     }
     $media = setMedia($querys, $mysqli);
