@@ -17,23 +17,25 @@
         //$querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
-            while ($row = $results->fetch_assoc()) {
-                $playlistName = $row['playlistID'];
-                $playlistName = $row['playlistName'];
-                
-                $string = '
-                    <div class="col s3">
-                        <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
-                            <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
-                            </image>
-                            <div class="col s12">
-                                <h4>' . $playlistName . '</h4>
-                                <p></p>
+            if($result) {
+                while ($row = $results->fetch_assoc()) {
+                    $playlistName = $row['playlistID'];
+                    $playlistName = $row['playlistName'];
+                    
+                    $string = '
+                        <div class="col s3">
+                            <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
+                                <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
+                                </image>
+                                <div class="col s12">
+                                    <h4>' . $playlistName . '</h4>
+                                    <p></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ';
-                $playlist.array_push($string);
+                    ';
+                    $playlist.array_push($string);
+                }
             }
         }
         return array_unique($playlist);
@@ -50,7 +52,7 @@
         $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = '$playlistID'";
         array_push($querys, $str);
     }
-    $media = setMedia($querys, $mysqli);
+    $playlist = setPlaylist($querys, $mysqli);
 
     $query = `SELECT fname, lname, email FROM User WHERE username=$userID`;
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
