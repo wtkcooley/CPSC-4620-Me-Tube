@@ -18,39 +18,42 @@
         foreach($querys as $query) {
             echo $query;
             $results = mysqli_query($mysqli, $query);
-            while ($row = $results->fetch_assoc()) {
-                $mediaType = $row['mediaType'];
-                $path = $row['path'];
-                $title = $row['title'];
-                $desc = $row['description'];
-                if ($mediaType == "IMAGE") {
-                    $string = '
-                        <div class="col s3">
-                            <div class="row">
-                                <image src="' . $path . '" class="col s12">
-                                </image>
-                                <div class="col s12">
-                                    <h4>' . $title . '</h4>
-                                    <p></p>
+            if($results) {
+                while ($row = $results->fetch_assoc()) {
+                    $mediaID = $row['mediaID'];
+                    $mediaType = $row['mediaType'];
+                    $path = $row['path'];
+                    $title = $row['title'];
+                    $desc = $row['description'];
+                    if ($mediaType == "IMAGE") {
+                        $string = '
+                            <div class="col s3">
+                                <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <image src="' . $path . '" class="col s12">
+                                    </image>
+                                    <div class="col s12">
+                                        <h4>' . $title . '</h4>
+                                        <p></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ';
-                    $media.array_push($string);
-                } else {
-                    $string = '
-                        <div class="col s3">
-                            <div class="row">
-                                <image src="/metube/images/videoThumbnail.png" class="col s12">
-                                </image>
-                                <div class="col s12">
-                                    <h4>' . $title . '</h4>
-                                    <p>' . $desc . '</p>
+                        ';
+                        $media.array_push($string);
+                    } else {
+                        $string = '
+                            <div class="col s3">
+                                <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <image src="/metube/images/videoThumbnail.png" class="col s12">
+                                    </image>
+                                    <div class="col s12">
+                                        <h4>' . $title . '</h4>
+                                        <p>' . $desc . '</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ';
-                    $media.array_push($string);
+                        ';
+                        $media.array_push($string);
+                    }
                 }
             }
         }
