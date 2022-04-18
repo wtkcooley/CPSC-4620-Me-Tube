@@ -74,6 +74,7 @@ $uploadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
 $title = $_POST['title'];
 $description = $_POST['description'];
 $path = $target_file; // this should be right i think
+$type = $_POST['mediaType'];
 
 $categoryID = -1;
 if (isset($_POST['category']) && $_POST['category'] != 0) {
@@ -81,8 +82,8 @@ if (isset($_POST['category']) && $_POST['category'] != 0) {
 }
 
 // query
-$query = "INSERT INTO Media (uploadUser, uploadIP, uploadTime, title, description, path) VALUES 
-    ($uploadUser, $uploadIP, $uploadTime, $title, $description, $path)";
+$query = "INSERT INTO Media (uploadUser, uploadIP, uploadTime, title, description, mediaType, path) VALUES 
+    ($uploadUser, $uploadIP, $uploadTime, $title, $description, $type, $path)";
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
 // category

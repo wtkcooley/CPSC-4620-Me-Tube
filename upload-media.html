@@ -73,7 +73,7 @@
                 <div class="col s12">
                     <!--CATEGORY-->
                     <div class="input-field col s6">
-                        <select multiple id="category" name="category">
+                        <select multiple id="category" name="category[]">
                             <option value="0" disabled selected>Choose your categorys</option>
                             <option value="1">Sports</option>
                             <option value="2">Family</option>
@@ -86,6 +86,16 @@
                             <option value="9">Hobbies</option>
                         </select>
                         <label>Category</label>
+                    </div>
+
+                    <!--TYPE-->
+                    <div class="input-field col s6">
+                        <select id="mediaType" name="mediaType">
+                            <option value="0" disabled selected>Choose your media type</option>
+                            <option value="VIDEO">Video</option>
+                            <option value="IMAGE">Image or GIF</option>
+                        </select>
+                        <label>Media Type</label>
                     </div>
 
                     <!--KEYWORDS-->
