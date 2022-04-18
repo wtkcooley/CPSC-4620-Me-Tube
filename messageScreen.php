@@ -98,25 +98,41 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <style>
-    body {
-      background-image: url('/~cguynup/metube/images/main_bg.jpg');
-      background-repeat: no-repeat;
+    <style>
+      body{
+        overflow: hidden;
+      }
+    div.mainwrap {
+      width: 100%;
+      height: calc(100vh - 64px);
+      display: flex;
     }
-    table.main {
-      margin: 0; 
-      position: absolute; 
-      top: 50%; 
-      left: 50%; 
-      -ms-transform: translate(-50%, -50%); 
-      transform: translate(-50%, -50%); 
+    div.leftwindow {
+      width: 20%;
+      height: 100%;
+      max-height: 100%;
+      float: left;
+      border-right: solid;
+      border-width: 1px;
+    }
+    div.newmessage {
+      height: 10%;
+      width: 100%;
       text-align: center;
-      background-color: white;
-      border-radius: 15px 50px;
-      width: 90%;
-      height: 90%;
+      vertical-align: center;
     }
-    td.targetList {
+    div.boxtable {
+      height: 90%;
+      width: 100%;
+      overflow-y: scroll;
+    }
+    div.rightwindow {
+      width: 80%;
+      min-height: 100%;
+      float: left;
+      clear: right;
+    }
+    td.boxes {
       vertical-align: top;
       text-align: left;
       padding: 15px;
@@ -124,9 +140,9 @@
       height: 100%;
       word-wrap: break-word;
       word-break: break-word;
-      overflow-y: auto;
       border-right-style: solid;
       border-width: 0 1px 0 0;
+      color: white;
     }
     td.messageFrame {
       padding: 15px;
@@ -140,7 +156,6 @@
       border: 0;
     }
     .formbtn {
-      background-color: #37474f; 
       border: none; 
       color: white; 
       padding: 16px 32px; 
@@ -161,46 +176,68 @@
   </style>
     </head>
 
-    <body>
-        <div class="centerform">
-            <table class="main">
-              <tr>
-                <td class="targetList">
-                  <table>
-                    <tr>
-                      <td>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                          <input type="hidden" name="routine" value="create"/>
-                          <input class="z-depth-5 formbtn" type="submit" value="New Message" />
-                        </form>
-                      </td>
-                    </tr>
-                    <tr><td class="teal darken-3 z-depth-3" style="text-align: center; color: white; opacity: .5;">INBOX</td></tr>
-                    <?php
-                      foreach($inbox as $user => $message) {
-                        echo "<tr><td style='height: 100px; width: 100%; overflow: hidden;>";
-                        echo "<div class='row'><form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'><input type='hidden' name='routine' value='view'/><input type='hidden' name='target' value='$user'/><input class='boxbtn teal darken-2' type='submit' value='$user'/></form></div>";
-                        echo "<div class='row' style='opacity: .6;'>$message</div>";
-                        echo "</td></tr>";
-                      }
-                    ?>
-                    <tr><td class="teal darken-3 z-depth-3" style="text-align: center; color: white; opacity: .5;">OUTBOX</td></tr>
-                    <?php
-                      foreach($outbox as $user => $message) {
-                        echo "<tr><td style='height: 100px; width: 100%; overflow: hidden;>";
-                        echo "<div class='row'><form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'><input type='hidden' name='routine' value='view'/><input type='hidden' name='target' value='$user'/><input class='boxbtn teal darken-2' type='submit' value='$user'/></form></div>";
-                        echo "<div class='row' style='opacity: .6;'>$message</div>";
-                        echo "</td></tr>";
-                      }
-                    ?>
-                  </table>
-                </td>
-                <td class="messageFrame">
-                  <iframe class="messagebox" src="<?php echo getFrame($routine, $target); ?>"></iframe>
-                </td>
-              </tr>
-            </table>
+    <body class="blue-grey darken-3">
+        <ul id="page" class="dropdown-content">
+            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper row teal lighten-2">
+                <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn">Login</a></li>';
+                    }
+                ?>
+            </div>
+        </nav>
+        <div class="mainwrap">
+          <div class="leftwindow">
+            <div class="newmessage">    
+              <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                <input type="hidden" name="routine" value="create"/>
+                <input class="z-depth-5 formbtn teal darken-2" type="submit" value="New Message" />
+              </form>
+            </div>
+            <div class="boxtable">
+              <table>
+                <tr><td class="teal darken-3 z-depth-3" style="text-align: center; color: white; opacity: .5;">INBOX</td></tr>
+                  <?php
+                    foreach($inbox as $user => $message) {
+                      echo "<tr><td style='height: 100px; width: 100%; overflow: hidden;>";
+                      echo "<div class='row'><form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'><input type='hidden' name='routine' value='view'/><input type='hidden' name='target' value='$user'/><input class='boxbtn teal darken-2' type='submit' value='$user'/></form></div>";
+                      echo "<div class='row' style='color: white; opacity: .6;'>$message</div>";
+                      echo "</td></tr>";
+                    }
+                  ?>
+                <tr><td class="teal darken-3 z-depth-3" style="text-align: center; color: white; opacity: .5;">OUTBOX</td></tr>
+                  <?php
+                    foreach($outbox as $user => $message) {
+                      echo "<tr><td style='height: 100px; width: 100%; overflow: hidden;>";
+                      echo "<div class='row'><form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'><input type='hidden' name='routine' value='view'/><input type='hidden' name='target' value='$user'/><input class='boxbtn teal darken-2' type='submit' value='$user'/></form></div>";
+                      echo "<div class='row' style='color: white; opacity: .6;'>$message</div>";
+                      echo "</td></tr>";
+                    }
+                  ?>
+              </table>
+            </div>
+          </div>
+          <div class="rightwindow">
+            <iframe class="messagebox" src="<?php echo getFrame($routine, $target); ?>"></iframe>
+          </div>
         </div>
+        <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
+        });
+        </script>
     </body>
 
     </html>
