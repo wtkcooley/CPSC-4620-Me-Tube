@@ -16,7 +16,6 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
                 while ($row = $results->fetch_assoc()) {
