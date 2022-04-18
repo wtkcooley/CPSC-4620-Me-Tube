@@ -204,7 +204,7 @@ exit();
 
                     <!--TYPE-->
                     <div class="input-field col s6">
-                        <select id="mediaType" name="mediaType">
+                        <select id="mediaType" onchange='this.form.submit()' name="mediaType">
                             <option value="0" disabled selected>Choose your media type</option>
                             <option value="VIDEO">Video</option>
                             <option value="IMAGE">Image or GIF</option>
