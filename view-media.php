@@ -17,6 +17,27 @@
 </head>
 
 <!--INSERT NAVBAR INCLUSION-->
+<nav>
+    <div class="nav-wrapper row teal lighten-2">
+        <div class="left">
+            <a href="/~cguynup/metube/index.html" class="left">
+                <img src="/~cguynup/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
+            </a>
+        </div>
+        <form class="col s4 offset-s4">
+            <div class="input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </form>
+        <ul id="nav-mobile" class="right">
+            <li><a class="waves-effect waves-light" href="/~cguynup/metube/profile.html">Edit Profile</a></li>
+            <li><a class="waves-effect waves-light btn teal darken-3" href="/~cguynup/metube/login.php">Login</a></li>
+        </ul>
+
+    </div>
+</nav>
 
 <body class="blue-grey darken-3">
     <div class="view-media row">
