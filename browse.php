@@ -16,7 +16,6 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo "here";
             echo $query;
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
@@ -109,12 +108,18 @@
     </head>
 
     <body class="blue-grey darken-3">
+        <ul id="page" class="dropdown-content">
+            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messages.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+        </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/metube/index.html" class="brand-logo left col-s1">Logo</a>
+                <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
                 <ul id="nav-mobile" class="right">
                     <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
-                    <li><a class="waves-effect waves-light btn teal darken-3 modal-trigger" href="/metube/login.html">Login</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -169,6 +174,7 @@
     <script>
         $(document).ready(function(){
             $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
         });
     </script>
 </html>
