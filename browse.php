@@ -119,10 +119,16 @@
         <nav>
             <div class="nav-wrapper row teal lighten-2">
                 <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
-                <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
+                <?php
+                    $userID = $_COOKIE['user'];
+                    if($userID) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn">Button</a></li>';
+                    }
+                ?>
             </div>
         </nav>
         <div class="profile-home row">
