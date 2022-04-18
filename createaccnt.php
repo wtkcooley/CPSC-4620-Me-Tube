@@ -118,7 +118,7 @@ if (mysqli_connect_errno()) {
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input name="username" id="username" type="text" class="validate" value="<?php echo htmlspecialchars($values['username']);?>" required>
+                        <input name="username" id="username" type="text" pattern="[a-zA-Z0-9_]{1,15}" maxlength="15" class="validate" value="<?php echo htmlspecialchars($values['username']);?>" required>
                         <label for="username">Username</label>
                         <?php
                           if (array_key_exists('username', $form_errors)){
