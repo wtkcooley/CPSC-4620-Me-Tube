@@ -1,7 +1,7 @@
 <?php
 // Setup
-$target_dir = "media/";
-$target_file = $target_dir . date("YmdHis_") . basename($_FILES["fileToUpload"]["name"]); // "media/DATETIME_FILENAME.EXT"
+$target_dir = "~cguynup/metube/media/";
+$target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . basename($_FILES["fileToUpload"]["name"]); // "media/DATETIME_FILENAME.EXT"
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 date_default_timezone_set("America/New_York"); // maybe later we could grab timezone from ip location
@@ -75,11 +75,29 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 $path = $target_file; // this should be right i think
 
-// setup query
+$categoryID = -1;
+if (isset($_POST['category']) && $_POST['category'] != 0) {
+    $categoryID = $_POST['category'];
+}
+
+// query
 $query = "INSERT INTO Media (uploadUser, uploadIP, uploadTime, title, description, path) VALUES 
     ($uploadUser, $uploadIP, $uploadTime, $title, $description, $path)";
-
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+// category
+$query = "SELECT mediaID FROM Media WHERE path='$path'";
+$result = $mysqli->query($query);
+$mediaID = $result -> fetch_assoc();
+$query = "INSERT INTO Media_Category (mediaID, categoryID) VALUES ('$mediaID', '$categoryID')";
+mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+// keywords
+$words = explode(',', $_POST['keywords']);
+foreach($words as $word) {
+    $query = "INSERT INTO Media_Keyword (mediaID, word) VALUES ($mediaID, $word)";
+    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+}
 exit();
 
 ?>
