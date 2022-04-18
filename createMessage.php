@@ -58,9 +58,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
-        body {
-            background-color: white;
-        }
         div.main {
           height: 100vh;
           width: 100%;
@@ -73,7 +70,7 @@
           max-height: 20%;
           width: 100%;
           text-align: center;
-          color: #37474f;
+          color: white;
         }
         div.text-window {
           width: 100%;
@@ -131,7 +128,7 @@
         }
     </style>
   </head>
-  <body>
+  <body class="blue-grey darken-3">
     <div class="main">
     <div class="header row">
         <?php echo "<h3>Create Message</h3>"; ?>
@@ -139,7 +136,7 @@
     <div class="text-window row">
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <div class="row">
-          <input type="text" name="target" id="target" class="textbox blue-grey darken-3" required value="<?php echo htmlspecialchars($target); ?>">
+          <input type="text" name="target" id="target" class="textbox teal darken-3" required value="<?php echo htmlspecialchars($target); ?>">
           <?php
             if (array_key_exists('target', $errors)){
               echo "<span class='helper-text' style='color: red; text-align: left; clear: right;'>".$errors['target']."</span>"; 
@@ -149,8 +146,8 @@
           ?>
         </div>
         <div class="row">
-          <input type="text" name="text" id="text" maxlength="240" class="textbox blue-grey darken-3" required>
-          <span class="helper-text" style="text-align: left; clear: right;">Message</span>
+          <input type="text" name="text" id="text" maxlength="240" class="textbox teal darken-3" required>
+          <span class="helper-text" style="text-align: left; clear: right;">Message...</span>
           <button class="formbtn" type="submit"><i class="material-icons">send</i></button>       
        </div>
       </form>
