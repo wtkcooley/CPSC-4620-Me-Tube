@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <!--IMPORT MATERIALIZE AND FONTS-->
+
 <head>
     <title>Upload Media</title>
     <!--Import Google Icon Font-->
@@ -35,7 +36,7 @@
     </nav>
 
     <div class="media-upload row">
-        <form class="col s12" action="upload.php" method="POST" enctype="multipart/form-data">
+        <form class="col s12" action="/~cguynup/metube/upload.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <h4>Upload Media</h4>
             </div>
@@ -53,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!--DESCRIPTION-->
             <div class="row">
                 <div class="col s12">
@@ -102,15 +103,13 @@
                     <div class="input-field col s6">
                         <textarea id="keywords" class="materialize-textarea"></textarea>
                         <label for="keywords">Keywords (seperated by commas)</label>
-                    </div>           
-                </div>   
+                    </div>
+                </div>
             </div>
             <!--SUBMIT-->
             <div class="row">
                 <div class="row">
-                    <input type="submit"
-                        class="waves-effect waves-light btn col s6 offset-s3"
-                        value="submit" name="submit">
+                    <input type="submit" class="waves-effect waves-light btn col s6 offset-s3" value="submit" name="submit">
                     </input>
                 </div>
             </div>
@@ -119,7 +118,7 @@
 
     <!--tbh idk what this does but it was here so im leaving it-->
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('select').formSelect();
         });
     </script>

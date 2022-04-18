@@ -1,6 +1,7 @@
 <?php
+echo "Got here.";
 // Setup
-$target_dir = "~cguynup/metube/media/";
+$target_dir = "/~cguynup/metube/media/";
 $target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . basename($_FILES["fileToUpload"]["name"]); // "media/DATETIME_FILENAME.EXT"
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
