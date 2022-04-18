@@ -79,7 +79,7 @@
         <ul id="page" class="dropdown-content">
             <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
             <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messages.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
         </ul>
         <nav>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
             </div>
-            
+            <iframe src="/~cguynup/metube/contactlist.php"></iframe>
         </div>
     </body>
     <script>
