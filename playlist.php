@@ -67,11 +67,11 @@
             die("Could not get playlist ID! Is it valid?");
         }
         $userID = $_COOKIE['user'];
-        $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = $playlistID";
+        $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
         $results = mysqli_query($mysqli, $query);
         while($row = mysqli_fetch_row($results)) {
             $mediaID = $row['mediaID'];
-            $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = $mediaID";
+            $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
             array_push($querys, $query);
         }
         $setMedia($querys, $mysqli);
@@ -83,7 +83,7 @@
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
                     Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                     ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
-                    WHERE (Media_Keyword.word = {$word}) & (Category.categoryValue = {$category})");
+                    WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
             }
         }
         $media = setMedia($querys, $mysqli);

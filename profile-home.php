@@ -47,7 +47,7 @@
         array_push($playlistIDS, $row['playlistID']);
     }
     foreach($playlistIDs as $playlistID) {
-        $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = $playlistID";
+        $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = '$playlistID'";
         array_push($querys, $str);
     }
     $media = setMedia($querys, $mysqli);
