@@ -18,7 +18,8 @@
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
             if($results) {
-                while ($row = $results->fetch_assoc()) {
+                echo "Here";
+                while ($row = mysqli_fetch_array($results)) {
                     $mediaID = $row['mediaID'];
                     $mediaType = $row['mediaType'];
                     $path = $row['path'];
