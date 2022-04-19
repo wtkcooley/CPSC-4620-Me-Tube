@@ -16,10 +16,9 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            // echo $query; <- why was this here?
+            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
-                // echo "Here"; <- is this necessary?
                 while ($row = mysqli_fetch_array($results)) {
                     $mediaID = $row['mediaID'];
                     $mediaType = $row['mediaType'];
@@ -66,28 +65,23 @@
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
-                        echo "Category: " . $category . "\n";
-                        echo "Search term: " . $word . "\n";
                         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM
                             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
-                            WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
+                            WHERE (Media_Keyword.word = '$word') AND (Category.categoryValue = '$category')");
                     }
                 }
             } else {
                 foreach($_GET['category'] as $category) {
-                    echo "Category: " . $category . "\n";
                     array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                         INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                         ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
-            $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
-                echo "Search term: " . $word . "\n";
-                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
-                    INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = '$word')");
+                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
+                    INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID) WHERE (Media_Keyword.word = '$word')");
             }
         } else {
             array_push($querys, "SELECT mediaID, mediaType, title, path, description FROM Media");
