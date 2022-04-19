@@ -29,28 +29,26 @@
                     if ($mediaType == "IMAGE") {
                         $string = '
                             <div class="col s3">
-                                <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <image src="' . $path . '" class="col s12">
-                                    </image>
+                                <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <img src="' . $path . '" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p></p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         ';
                         array_push($media, $string);
                     } else {
                         $string = '
                             <div class="col s3">
-                                <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <image src="/metube/images/videoThumbnail.png" class="col s12">
-                                    </image>
+                                <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <img src="/metube/images/videoThumbnail.png" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p>' . $desc . '</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         ';
                         array_push($media, $string);
