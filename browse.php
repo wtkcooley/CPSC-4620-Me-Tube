@@ -14,7 +14,7 @@
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
         $media = [];
-        //$querys = array_unique($querys);
+        $querys = array_unique($querys);
         foreach($querys as $query) {
             echo $query;
             $results = mysqli_query($mysqli, $query);
@@ -79,6 +79,7 @@
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
+            $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID) WHERE (Media_Keyword.word = '$word')");
