@@ -1,7 +1,7 @@
 <?php
 // Setup
 $target_dir = "~cguynup/metube/media/";
-$target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . basename($_FILES["fileToUpload"]["name"]); // "media/DATETIME_FILENAME.EXT"
+$target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . basename($_FILES["fileToUpload"]["name"]); // "media/USER_DATETIME_FILENAME.EXT"
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 date_default_timezone_set("America/New_York"); // maybe later we could grab timezone from ip location
