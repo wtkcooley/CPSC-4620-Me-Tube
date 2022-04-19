@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     }
 } else {
-    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    header("Location: /~wcooley/metube/missingcookie.php", true, 301);
 }
 ?>
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
 
 <head>
     <title>MeTube Media Viewer</title>
-    <link rel="icon" href="/~cguynup/metube/images/metube_new.svg">
+    <link rel="icon" href="/~wcooley/metube/images/metube_new.svg">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -53,22 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
 
 <!--INSERT NAVBAR INCLUSION-->
 <ul id="page" class="dropdown-content">
-    <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-    <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-    <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-    <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-    <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
+    <li><a href="/~wcooley/metube/profile.php">Profile</a></li>
+    <li><a href="/~wcooley/metube/edit-profile.php">Edit Profile</a></li>
+    <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+    <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
+    <li><a href="/~wcooley/metube/upload-media.php">Logout</a></li>
 </ul>
 <nav>
     <div class="nav-wrapper row teal lighten-2">
-        <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+        <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
         <?php
             if(isset($_COOKIE['user'])) {
                 echo '<ul id="nav-mobile" class="right">
                     <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>';
             } else {
-                echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
             }
         ?>
     </div>
