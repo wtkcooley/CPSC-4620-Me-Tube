@@ -45,7 +45,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MeTube</title>
+    <title>MeTube Message</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->

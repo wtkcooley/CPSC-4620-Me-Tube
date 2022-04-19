@@ -6,7 +6,7 @@ header( "refresh:15; url=/~cguynup/metube/browse.php" );
 <!DOCTYPE html>
     <html>
     <head>
-        <title>MeTube</title>
+        <title>MeTube Consent</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->

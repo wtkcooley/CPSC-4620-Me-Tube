@@ -86,7 +86,7 @@
     <html>
 
     <head>
-        <title>MeTube</title>
+        <title>MeTube Contact List</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->

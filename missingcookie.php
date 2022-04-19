@@ -6,7 +6,7 @@ header( "refresh:10; url=/~cguynup/metube/login.php" );
 <!DOCTYPE html>
     <html>
     <head>
-        <title>MeTube</title>
+        <title>MeTube Missing Cookie</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->

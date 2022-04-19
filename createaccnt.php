@@ -49,7 +49,7 @@ if (mysqli_connect_errno()) {
     <html>
 
     <head>
-        <title>MeTube</title>
+        <title>MeTube Create Account</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
