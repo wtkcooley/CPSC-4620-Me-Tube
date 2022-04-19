@@ -107,8 +107,8 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~wcooley/metube/profile.php">Profile</a></li>
-            <li><a href="/~wcooley/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
             <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
             <li><a href="/~wcooley/metube/upload-media.php">Logout</a></li>
