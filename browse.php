@@ -66,16 +66,17 @@
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
                         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM
-                            Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-                            ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
+                            (Media INNER JOIN
+                            (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
+                            ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID)))
                             WHERE (Media_Keyword.word = '$word') AND (Category.categoryValue = '$category')");
                     }
                 }
             } else {
                 foreach($_GET['category'] as $category) {
-                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
-                        INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-                        ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
+                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
+                        INNER JOIN (Category INNER JOIN Media_Category ON (Media_Category.CategoryID = Category.CategoryID))
+                        ON Media.mediaID = Category.mediaID) WHERE (Category.categoryValue = '$category')");
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
