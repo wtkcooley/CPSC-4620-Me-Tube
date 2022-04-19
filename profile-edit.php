@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
     // Redirect to profile home
-    header("Location: /~cguynup/metube/metube/profile-home.php", true, 301);
+    header("Location: /~cguynup/metube/profile-home.php", true, 301);
     exit();
 }
 ?>
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 <html>
     <head>
         <title>MeTube Edit Profile</title>
-        <link rel="icon" href="/~cguynup/metube/metube/images/metube_new.svg">
+        <link rel="icon" href="/~cguynup/metube/images/metube_new.svg">
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->

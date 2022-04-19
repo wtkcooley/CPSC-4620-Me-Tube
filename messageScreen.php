@@ -7,15 +7,15 @@
   function getFrame($routine, $target) {
     if($routine == 'view') {
       if($target == '') {
-        return "/~cguynup/metube/metube/createMessage.php";
+        return "/~cguynup/metube/createMessage.php";
       } else {
-        return "/~cguynup/metube/metube/messageView.php?target=$target";
+        return "/~cguynup/metube/messageView.php?target=$target";
       }
     } else {
       if($target == '') {
-        return "/~cguynup/metube/metube/createMessage.php";
+        return "/~cguynup/metube/createMessage.php";
       } else {
-        return "/~cguynup/metube/metube/createMessage.php?target=$target";
+        return "/~cguynup/metube/createMessage.php?target=$target";
       }
     }
   }
@@ -30,7 +30,7 @@
 
   //if a user is not logged in
   if(!isset($_COOKIE["user"])){
-    header("Location: /~cguynup/metube/metube/missingcookie.php", true, 301);
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     exit;
   }
 
@@ -178,21 +178,21 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/metube/login.php" class="waves-effect waves-light btn">Login</a></li>';
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn">Login</a></li>';
                     }
                 ?>
             </div>

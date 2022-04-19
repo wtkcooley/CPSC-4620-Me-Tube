@@ -106,7 +106,7 @@ foreach($words as $word) {
     $query = "INSERT INTO Media_Keyword VALUES ('$mediaID', '$word')";
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 }
-header("Location: /~cguynup/metube/metube/profile-home.php", true, 301);
+header("Location: /~cguynup/metube/profile-home.php", true, 301);
 exit();
 }
 
@@ -135,8 +135,8 @@ exit();
     <nav>
         <div class="nav-wrapper row teal lighten-2">
             <div class="left">
-                <a href="/~cguynup/metube/metube/index.php" class="left">
-                    <img src="/~cguynup/metube/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
+                <a href="/~cguynup/metube/index.php" class="left">
+                    <img src="/~cguynup/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
                 </a>
             </div>
             <form class="col s4 offset-s4">
@@ -147,8 +147,8 @@ exit();
                 </div>
             </form>
             <ul id="nav-mobile" class="right">
-                <li><a class="waves-effect waves-light" href="/~cguynup/metube/metube/profile-edit.html">Edit Profile</a></li>
-                <li><a class="waves-effect waves-light btn teal darken-3" href="/~cguynup/metube/metube/login.php">Login</a></li>
+                <li><a class="waves-effect waves-light" href="/~cguynup/metube/profile-edit.html">Edit Profile</a></li>
+                <li><a class="waves-effect waves-light btn teal darken-3" href="/~cguynup/metube/login.php">Login</a></li>
             </ul>
         </div>
     </nav>
