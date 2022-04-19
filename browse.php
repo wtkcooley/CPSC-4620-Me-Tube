@@ -63,6 +63,7 @@
         $querys = [];
         if (isset($_GET['category']) && $_GET['category'] !== 0) {
             if (isset($_GET['search']) && $_GET['search'] !== "") {
+                echo "Category and search";
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
@@ -74,18 +75,21 @@
                 }
             } else {
                 foreach($_GET['category'] as $category) {
+                    echo "Category";
                     array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                         INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                         ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
+            echo "Search";
             $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = '$word')");
             }
         } else {
+            echo "none";
             array_push($querys, "SELECT mediaID, mediaType, title, path, description FROM Media");
         }
         $media = setMedia($querys, $mysqli);
@@ -137,7 +141,6 @@
                         <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
                             <div class="input-field col s4">
                                 <select id="category" name="category[]" multiple size=10>
-                                <option value="0" disabled selected>Choose your categorys</option>
                                 <option value="1">Sports</option>
                                 <option value="2">Family</option>
                                 <option value="3">Comedy</option>
