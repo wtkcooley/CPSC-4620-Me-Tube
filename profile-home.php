@@ -1,4 +1,9 @@
 <?php
+    // ensure user is logged in
+    if(!isset($_COOKIE['user'])) {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    }
+
     //connect to our database
     $db_host = 'mysql1.cs.clemson.edu';
     $db_username = 'MeTube_sjoz';

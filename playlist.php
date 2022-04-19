@@ -58,7 +58,8 @@
         return array_unique($media);
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    // ensure user logged in before continuing
+    if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_COOKIE['user'])) {
         $querys = [];
         $playlsitID = "";
         if (isset($_GET['playlistID'])) {
@@ -87,6 +88,8 @@
             }
         }
         $media = setMedia($querys, $mysqli);
+    } else {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     }
     
 ?>

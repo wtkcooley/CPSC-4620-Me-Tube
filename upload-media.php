@@ -1,5 +1,10 @@
 <?php
 
+// ensure user is logged in
+if(!isset($_COOKIE['user'])) {
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+}
+
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 // Setup
 $target_dir = "media/";

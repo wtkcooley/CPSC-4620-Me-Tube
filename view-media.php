@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
         $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ($result['playlistID'], $_GET['mediaID'])";
         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     }
+} else {
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 ?>
 

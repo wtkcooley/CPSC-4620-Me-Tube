@@ -1,5 +1,9 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == "POST") {
+    // ensure user is logged in
+    if(!isset($_COOKIE['user'])) {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    }
     // save DB info
     $db_host = 'mysql1.cs.clemson.edu';
     $db_username = 'MeTube_sjoz';

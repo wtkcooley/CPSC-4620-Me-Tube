@@ -7,6 +7,12 @@
   header("Pragma: no-cache");
   header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
+  //if a user is not logged in
+  if(!isset($_COOKIE["user"])){
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    exit;
+  }
+
   //this is called in an iframe by message screen, so we can expect a target to be provided
   $target = $_REQUEST['target'];
 

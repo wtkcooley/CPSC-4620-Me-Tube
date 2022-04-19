@@ -17,12 +17,17 @@
     } else {
         die("Could not get channelID! Is it valid?");
     }
-    $userID = $_COOKIE['user'];
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-        ('{$channelID}', '{$userID}')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    // Ensure user logged in before continuing
+    if(isset($_COOKIE['user'])) {
+        $userID = $_COOKIE['user'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
+            ('{$channelID}', '{$userID}')";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        }
+    } else {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     }
 
     $query = "SELECT * FROM Subscription WHERE subscrbee=$channelID AND subscriber=$userID";
