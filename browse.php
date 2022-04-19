@@ -75,8 +75,8 @@
             } else {
                 foreach($_GET['category'] as $category) {
                     array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
-                        INNER JOIN (Category INNER JOIN Media_Category ON (Media_Category.CategoryID = Category.CategoryID))
-                        ON Media.mediaID = Category.mediaID) WHERE (Category.categoryValue = '$category')");
+                        INNER JOIN (Category INNER JOIN Media_Category ON (Media_Category.categoryID = Category.categoryID))
+                        ON Media.mediaID = Category.mediaID) WHERE (Category.categoryID = '$category')");
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
