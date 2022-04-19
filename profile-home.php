@@ -24,8 +24,8 @@
                     
                     $string = '
                         <div class="col s3">
-                            <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
-                                <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
+                            <div class="row" href="/~wcooley/metube/?playlistID=' . $playlistID . '">
+                                <image src="/~wcooley/metube/images/placehodler.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>
@@ -83,14 +83,14 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+            <li><a href="/~wcooley/metube/profile.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.html">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <ul id="nav-mobile" class="right">
                     <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <iframe src="/~cguynup/metube/contactlist.php"></iframe>
+            <iframe src="/~wcooley/metube/contactlist.php"></iframe>
         </div>
     </body>
     <script>

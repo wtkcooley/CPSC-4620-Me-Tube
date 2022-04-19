@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <title>MeTube Media Viewer</title>
-    <link rel="icon" href="/~cguynup/metube/images/metube_new.svg">
+    <link rel="icon" href="/~wcooley/metube/images/metube_new.svg">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <nav>
     <div class="nav-wrapper row teal lighten-2">
         <div class="left">
-            <a href="/~cguynup/metube/index.php" class="left">
-                <img src="/~cguynup/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
+            <a href="/~wcooley/metube/index.php" class="left">
+                <img src="/~wcooley/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
             </a>
         </div>
         <form class="col s4 offset-s4">
@@ -64,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
         <ul id="nav-mobile" class="right">
-            <li><a class="waves-effect waves-light" href="/~cguynup/metube/profile-edit.html">Edit Profile</a></li>
-            <li><a class="waves-effect waves-light btn teal darken-3" href="/~cguynup/metube/login.php">Login</a></li>
+            <li><a class="waves-effect waves-light" href="/~wcooley/metube/profile-edit.html">Edit Profile</a></li>
+            <li><a class="waves-effect waves-light btn teal darken-3" href="/~wcooley/metube/login.php">Login</a></li>
         </ul>
 
     </div>
