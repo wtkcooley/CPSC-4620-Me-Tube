@@ -239,9 +239,8 @@ exit();
 
     <!--tbh idk what this does but it was here so im leaving it-->
     <script>
-        $(document).ready(function() {
-            $('select').formSelect();
-        });
+        $('select').formSelect();
+        $(".dropdown-trigger").dropdown();
     </script>
 </body>
 </html>

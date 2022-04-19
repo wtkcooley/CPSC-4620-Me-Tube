@@ -112,4 +112,10 @@
             
         </div>
     </body>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
+        });
+    </script>
 </html>

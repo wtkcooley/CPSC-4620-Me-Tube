@@ -128,6 +128,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     <script>
         $(document).ready(function() {
             M.updateTextFields();
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
         });
     </script>
 </html>
