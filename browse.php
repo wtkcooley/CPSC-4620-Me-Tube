@@ -14,12 +14,10 @@
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setMedia($querys, $mysqli) {
         $media = [];
-        //$querys = array_unique($querys);
+        $querys = array_unique($querys);
         foreach($querys as $query) {
-            // echo $query; <- why was this here?
             $results = mysqli_query($mysqli, $query);
             if($results) {
-                // echo "Here"; <- is this necessary?
                 while ($row = mysqli_fetch_array($results)) {
                     $mediaID = $row['mediaID'];
                     $mediaType = $row['mediaType'];
@@ -29,7 +27,7 @@
                     if ($mediaType == "IMAGE") {
                         $string = '
                             <div class="col s3">
-                                <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                     <img src="' . $path . '" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
@@ -42,7 +40,7 @@
                     } else {
                         $string = '
                             <div class="col s3">
-                                <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                     <img src="/metube/images/videoThumbnail.png" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
@@ -66,24 +64,22 @@
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
-                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM
-                            Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-                            ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
-                            WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
+                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM ((Media
+                        INNER JOIN Media_Category ON Media.mediaID = Media_Category.mediaID) INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID)
+                            WHERE (Media_Keyword.word = '$word') AND (Media_Category.categoryID = '$category')");
                     }
                 }
             } else {
                 foreach($_GET['category'] as $category) {
-                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
-                        INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-                        ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
+                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
+                        INNER JOIN Media_Category ON Media.mediaID = Media_Category.mediaID) WHERE (Media_Category.categoryID = '$category')");
                 }
             }
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
             $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
-                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
-                    INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = '$word')");
+                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
+                    INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID) WHERE (Media_Keyword.word = '$word')");
             }
         } else {
             array_push($querys, "SELECT mediaID, mediaType, title, path, description FROM Media");
@@ -111,21 +107,21 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~wcooley/metube/profile.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
-                            <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>
@@ -137,7 +133,6 @@
                         <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="GET">
                             <div class="input-field col s4">
                                 <select id="category" name="category[]" multiple size=10>
-                                <option value="0" disabled selected>Choose your categorys</option>
                                 <option value="1">Sports</option>
                                 <option value="2">Family</option>
                                 <option value="3">Comedy</option>
@@ -151,7 +146,7 @@
                                 <label>Categorys</label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="search" type="search">
+                                <input name="search" id="search" type="search">
                                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                                 <i class="material-icons">close</i>
                             </div>

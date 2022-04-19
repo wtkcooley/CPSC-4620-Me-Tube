@@ -27,7 +27,7 @@
                 if ($mediaType == "IMAGE") {
                     $string = '
                         <div class="col s3">
-                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <div href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                 <image src="' . $path . '" class="col s12">
                                 </image>
                                 <div class="col s12">
@@ -41,8 +41,8 @@
                 } else {
                     $string = '
                         <div class="col s3">
-                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                <image src="/~cguynup/metube/images/videoThumbnail.png" class="col s12">
+                            <div href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <image src="/~wcooley/metube/images/videoThumbnail.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $title . '</h4>
@@ -108,14 +108,14 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~wcooley/metube/profile.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/edit-profile.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <ul id="nav-mobile" class="right">
                     <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
