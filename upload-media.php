@@ -101,7 +101,7 @@ foreach($categoryID as $id) {
 }
 
 // keywords
-$words = explode(',', $_POST['keywords']);
+$words = explode(' ', $_POST['keywords']);
 foreach($words as $word) {
     $query = "INSERT INTO Media_Keyword VALUES ('$mediaID', '$word')";
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
@@ -219,7 +219,7 @@ exit();
                     <!--KEYWORDS-->
                     <div class="input-field col s6">
                         <textarea name="keywords" id="keywords" class="materialize-textarea"></textarea>
-                        <label for="keywords">Keywords (seperated by commas)</label>
+                        <label for="keywords">Keywords (seperated by one space each)</label>
                     </div>
                 </div>
             </div>
