@@ -57,9 +57,9 @@
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
+                    <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>

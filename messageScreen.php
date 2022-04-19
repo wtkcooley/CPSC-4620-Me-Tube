@@ -185,7 +185,7 @@
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
