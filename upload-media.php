@@ -137,24 +137,25 @@ exit();
 
 <body class="blue-grey darken-3">
     <!--NAV BAR-->
+    <ul id="page" class="dropdown-content">
+        <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
+        <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
+        <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
+        <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+        <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
+    </ul>
     <nav>
         <div class="nav-wrapper row teal lighten-2">
-            <div class="left">
-                <a href="/~cguynup/metube/index.php" class="left">
-                    <img src="/~cguynup/metube/images/metube_new.svg" style="height: 50px; vertical-align: middle;" />
-                </a>
-            </div>
-            <form class="col s4 offset-s4">
-                <div class="input-field">
-                    <input id="search" type="search" required>
-                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-            </form>
-            <ul id="nav-mobile" class="right">
-                <li><a class="waves-effect waves-light" href="/~cguynup/metube/profile-edit.html">Edit Profile</a></li>
-                <li><a class="waves-effect waves-light btn teal darken-3" href="/~cguynup/metube/login.php">Login</a></li>
-            </ul>
+            <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+            <?php
+                if(isset($_COOKIE['user'])) {
+                    echo '<ul id="nav-mobile" class="right">
+                        <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </ul>';
+                } else {
+                    echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                }
+            ?>
         </div>
     </nav>
 

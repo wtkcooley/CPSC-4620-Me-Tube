@@ -111,6 +111,7 @@
             <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
             <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
