@@ -16,7 +16,6 @@
         $media = [];
         $querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
                 while ($row = mysqli_fetch_array($results)) {
@@ -119,7 +118,7 @@
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
-                            <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
                         echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
