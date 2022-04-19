@@ -154,7 +154,7 @@
                                 <label>Categorys</label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="search" type="search">
+                                <input name="search" id="search" type="search">
                                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                                 <i class="material-icons">close</i>
                             </div>
