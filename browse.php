@@ -16,9 +16,11 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
+            echo $query;
             $results = mysqli_query($mysqli, $query);
             if($results) {
-                while ($row = $results->fetch_assoc()) {
+                echo "Here";
+                while ($row = mysqli_fetch_array($results)) {
                     $mediaID = $row['mediaID'];
                     $mediaType = $row['mediaType'];
                     $path = $row['path'];
@@ -37,7 +39,7 @@
                                 </div>
                             </div>
                         ';
-                        $media.array_push($string);
+                        array_push($media, $string);
                     } else {
                         $string = '
                             <div class="col s3">
@@ -51,7 +53,7 @@
                                 </div>
                             </div>
                         ';
-                        $media.array_push($string);
+                        array_push($media, $string);
                     }
                 }
             }
@@ -66,7 +68,7 @@
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
-                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
+                        array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM
                             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
                             WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
@@ -74,7 +76,7 @@
                 }
             } else {
                 foreach($_GET['category'] as $category) {
-                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
+                    array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                         INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
                         ON Media.mediaID = Category.mediaID WHERE (Category.categoryValue = '$category')");
                 }
@@ -82,11 +84,11 @@
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
             $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
-                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM Media
+                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID WHERE (Media_Keyword.word = '$word')");
             }
         } else {
-            array_push($querys, "SELECT mediaID, mediaType, mediaTitle, description FROM Media");
+            array_push($querys, "SELECT mediaID, mediaType, title, path, description FROM Media");
         }
         $media = setMedia($querys, $mysqli);
     }
@@ -113,16 +115,21 @@
         <ul id="page" class="dropdown-content">
             <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
             <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messages.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
                 <a href="/~cguynup/metube/index.html" class="brand-logo left col-s1">MeTube</a>
-                <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light" href="/profile.html">Edit Profile</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn">Login</a></li>';
+                    }
+                ?>
             </div>
         </nav>
         <div class="profile-home row">

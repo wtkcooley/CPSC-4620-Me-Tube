@@ -48,9 +48,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
-        body {
-            background-color: white;
-        }
         div.main {
           height: 100vh;
           width: 100%;
@@ -62,7 +59,7 @@
           max-height: 5%;
           width: 100%;
           text-align: center;
-          color: #37474f;
+          color: white;
         }
         div.message-window {
           width: 100%;
@@ -126,7 +123,7 @@
         }
     </style>
   </head>
-  <body>
+  <body class="blue-grey darken-3">
     <div class="main">
     <div class="header row">
         <?php echo "Messages with $target"; ?>
@@ -156,7 +153,7 @@
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
           <div class="row">
             <input type="hidden" name="target" id="target" value="<?php echo htmlspecialchars($target); ?>">
-            <input type="text" name="text" id="text" maxlength="240" class="textbox blue-grey darken-3" required/>  
+            <input type="text" name="text" id="text" maxlength="240" class="textbox teal darken-3" required/>  
             <button class="formbtn" type="submit"><i class="material-icons">send</i></button>       
          </div>
         </form>
