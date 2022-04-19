@@ -16,10 +16,10 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
+            // echo $query; <- why was this here?
             $results = mysqli_query($mysqli, $query);
             if($results) {
-                echo "Here";
+                // echo "Here"; <- is this necessary?
                 while ($row = mysqli_fetch_array($results)) {
                     $mediaID = $row['mediaID'];
                     $mediaType = $row['mediaType'];

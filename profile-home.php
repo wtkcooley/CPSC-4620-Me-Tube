@@ -115,7 +115,7 @@
                     <div class="row">
                         <?php
                                 $i = 0;
-                                foreach($playlists as $p) {
+                                foreach($playlist as $p) {
                                     $i++;
                                     echo $p;
                                     if($i == 4) {
