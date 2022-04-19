@@ -1,5 +1,6 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Ensure user is logged in before continuing
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
     $playlistName = $_POST['playlistName'];
 
     // get playlists
