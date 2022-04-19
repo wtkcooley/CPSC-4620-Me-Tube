@@ -1,4 +1,9 @@
 <?php
+// Ensure user is logged in
+if(!isset$_COOKIE['user']) {
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+}
+
 // Setup
 date_default_timezone_set("America/New_York"); // maybe later we could grab timezone from ip location
 $comment = "";

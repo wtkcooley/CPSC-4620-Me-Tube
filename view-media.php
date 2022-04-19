@@ -1,5 +1,6 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Ensure user is logged in before continuing
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
     $playlistName = $_POST['playlistName'];
 
     // get playlists
@@ -27,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ($result['playlistID'], $_GET['mediaID'])";
         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     }
+} else {
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 ?>
 
@@ -143,6 +146,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Query for path based on mediaID
                     $query = "SELECT path FROM Media WHERE mediaID=$mediaID";
                     $result = $mysqli->query($query);
+
+
+                    // Get info for download table
+                    $downloadUser = '';
+                    if(isset($_COOKIE['user'])) {
+                        $downloadUser = $_COOKIE['user'];
+                    } else {
+                        $downloadUser = 'NOTLOGGEDIN';
+                    }
+                    $downloadIP = $_SERVER['REMOTE_ADDR'];
+                    $downloadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
+
+                    // Set up query
+                    $query = "INSERT INTO Download (mediaID, downloadUser, downloadIP, downloadTime) VALUES ('$mediaID', '$downloadUser', '$downloadIP', '$downloadTime')";
+                    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
                     // Echo back path
                     if($result->num_rows == 1) {
