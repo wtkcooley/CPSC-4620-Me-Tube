@@ -129,7 +129,7 @@
             mysqli_query($mysqli, $query);
             $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
             mysqli_query($mysqli, $query);
-            header("Location: ~cgupnup/metube/profile-home.php" , true, 301);
+            header("Location: ~cguynup/metube/profile-home.php" , true, 301);
         }
     }
 
