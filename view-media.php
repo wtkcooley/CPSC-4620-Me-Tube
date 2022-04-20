@@ -135,8 +135,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </iframe>
         </div>
 
+        <!--TITLE-->
         <div class="row">
-            <h5 class="col s6">Title</h5>
+            <h5 class="col s6"><?php 
+            // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                die("Could not get mediaID! Is it valid?");
+            }
+
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Query for title based on mediaID
+            $query = "SELECT title FROM Media WHERE mediaID=$mediaID";
+            $result = $mysqli->query($query);
+            
+            // Echo back path
+            if($title->num_rows == 1) {
+                $title = $result -> fetch_assoc();
+                echo "$title";
+            }
+            ?></h5>
+
             <div class="col s6">
                 <!--DOWNLOAD/PLAYLIST BUTTONS-->
                 <div class="right">
