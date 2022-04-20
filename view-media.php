@@ -1,8 +1,23 @@
 <?php
+// save DB info
+$db_host = 'mysql1.cs.clemson.edu';
+$db_username = 'MeTube_sjoz';
+$db_password = '4620Project!';
+$db_name = 'MeTube_24dp';
+
+// Connect to DB and handle error
+$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+if (mysqli_connect_errno()) {
+    // Connection failed!
+    echo "Connection failed: " . mysqli_connect_error();
+    exit();
+}
+
 // Ensure user is logged in before continuing
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
     if(!isset($_COOKIE['user'])) {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        header("Location: /~ckharts/metube/missingcookie.php", true, 301);
     }
     $playlistName = $_POST['playlistName'];
 
@@ -44,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <title>MeTube Media Viewer</title>
-    <link rel="icon" href="/~cguynup/metube/images/metube_new.svg">
+    <link rel="icon" href="/~ckharts/metube/images/metube_new.svg">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -60,22 +75,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!--INSERT NAVBAR INCLUSION-->
 <body class="blue-grey darken-3">
     <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+            <li><a href="/~ckharts/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~ckharts/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~ckharts/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~ckharts/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~ckharts/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~ckharts/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~ckharts/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>
@@ -120,8 +135,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </iframe>
         </div>
 
+        <!--TITLE-->
         <div class="row">
-            <h5 class="col s6">Title</h5>
+            <h5 class="col s6"><?php 
+            // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                die("Could not get mediaID! Is it valid?");
+            }
+
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Query for title based on mediaID
+            $query = "SELECT title FROM Media WHERE mediaID=$mediaID";
+            $result = $mysqli->query($query);
+            
+            // Echo back path
+            if($result->num_rows == 1) {
+                $title = $result -> fetch_assoc();
+                echo "{$title['title']}";;
+            }
+            ?></h5>
+
             <div class="col s6">
                 <!--DOWNLOAD/PLAYLIST BUTTONS-->
                 <div class="right">
@@ -217,10 +266,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Query for path based on mediaID
             $query = "SELECT description FROM Media WHERE mediaID=$mediaID";
             $result = $mysqli->query($query);
-            $desc = $result -> fetch_assoc();
+            $desc = $result -> fetch_array();
 
             // Print query results
-            echo "$desc";
+            echo "{$desc['description']}";
             ?>
         </div>
 
@@ -281,7 +330,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         while($row = mysqli_fetch_array($result)) {
             $commentUser = $row['commentUser'];
             $comment = $row['comment'];
-            echo "User $commentUser: $comment";
+            echo "$commentUser says: $comment";
+            echo "<br />";
+            echo "<br />";
         }
         ?>
 
