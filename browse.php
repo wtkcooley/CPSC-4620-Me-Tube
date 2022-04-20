@@ -28,10 +28,23 @@
                         $string = '
                             <div class="col s3">
                                 <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <img  src="' . $path . '" class="col s12">
+                                    <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
                                     <div class="col s12">
-                                        <h4>' . $title . '</h4>
-                                        <p></p>
+                                        <h4>' . $title . '</h4><br>
+                                        <p>' . $desc . '</p>
+                                    </div>
+                                </a>
+                            </div>
+                        ';
+                        array_push($media, $string);
+                    } else if ($mediaType == "VIDEO") {
+                        $string = '
+                            <div class="col s3">
+                                <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                                    <div class="col s12">
+                                        <h4>' . $title . '</h4><br>
+                                        <p>' . $desc . '</p>
                                     </div>
                                 </a>
                             </div>
@@ -41,9 +54,9 @@
                         $string = '
                             <div class="col s3">
                                 <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <img  src="/metube/images/videoThumbnail.png" class="col s12">
+                                    <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
                                     <div class="col s12">
-                                        <h4>' . $title . '</h4>
+                                        <h4>' . $title . '</h4><br>
                                         <p>' . $desc . '</p>
                                     </div>
                                 </a>
