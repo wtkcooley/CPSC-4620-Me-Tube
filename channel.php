@@ -116,7 +116,6 @@
         $userID = $_COOKIE['user'];
         $query = "SELECT * FROM Subscription WHERE subscribee = '$channelID' AND subscriber = '$userID'";
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-
         if($result->num_rows >= 1)
             $subed = TRUE;
         
@@ -129,7 +128,7 @@
         echo $query;
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         if($result->num_rows >= 1)
-            $friend = TRUE;
+            $friends = TRUE;
     }
 
 ?>
