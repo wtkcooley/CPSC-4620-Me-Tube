@@ -128,7 +128,7 @@
         $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2) OR (uname2 = '$channelID' AND uname1 = '$userID' AND status = 2)";
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         if($result->num_rows >= 1)
-            $friend = TRUE; */
+            $friend = TRUE;
     }
 
 ?>
