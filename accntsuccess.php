@@ -1,6 +1,6 @@
 <?php
 
-header( "refresh:10; url=/~wcooley/metube/login.php" );
+header( "refresh:10; url=/~cguynup/metube/login.php" );
 
 ?>
 <!DOCTYPE html>
@@ -19,11 +19,11 @@ header( "refresh:10; url=/~wcooley/metube/login.php" );
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
 
-    <body style="background-image: url('/~wcooley/metube/images/main_bg.jpg');background-repeat: no-repeat">
+    <body style="background-image: url('/~cguynup/metube/images/main_bg.jpg');background-repeat: no-repeat">
         <div class="z-depth-5" style="color: #37474f; background-color: white; padding: 50px; border-radius: 15px 50px; margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); text-align: center;">
             <h4>Success!</h4><br>
             <p>You will now be taken to the login screen!</p>
-            <a href="/~wcooley/metube/login.php"> Click here if it did not load...</a>
+            <a href="/~cguynup/metube/login.php"> Click here if it did not load...</a>
         </div>
     </body>
     </html>

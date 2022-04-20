@@ -9,7 +9,7 @@
 
   //if a user is not logged in
   if(!isset($_COOKIE["user"])){
-    header("Location: /~wcooley/metube/missingcookie.php", true, 301);
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     exit;
   }
 
@@ -40,7 +40,7 @@
     if(mysqli_num_rows($results) > 0) {
         $query = "INSERT INTO Message (sender, receiver, text, dateSent) VALUES ('{$_COOKIE['user']}', '$target', '{$_POST['text']}', NOW())";
         mysqli_query($mysqli, $query);
-        header("Location: /~wcooley/metube/messageView.php?target=$target", true, 301);
+        header("Location: /~cguynup/metube/messageView.php?target=$target", true, 301);
         exit();
     } else {
         $errors['target'] = "There is no user with that username...";
