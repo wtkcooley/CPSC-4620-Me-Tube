@@ -27,8 +27,8 @@
                     if ($mediaType == "IMAGE") {
                         $string = '
                             <div class="col s3">
-                                <a class="row">
-                                    <img href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" src="' . $path . '" class="col s12">
+                                <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <img  src="' . $path . '" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p></p>
@@ -40,8 +40,8 @@
                     } else {
                         $string = '
                             <div class="col s3">
-                                <a class="row">
-                                    <img href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" src="/metube/images/videoThumbnail.png" class="col s12">
+                                <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                    <img  src="/metube/images/videoThumbnail.png" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p>' . $desc . '</p>
