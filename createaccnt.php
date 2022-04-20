@@ -117,20 +117,23 @@ if (mysqli_connect_errno()) {
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">person</i>
-                        <input name="fname" id="fname" type="text" class="validate" value="<?php echo htmlspecialchars($values['fname']);?>" required>
+                        <input name="fname" pattern="[a-zA-Z -]{1,20}" maxlength="20" id="fname" type="text" class="validate" value="<?php echo htmlspecialchars($values['fname']);?>" required>
                         <label for="fname">First Name</label>
+                        <span class='helper-text'>Names can use letters, spaces, and dashes.</span>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">person</i>
-                        <input name="lname" id="lname" type="text" class="validate" value="<?php echo htmlspecialchars($values['lname']);?>" required>
+                        <input name="lname" pattern="[a-zA-Z -]{1,20}" maxlength="20" id="lname" type="text" class="validate" value="<?php echo htmlspecialchars($values['lname']);?>" required>
                         <label for="lname">Last Name</label>
+                        <span class='helper-text'>Names can use letters, spaces, and dashes.</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input name="email" id="email" type="email" class="validate" value="<?php echo htmlspecialchars($values['email']);?>" required validate>
+                        <input name="email" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}" maxlength="35" id="email" type="email" class="validate" value="<?php echo htmlspecialchars($values['email']);?>" required validate>
                         <label for="email">Email</label>
+                        <span class='helper-text'>Emails must be in xxx@xxx.xxx format.</span>
                     </div>
                 </div>
                 <div class="row">
@@ -141,6 +144,8 @@ if (mysqli_connect_errno()) {
                         <?php
                           if (array_key_exists('username', $form_errors)){
                             echo "<span class='helper-text' style='color: red; text-align: left'>".$form_errors['username']."</span>"; 
+                          } else {
+                            echo "<span class='helper-text'>Usernames must consist of alphanumeric and '_' characters.</span>";
                           }
                         ?>
                     </div>
@@ -148,7 +153,7 @@ if (mysqli_connect_errno()) {
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input name="password" id="password" type="password" class="validate" required>
+                        <input name="password" maxlength="20" id="password" type="password" class="validate" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
