@@ -38,7 +38,7 @@
                     $string = '
                         <div class="col s3">
                             <a class="row" href="/~cguynup/metube/playlist.php?playlistID=' . $playlistID . '">
-                                <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
+                                <image src="/~cguynup/metube/images/list_icon.jpg" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>

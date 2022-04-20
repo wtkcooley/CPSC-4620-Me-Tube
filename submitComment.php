@@ -32,7 +32,7 @@ $comment = "";
 
 // Get comment from POST
 if (isset($_POST['comment'])) {
-    $comment = $_POST['comment'];
+    $comment = addslashes($_POST['comment']);
 } else {
     die("Error retrieving comment from POST");
 }

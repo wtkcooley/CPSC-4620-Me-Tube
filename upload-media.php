@@ -32,12 +32,13 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
     $uploadOk = 0;
 } */
 
-/* Code to allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
+// Code to allow certain file formats
+// mp4, wav, mp3, mov, png, jpg, gif
+if($imageFileType != "mp4" && $imageFileType != "wav" && $imageFileType != "mp3"
+&& $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "gif") {
   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
   $uploadOk = 0;
-} */
+}
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
