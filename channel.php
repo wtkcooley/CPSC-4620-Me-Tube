@@ -7,7 +7,7 @@
     header("Pragma: no-cache");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
-    if($_GET['channelID'] == $_COOKIE['user']) {
+    if(isset($_COOKIE['user']) && $_GET['channelID'] == $_COOKIE['user']) {
         header("Location: /~cguynup/metube/profile-home.php", true, 301);
     }
     
