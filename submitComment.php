@@ -56,7 +56,7 @@ $commentTime = date("Y-m-d H:i:s");
 
 // Setup query
 $query = "INSERT INTO Comment (commentUser, mediaID, commentTime, comment)
-    VALUES ($commentUser, $mediaID, $commentTime, $comment)";
+    VALUES ('$commentUser', '$mediaID', '$commentTime', '$comment')";
 
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 exit();
