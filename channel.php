@@ -115,7 +115,7 @@
                     $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows == 0) {
-                        $query = "SELECT * FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 3)";
+                        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$wcooley' AND status = 3)";
                         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                         if($result->num_rows == 0) {
                             $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
