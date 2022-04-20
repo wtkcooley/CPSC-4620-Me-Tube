@@ -21,6 +21,7 @@
     $subed = FALSE;
     $friends = FALSE;
     $pending = FALSE;
+    $denied = FALSE;
     $media= [];
     $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$channelID')";
     $results = mysqli_query($mysqli, $query);
@@ -89,9 +90,16 @@
                     $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows == 0) {
-                        $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
-                        ('{$userID}', '{$channelID}', 1, '{NOW()}')";
-                        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        $query = "SELECT * FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 3)";
+                        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        if($result->num_rows == 0) {
+                            $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
+                            ('{$userID}', '{$channelID}', 1, '{NOW()}')";
+                            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        } else {
+                            $query = "UPDATE Relation SET status = 1, dateModified=NOW() WHERE (uname1 = '$userID' AND uname2 = '$channelID')";
+                            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        }
                     } else {
                         $query = "UPDATE Relation SET status = 2, dateModified=NOW() WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
                         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
@@ -128,6 +136,11 @@
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         if($result->num_rows >= 1)
             $friends = TRUE;
+        
+        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 3)";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        if($result->num_rows >= 1)
+            $denied = TRUE;
     }
 
 ?>
@@ -201,6 +214,8 @@
                                             echo "<input onchange='this.form.submit()' name='friend' type='checkbox' checked='checked'/><span>Friends</span>";
                                         } elseif($pending) {
                                             echo "<input onchange='this.form.submit()' name='friend' type='checkbox' disabled='disabled'/><span>Friend Request Pending</span>";
+                                        } elseif($denied) {
+                                            echo "<input onchange='this.form.submit()' name='friend' type='checkbox' disabled='disabled'/><span>Friend Request Denied :(</span>";
                                         } else {
                                             echo "<input onchange='this.form.submit()' name='friend' type='checkbox'/><span>Friends</span>";
                                         }
