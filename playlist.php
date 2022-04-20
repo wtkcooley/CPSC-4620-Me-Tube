@@ -1,4 +1,12 @@
 <?php
+    //had issues with the cached file automatically redirecting to the login page
+    //hence include every header that will make sure the browser does not use cache to get the page
+    header("Cache-Control: no-store, no-cache, must-revalidate");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Expires: Mon, 21 Aug 2000 12:00:00 GMT");
+    header("Pragma: no-cache");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
     //connect to our database
     $db_host = 'mysql1.cs.clemson.edu';
     $db_username = 'MeTube_sjoz';
@@ -58,8 +66,12 @@
         return array_unique($media);
     }
 
-    // ensure user logged in before continuing
-    if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_COOKIE['user'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        // ensure user logged in before continuing
+        if(isset($_COOKIE['user'])) {
+            header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        }
+
         $querys = [];
         $playlsitID = "";
         if (isset($_GET['playlistID'])) {
@@ -88,8 +100,6 @@
             }
         }
         $media = setMedia($querys, $mysqli);
-    } else {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     }
     
 ?>

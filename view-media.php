@@ -1,10 +1,3 @@
-<?php
-// Ensure user is logged in before continuing
-if(!isset($_COOKIE['user'])) {
-    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
