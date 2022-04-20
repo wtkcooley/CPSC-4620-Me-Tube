@@ -1,6 +1,21 @@
 <?php
+// save DB info
+$db_host = 'mysql1.cs.clemson.edu';
+$db_username = 'MeTube_sjoz';
+$db_password = '4620Project!';
+$db_name = 'MeTube_24dp';
+
+// Connect to DB and handle error
+$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+if (mysqli_connect_errno()) {
+    // Connection failed!
+    echo "Connection failed: " . mysqli_connect_error();
+    exit();
+}
+
 // Ensure user is logged in before continuing
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
     if(!isset($_COOKIE['user'])) {
         header("Location: /~ckharts/metube/missingcookie.php", true, 301);
     }
