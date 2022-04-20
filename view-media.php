@@ -235,6 +235,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
+        <!--CHANNEL-->
+        <div class="row">
+            <?php
+            // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                echo "Could not get mediaID! Is it valid?";
+                die();
+            }
+
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Query for channel name based on mediaID
+            $query = "SELECT uploadUser FROM Media WHERE mediaID=$mediaID";
+            $result = $mysqli->query($query);
+            $uploadUser = $result -> fetch_array();
+
+            // Echo profile link
+            echo "<a href="/~cguynup/metube/channel.php?channelID={$uploadUser['uploadUser']}">Upload User: {$uploadUser['uploadUser']}</a>";
+            ?>
+        </div>
+
         <!--DESCRIPTION FETCH-->
         <div class="row">
             <p class="col s12">Description</p>
