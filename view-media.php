@@ -40,12 +40,12 @@
 
         // get playlists
         $user = $_COOKIE['user'];
-        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
+        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user'";
         $result = $mysqli->query($query);
         
         if($result) {
             // get ID of playlist
-            $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName='$playlistName'";
+            $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user' AND playlistName='$playlistName'";
             $result = $mysqli->query($query);
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
