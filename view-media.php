@@ -169,6 +169,12 @@
                     echo "<a href='/~cguynup/metube/channel.php?channelID=$uuser'>$uuser</a><br>";
                     echo "<p>$desc</p>";
 
+                    $query = "SELECT word FROM Media_Keyword WHERE mediaID='$mediaID'";
+                    $results = mysqli_query($mysqli, $query);
+                    while($row = mysqli_fetch_array($results)){
+                        echo "<div class='col s6 teal lighten-2 z-depth-2'>".$row['word']."</div>";
+                    }
+
                 ?>
             </div>
         </div>
