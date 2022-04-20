@@ -45,7 +45,7 @@
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
-                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <input type="hidden" name="playlistID" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -65,7 +65,7 @@
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
-                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <input type="hidden" name="playlistID" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -85,7 +85,7 @@
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
-                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <input type="hidden" name="playlistID" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -202,9 +202,9 @@
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                            echo "<input type='button' disabled='disabled' name='playlistname' onchange='this.form.submit()' value=''>";
                         else
-                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                            echo "<input type='button' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
                     <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
