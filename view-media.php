@@ -140,6 +140,11 @@
                 <input type="hidden" name="mediaID" value="<?php echo "$mediaID"; ?>">
             </form>
         </div>
+        
+        <div class="row" style="padding: 10px;">
+            <a class="waves-effect waves-light btn " href=<?php echo $path; ?> download><i class="material-icons left">download</i>Download</a>
+        </div>
+        
         <div class="row" style="padding: 10px;">
         <?php
             $query = "SELECT commentUser, commentTime, comment FROM Comment WHERE mediaID=$mediaID ORDER BY commentTime DESC";
