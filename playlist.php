@@ -35,31 +35,31 @@
                 if ($mediaType == "IMAGE") {
                     $string = '
                         <div class="col s3">
-                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                 <image src="' . $path . '" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $title . '</h4>
                                     <p></p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     ';
-                    $media.array_push($string);
+                    array_push($media, $string);
                 } else {
                     $string = '
                         <div class="col s3">
-                            <div href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
                                 <image src="/~cguynup/metube/images/videoThumbnail.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $title . '</h4>
                                     <p>' . $desc . '</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     ';
-                    $media.array_push($string);
+                    array_push($media, $string);
                 }
             }
         }
@@ -68,7 +68,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // ensure user logged in before continuing
-        if(isset($_COOKIE['user'])) {
+        if(!isset($_COOKIE['user'])) {
             header("Location: /~cguynup/metube/missingcookie.php", true, 301);
         }
 
@@ -87,19 +87,19 @@
             $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
             array_push($querys, $query);
         }
-        $setMedia($querys, $mysqli);
-
-
-        foreach($_GET['category'] as $category) {
-            $words = explode(' ', $_GET['search']);
-            foreach($words as $word) {
-                array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
-                    Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-                    ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
-                    WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
-            }
-        }
         $media = setMedia($querys, $mysqli);
+
+
+        // foreach($_GET['category'] as $category) {
+        //     $words = explode(' ', $_GET['search']);
+        //     foreach($words as $word) {
+        //         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
+        //             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
+        //             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
+        //             WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
+        //     }
+        // }
+        // $media = setMedia($querys, $mysqli);
     }
     
 ?>
