@@ -180,7 +180,7 @@
         <div class="profile-home row">
             <div class="row">
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                    <input type="text" name="playlistname" onchange="this.form.submit()" value="<?php echo htmlspecialchars($values['playlistID']);?>">
+                    <input type="text" name="playlistname" onchange="this.form.submit()" value="<?php echo htmlspecialchars($playlistID);?>">
                     <input type="hidden" name="formtype" value="nameChange">
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
