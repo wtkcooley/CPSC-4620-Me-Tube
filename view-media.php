@@ -39,7 +39,7 @@
         $playlistName = $_POST['playlistName'];
 
         // get playlists
-        $user = $_GET['user'];
+        $user = $_COOKIE['user'];
         $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
         $result = $mysqli->query($query);
         
