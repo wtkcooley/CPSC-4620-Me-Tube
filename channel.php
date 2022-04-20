@@ -69,7 +69,7 @@
                 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             } else {
                 $query = "DELETE FROM Subscription WHERE 
-                channelID = $channelID AND userID = $userID";
+                subscription = $channelID AND subscribee = $userID";
                 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             }
         } else {
