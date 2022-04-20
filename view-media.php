@@ -125,6 +125,9 @@
                 ?>
             </div>
         </div>
+        <div class="row" style="padding: 10px;">
+            <a class="waves-effect waves-light btn " href=<?php echo $path; ?> download><i class="material-icons left">download</i>Download</a>
+        </div>
         <div class="row">
             <form class="col s12" action="/~cguynup/metube/submitComment.php" method="POST">
                 <div class="row">
