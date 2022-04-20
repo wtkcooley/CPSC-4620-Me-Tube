@@ -188,7 +188,7 @@
         </nav>
         <div class="profile-home row">
             <div class="row">
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form method="POST" class="col 8" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
                             echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
@@ -196,18 +196,18 @@
                             echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
-                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
+                    <?php echo "<input type='hidden' name='playlistID' value='$playlistID'>" ?>
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form method="POST" class="col 4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='button' disabled='disabled' name='playlistname' onchange='this.form.submit()' value=''>";
+                            echo "<input type='button' disabled='disabled' name='deletePlaylist' onchange='this.form.submit()' value=''>";
                         else
-                            echo "<input type='button' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                            echo "<input type='button' name='deletePlaylist' onchange='this.form.submit()' value='Delete'>";
                     ?>
-                    <input type="hidden" name="formtype" value="nameChange">
-                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
+                    <input type="hidden" name="formtype" value="deletePlaylist">
+                    <?php echo "<input type='hidden' name='playlistID' value='$playlistID'>" ?>
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
             </div>
