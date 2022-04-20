@@ -1,4 +1,12 @@
 <?php
+//had issues with the cached file automatically redirecting to the login page
+//hence include every header that will make sure the browser does not use cache to get the page
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Expires: Mon, 21 Aug 2000 12:00:00 GMT");
+header("Pragma: no-cache");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
 if($_SERVER['REQUEST_METHOD'] == "POST") {
     // ensure user is logged in
     if(!isset($_COOKIE['user'])) {
@@ -57,29 +65,28 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <ul id="page" class="dropdown-content">
-        <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-        <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-        <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
-    </ul>
-    <nav>
-        <div class="nav-wrapper row teal lighten-2">
-            <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
-            <?php
-                if(isset($_COOKIE['user'])) {
-                    echo '<ul id="nav-mobile" class="right">
-                        <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
-                    </ul>';
-                } else {
-                    echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
-                }
-            ?>
-        </div>
-    </nav>
-
     <body class="blue-grey darken-3">
+        <ul id="page" class="dropdown-content">
+            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper row teal lighten-2">
+                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                    }
+                ?>
+            </div>
+        </nav>
         <div class="profile-info row">
             <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="row">
