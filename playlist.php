@@ -114,6 +114,7 @@
     $userID = $_COOKIE['user'];
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
+        echo $_POST['formtype'];
         if ($_POST['formtype'] == 'nameChange') {
             $name =$_POST['playlistname'];
             $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
