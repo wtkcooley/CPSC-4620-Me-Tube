@@ -190,9 +190,9 @@
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='<?php echo htmlspecialchars($playlistName);?>'>";
+                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                         else
-                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='<?php echo htmlspecialchars($playlistName);?>'>";
+                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
                     <!--<input type="submit" name="submit" value="Change">-->
