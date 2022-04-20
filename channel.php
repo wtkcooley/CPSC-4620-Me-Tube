@@ -6,6 +6,10 @@
     header("Expires: Mon, 21 Aug 2000 12:00:00 GMT");
     header("Pragma: no-cache");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
+    if($_GET['channelID'] == $_COOKIE['user']) {
+        header("Location: /~cguynup/metube/profile-home.php", true, 301);
+    }
     
     //connect to our database
     $db_host = 'mysql1.cs.clemson.edu';
@@ -44,10 +48,23 @@
                 $string = '
                     <div class="col s3">
                         <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img src="' . $path . '" class="col s12">
+                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
                             <div class="col s12">
-                                <h4>' . $title . '</h4>
-                                <p></p>
+                                <h4>' . $title . '</h4><br>
+                                <p>' . $desc . '</p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
+            } else if ($mediaType == "VIDEO") {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4><br>
+                                <p>' . $desc . '</p>
                             </div>
                         </a>
                     </div>
@@ -57,9 +74,9 @@
                 $string = '
                     <div class="col s3">
                         <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img src="/metube/images/videoThumbnail.png" class="col s12">
+                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
                             <div class="col s12">
-                                <h4>' . $title . '</h4>
+                                <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
                             </div>
                         </a>
@@ -79,8 +96,8 @@
                     $query = "SELECT * FROM Subscription WHERE subscriber='$userID' AND subscribee='$channelID'";
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows == 0) {
-                        $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-                        ('{$userID}', '{$channelID}')";
+                        $query = "INSERT INTO Subscription (subscriber, subscribee, dateSubscribed) VALUES 
+                        ('{$userID}', '{$channelID}', NOW())";
                         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     }
                 } else {
@@ -102,7 +119,7 @@
                         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                         if($result->num_rows == 0) {
                             $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
-                            ('{$userID}', '{$channelID}', 1, '{NOW()}')";
+                            ('{$userID}', '{$channelID}', 1, NOW())";
                             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                         } else {
                             $query = "UPDATE Relation SET status = 1, dateModified=NOW() WHERE (uname1 = '$userID' AND uname2 = '$channelID')";

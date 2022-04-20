@@ -67,36 +67,49 @@
         if($results) {
             while ($row = mysqli_fetch_array($results)) {
                 $mediaID = $row['mediaID'];
-                $mediaType = $row['mediaType'];
-                $path = $row['path'];
-                $title = $row['title'];
-                $desc = $row['description'];
-                if ($mediaType == "IMAGE") {
-                    $string = '
-                        <div class="col s3">
-                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                <img src="' . $path . '" class="col s12">
-                                <div class="col s12">
-                                    <h4>' . $title . '</h4>
-                                    <p></p>
-                                </div>
-                            </a>
-                        </div>
-                    ';
-                    array_push($media, $string);
-                } else {
-                    $string = '
-                        <div class="col s3">
-                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                <img src="/metube/images/videoThumbnail.png" class="col s12">
-                                <div class="col s12">
-                                    <h4>' . $title . '</h4>
-                                    <p>' . $desc . '</p>
-                                </div>
-                            </a>
-                        </div>
-                    ';
-                    array_push($media, $string);
+            $mediaType = $row['mediaType'];
+            $path = $row['path'];
+            $title = $row['title'];
+            $desc = $row['description'];
+            if ($mediaType == "IMAGE") {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4><br>
+                                <p>' . $desc . '</p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
+            } else if ($mediaType == "VIDEO") {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4><br>
+                                <p>' . $desc . '</p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
+            } else {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4><br>
+                                <p>' . $desc . '</p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
                 }
             }
         }
@@ -136,8 +149,36 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        div.mainwrap {
+            width: 100%;
+            height: calc(100vh - 64px);
+            display: flex;
+        }
+        div.leftwindow {
+            width: 75%;
+            height: 100%;
+            max-height: 100%;
+            float: left;
+            border-right: solid;
+            border-width: 1px;
+            overflow-y: scroll;
+        }
+        div.rightwindow {
+            width: 25%;
+            min-height: 100%;
+            float: left;
+            clear: right;
+            overflow-y: scroll;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
     </head>
-    <body class="blue-grey darken-3">
+    <body class="blue-grey darken-3" style="overflow: hidden;">
         <ul id="page" class="dropdown-content">
             <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
             <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
@@ -159,54 +200,63 @@
                 ?>
             </div>
         </nav>
-        <div class="profile-home row">
-            <div class="row">
-                <div class="col s12">
+        <div class="mainwrap">            
+            <div class="leftwindow">
+                <div class="profile-home row">
+                    <div class="z-depth-2 teal darken-2 row" style="text-align: center; opacity: .6;">
+                        <div class="col s12">
+                            <div class="row">
+                                <h5 class="col s4">Name: 
+                                    <?php echo $name; ?>
+                                </h5>
+                                <h5 class="col s4">Username: <?php echo $userID; ?></h5>
+                                <h5 class="col s4">Email: <?php echo $email; ?></h5>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
-                        <h5 class="col s4">Name: 
-                            <?php echo $name; ?>
-                        </h5>
-                        <h5 class="col s4">Username: <?php echo $userID; ?></h5>
-                        <h5 class="col s4">Email: <?php echo $email; ?></h5>
+                        <div class="z-depth-2 teal darken-2 row" style="text-align: left; opacity: .6;">
+                            <h4>My Playlists:</h4>
+                        </div>
+                        <div class="col s12">
+                            <div class="row">
+                                <?php
+                                    $i = 0;
+                                    foreach($playlist as $p) {
+                                        $i++;
+                                        echo $p;
+                                        if($i == 4) {
+                                            echo "</div>\n<div class=row>\n";
+                                        }
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="z-depth-2 teal darken-2 row" style="text-align: left; opacity: .6;">
+                            <h4>My Media:</h4>
+                        </div>
+                        <div class="col s12">
+                            <div class="row">
+                                <?php
+                                    $i = 0;
+                                    foreach($media as $m) {
+                                        $i++;
+                                        echo $m;
+                                        if($i == 4) {
+                                            echo "</div>\n<div class=row>\n";
+                                        }
+                                    }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <h4>My Playlist:</h4>
-                    <div class="row">
-                        <?php
-                            $i = 0;
-                            foreach($playlist as $p) {
-                                $i++;
-                                echo $p;
-                                if($i == 4) {
-                                    echo "</div>\n<div class=row>\n";
-                                }
-                            }
-                        ?>
-                    </div>
-                </div>
+            <div class="rightwindow">
+                <iframe src="/~cguynup/metube/contactlist.php"></iframe>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <h4>My Media:</h4>
-                    <div class="row">
-                        <?php
-                            $i = 0;
-                            foreach($media as $m) {
-                                $i++;
-                                echo $m;
-                                if($i == 4) {
-                                    echo "</div>\n<div class=row>\n";
-                                }
-                            }
-                        ?>
-                    </div>
-                </div>
-            </div>
-            <iframe src="/~cguynup/metube/contactlist.php"></iframe>
-            <div class="row z-depth-2 titles">
         </div>
     </body>
     <script>

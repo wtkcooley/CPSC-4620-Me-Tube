@@ -60,6 +60,6 @@ $query = "INSERT INTO Comment (commentUser, mediaID, commentTime, comment)
 
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
-header("Location: /~ckharts/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
+header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
 
 ?>
