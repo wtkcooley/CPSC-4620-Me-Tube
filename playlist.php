@@ -102,6 +102,8 @@
 
     $querys = [];
     $playlsitID = "";
+    $playlistName = "";
+    $isFavorite = "";
     if (isset($_GET['playlistID'])) {
         $playlistID = $_GET['playlistID'];
     } else {
@@ -111,7 +113,6 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_POST['formtype'] == 'nameChange') {
-            $name = $_POST['name'];
             $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
             $results = mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'remove') {
@@ -129,6 +130,12 @@
 
     }
 
+    $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
+    $results = mysqli_query($mysqli, $query);
+    while($row = mysqli_fetch_row($results)) {
+        $playlistName = $row['mediaID'];
+        $isFavorite = $row['favorites'];
+    }
     $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
     while($row = mysqli_fetch_row($results)) {
@@ -180,7 +187,12 @@
         <div class="profile-home row">
             <div class="row">
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                    <input type="text" name="playlistname" onchange="this.form.submit()" value="<?php echo htmlspecialchars($playlistID);?>">
+                    <?php
+                        if($isFavorite)
+                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='<?php echo htmlspecialchars($playlistName);?>'>";
+                        else
+                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='<?php echo htmlspecialchars($playlistName);?>'>";
+                    ?>
                     <input type="hidden" name="formtype" value="nameChange">
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
