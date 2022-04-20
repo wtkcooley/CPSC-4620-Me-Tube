@@ -1,7 +1,7 @@
 <?php
     // ensure user is logged in
     if(!isset($_COOKIE['user'])) {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        header("Location: /~wcooley/metube/missingcookie.php", true, 301);
     }
 
     //connect to our database
@@ -29,8 +29,8 @@
                     
                     $string = '
                         <div class="col s3">
-                            <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
-                                <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
+                            <div class="row" href="/~wcooley/metube/?playlistID=' . $playlistID . '">
+                                <image src="/~wcooley/metube/images/placehodler.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>
@@ -86,22 +86,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <ul id="page" class="dropdown-content">
-        <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-        <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-        <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
+        <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+        <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
+        <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+        <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
+        <li><a href="/~wcooley/metube/upload-media.php">Logout</a></li>
     </ul>
     <nav>
         <div class="nav-wrapper row teal lighten-2">
-            <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+            <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
             <?php
                 if(isset($_COOKIE['user'])) {
                     echo '<ul id="nav-mobile" class="right">
                         <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                     </ul>';
                 } else {
-                    echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                    echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                 }
             ?>
         </div>
@@ -109,14 +109,14 @@
 
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+            <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.html">Upload</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <ul id="nav-mobile" class="right">
                     <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
             </div>
-            <iframe src="/~cguynup/metube/contactlist.php"></iframe>
+            <iframe src="/~wcooley/metube/contactlist.php"></iframe>
         </div>
     </body>
     <script>
