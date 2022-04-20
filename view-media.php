@@ -1,39 +1,6 @@
 <?php
 // Ensure user is logged in before continuing
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_COOKIE['user'])) {
-    $playlistName = $_POST['playlistName'];
-
-    // get playlists
-    $user = $_GET['user'];
-    $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
-    $result = $mysqli->query($query);
-    
-    if(in_array($playlistName, $result)) {
-        // get ID of playlist
-        $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName=$playlistName";
-        $result = $mysqli->query($query);
-        // add to playlist_media
-        $mediaID = $_GET['mediaID'];
-        $playlistID = $result['playlistID'];
-        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-    } else {
-        $mediaID = $_GET['mediaID'];
-        $playlistID = $result['playlistID'];
-        // create playlist
-        $query = "INSERT INTO Playlist (playlistName, createUser) VALUES ($playlistName, $user)";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        // get playlist ID
-        $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
-        $result = $mysqli->query($query);
-        // insert into user playlist table
-        $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        // insert into playlist media table
-        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-    }
-} else {
+if(!isset($_COOKIE['user'])) {
     header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 ?>
