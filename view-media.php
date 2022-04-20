@@ -232,10 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Query for path based on mediaID
             $query = "SELECT description FROM Media WHERE mediaID=$mediaID";
             $result = $mysqli->query($query);
-            $desc = $result -> fetch_assoc();
+            // $desc = $result -> fetch_assoc();
 
             // Print query results
-            echo "$desc";
+            echo "$result['description']";
             ?>
         </div>
 
@@ -296,7 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         while($row = mysqli_fetch_array($result)) {
             $commentUser = $row['commentUser'];
             $comment = $row['comment'];
-            echo "User $commentUser: $comment";
+            echo "$commentUser says: $comment\n";
         }
         ?>
 
