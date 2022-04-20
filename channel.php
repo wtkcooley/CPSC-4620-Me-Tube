@@ -89,8 +89,9 @@
                     $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows == 0) {
+                        $time = NOW();
                         $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
-                        ('{$userID}', '{$channelID}', 1, '{NOW()}'";
+                        ('{$userID}', '{$channelID}', 1, '{$time}')";
                         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     } else {
                         $query = "UPDATE Relation SET status = 2 WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
