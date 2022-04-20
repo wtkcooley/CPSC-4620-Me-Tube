@@ -124,10 +124,13 @@
             mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'deletePlaylist') {
             $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID'";
+            echo $query;
             mysqli_query($mysqli, $query);
             $query = "DELETE FROM Playlist WHERE playlistID = '$playlistID'";
+            echo $query;
             mysqli_query($mysqli, $query);
             $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
+            echo $query;
             mysqli_query($mysqli, $query);
         }
     }
