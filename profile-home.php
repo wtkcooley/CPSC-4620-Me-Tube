@@ -30,23 +30,23 @@
         $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
-            if($result) {
+            if($results) {
                 while ($row = mysqli_fetch_array($results)) {
-                    $playlistName = $row['playlistID'];
+                    $playlistID = $row['playlistID'];
                     $playlistName = $row['playlistName'];
                     
                     $string = '
                         <div class="col s3">
-                            <div class="row" href="/~cguynup/metube/playlist.php?playlistID=' . $playlistID . '">
+                            <a class="row" href="/~cguynup/metube/playlist.php?playlistID=' . $playlistID . '">
                                 <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     ';
-                    $playlist.array_push($string);
+                    array_push($playlist, $string);
                 }
             }
         }

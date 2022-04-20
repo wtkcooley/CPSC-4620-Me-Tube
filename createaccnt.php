@@ -35,10 +35,26 @@ if (mysqli_connect_errno()) {
     $form_errors['username'] = 'Username Taken!';
   }
 
+  mysqli_free_result($sqlsearch);
+
   if (empty($form_errors)) {
     $query = "INSERT INTO User (username, password, email, fname, lname) VALUES 
       ('{$values["username"]}', '{$values["password"]}', '{$values["email"]}','{$values["fname"]}', '{$values["lname"]}')";
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+    $playlistname = $values["username"] . "\'s Favorites";
+    $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ('$playlistname', '{$values["username"]}', 1)";
+    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+    $query = "SELECT playlistID FROM Playlist WHERE createUser='{$values["username"]}' AND favorites='1'";
+    $results = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    $row = mysqli_fetch_array($results);
+    $playlistID = $row['playlistID'];
+    mysqli_free_result($results);
+
+    $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('{$values["username"]}', '$playlistID')";
+    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
     header("Location: /~cguynup/metube/accntsuccess.php", true, 301);
     exit;
   }
