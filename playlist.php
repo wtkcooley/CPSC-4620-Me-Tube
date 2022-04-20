@@ -138,7 +138,7 @@
     mysqli_free_result($results);
     $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
-    while($row = mysqli_fetch_row($results)) {
+    while($row = mysqli_fetch_array($results)) {
         $mediaID = $row['mediaID'];
         $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
         array_push($querys, $query);
