@@ -125,14 +125,20 @@
             <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
             <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
-                <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
+                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                    }
+                ?>
             </div>
         </nav>
         <div class="profile-home row">

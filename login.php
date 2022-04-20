@@ -44,7 +44,7 @@
   }
 
   if (empty($form_errors)) {
-    setcookie("user", $values['username'], time() + 86400, "/~cguynup/metube/metube"); //set a cookie that holds the current user; 86400 = 1 day
+    setcookie("user", $values['username'], time() + 86400, "/~cguynup/metube/"); //set a cookie that holds the current user; 86400 = 1 day
     header("Location: /~cguynup/metube/profile-home.php", true, 301); //redirect to the profile home
     exit;
   }
