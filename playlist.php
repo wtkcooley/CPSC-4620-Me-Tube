@@ -42,6 +42,12 @@
                                 <p>' . $desc . '</p>
                             </div>
                         </a>
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <input type="button" name="remove" onclick="this.form.submit()">
+                            <input type="hidden" name="media" value="' . $mediaID .'">
+                            <input type="hidden" name="formtype" value="remove">
+                            <!--<input type="submit" name="submit" value="Change">-->
+                        </form>
                     </div>
                 ';
                 array_push($media, $string);
@@ -55,6 +61,12 @@
                                 <p>' . $desc . '</p>
                             </div>
                         </a>
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <input type="button" name="remove" onclick="this.form.submit()">
+                            <input type="hidden" name="media" value="' . $mediaID .'">
+                            <input type="hidden" name="formtype" value="remove">
+                            <!--<input type="submit" name="submit" value="Change">-->
+                        </form>
                     </div>
                 ';
                 array_push($media, $string);
@@ -68,6 +80,12 @@
                                 <p>' . $desc . '</p>
                             </div>
                         </a>
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <input type="button" name="remove" onclick="this.form.submit()">
+                            <input type="hidden" name="media" value="' . $mediaID .'">
+                            <input type="hidden" name="formtype" value="remove">
+                            <!--<input type="submit" name="submit" value="Change">-->
+                        </form>
                     </div>
                 ';
                 array_push($media, $string);
@@ -77,40 +95,48 @@
         return array_unique($media);
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        // ensure user logged in before continuing
-        if(!isset($_COOKIE['user'])) {
-            header("Location: /~cguynup/metube/missingcookie.php", true, 301);
-        }
-
-        $querys = [];
-        $playlsitID = "";
-        if (isset($_GET['playlistID'])) {
-            $playlistID = $_GET['playlistID'];
-        } else {
-            die("Could not get playlist ID! Is it valid?");
-        }
-        $userID = $_COOKIE['user'];
-        $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
-        $results = mysqli_query($mysqli, $query);
-        while($row = mysqli_fetch_row($results)) {
-            $mediaID = $row['mediaID'];
-            $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
-            array_push($querys, $query);
-        }
-        $media = setMedia($querys, $mysqli);
-      
-        // foreach($_GET['category'] as $category) {
-        //     $words = explode(' ', $_GET['search']);
-        //     foreach($words as $word) {
-        //         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.mediaTitle, Media.description FROM
-        //             Media INNER JOIN (Media_Category INNER JOIN Category ON (Media_Category.CategoryID = Category.CategoryID))
-        //             ON (Media.mediaID = Category.mediaID INNER JOIN Media_Keyword ON (Media.mediaID = Media_Keyword.mediaID))
-        //             WHERE (Media_Keyword.word = '$word') & (Category.categoryValue = '$category')");
-        //     }
-        // }
-        // $media = setMedia($querys, $mysqli);
+    // ensure user logged in before continuing
+    if(!isset($_COOKIE['user'])) {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     }
+
+    $querys = [];
+    $playlsitID = "";
+    if (isset($_GET['playlistID'])) {
+        $playlistID = $_GET['playlistID'];
+    } else {
+        die("Could not get playlist ID! Is it valid?");
+    }
+    $userID = $_COOKIE['user'];
+
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        if ($_POST['formtype'] == 'nameChange') {
+            $name = $_POST['name'];
+            $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
+            $results = mysqli_query($mysqli, $query);
+        } elseif ($_POST['formtype'] == 'remove') {
+            $mediaID = $_POST['mediaID'];
+            $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID' AND mediaID = '$mediaID'";
+            $results = mysqli_query($mysqli, $query);
+        } elseif ($_POST['formtype'] == 'deletePlaylist') {
+            $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID'";
+            $results = mysqli_query($mysqli, $query);
+            $query = "DELETE FROM Playlist WHERE playlistID = '$playlistID'";
+            $results = mysqli_query($mysqli, $query);
+            $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
+            $results = mysqli_query($mysqli, $query);
+        } 
+
+    }
+
+    $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
+    $results = mysqli_query($mysqli, $query);
+    while($row = mysqli_fetch_row($results)) {
+        $mediaID = $row['mediaID'];
+        $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
+        array_push($querys, $query);
+    }
+    $media = setMedia($querys, $mysqli);
     
 ?>
 <!DOCTYPE html>
@@ -152,6 +178,13 @@
             </div>
         </nav>
         <div class="profile-home row">
+            <div class="row">
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <input type="text" name="playlistname" onchange="this.form.submit()" value="<?echo htmlspecialchars($values['playlistID']);?>">
+                    <input type="hidden" name="formtype" value="nameChange">
+                    <!--<input type="submit" name="submit" value="Change">-->
+                </form>
+            </div>
             <div class="row">
                 <div class="col s12">
                     <?php
