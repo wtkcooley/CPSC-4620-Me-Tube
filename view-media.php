@@ -29,45 +29,44 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    if(!isset($_COOKIE['user'])) {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
-    }
-    $playlistName = $_POST['playlistName'];
+        if(!isset($_COOKIE['user'])) {
+            header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        }
+        $playlistName = $_POST['playlistName'];
 
-    // get playlists
-    $user = $_GET['user'];
-    $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
-    $result = $mysqli->query($query);
-    
-    if(in_array($playlistName, $result)) {
-        // get ID of playlist
-        $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName='$playlistName'";
+        // get playlists
+        $user = $_GET['user'];
+        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
         $result = $mysqli->query($query);
-        // add to playlist_media
-        $mediaID = $_GET['mediaID'];
-        $playlistID = $result['playlistID'];
-        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-    } else {
-        $mediaID = $_GET['mediaID'];
-        $playlistID = $result['playlistID'];
-        // create playlist
-        $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ('$playlistName', '$user', 0)";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        // get playlist ID
-        $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
-        $result = $mysqli->query($query);
-        // insert into user playlist table
-        $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        // insert into playlist media table
-        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
-        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-    }
+        
+        if(in_array($playlistName, $result)) {
+            // get ID of playlist
+            $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName='$playlistName'";
+            $result = $mysqli->query($query);
+            // add to playlist_media
+            $playlistID = $result['playlistID'];
+            $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        } else {
+            $mediaID = $_GET['mediaID'];
+            $playlistID = $result['playlistID'];
+            // create playlist
+            $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ('$playlistName', '$user', 0)";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            // get playlist ID
+            $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
+            $result = $mysqli->query($query);
+            // insert into user playlist table
+            $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            // insert into playlist media table
+            $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        }
 
-    // redirect back to page
-    header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
-}
+        // redirect back to page
+        header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -206,6 +205,7 @@
             <!--<a class="waves-effect waves-light btn "><i class="material-icons left">playlist_add</i>Add to playlist</a>-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <input name="playlistName" id="playlistName" type="text" placehodler="Enter playlist name...">
+                <input type="hidden" name="mediaID" value="<?php echo $_GET["mediaID"];?>">
                 <button class="btn waves-effect waves-light" type="submit" name="action">Add to Playlist</button>
             </form>
         </div>
