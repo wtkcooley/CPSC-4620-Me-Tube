@@ -204,7 +204,7 @@
                 <form method="POST" class="col 4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='button' disabled='disabled' name='deletePlaylist' onclick='this.form.submit()' value=''>";
+                            echo "";
                         else
                             echo "<input type='button' name='deletePlaylist' onclick='this.form.submit()' value='Delete'>";
                     ?>
