@@ -296,7 +296,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         while($row = mysqli_fetch_array($result)) {
             $commentUser = $row['commentUser'];
             $comment = $row['comment'];
-            echo "$commentUser says: $comment\r\n";
+            echo "$commentUser says: $comment";
+            echo "<br />";
+            echo "<br />";
         }
         ?>
 
