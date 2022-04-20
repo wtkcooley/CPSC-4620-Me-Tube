@@ -41,7 +41,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 // Code to allow certain file formats
 // mp4, wav, mp3, mov, png, jpg, gif
 if($imageFileType != "mp4" && $imageFileType != "wav" && $imageFileType != "mp3"
-&& $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "gif") {
+&& $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "gif") {
   echo "Sorry, only the following files are supported: mp4, wav, mp3, mov, png, jpg, and gif";
   $uploadOk = 0;
 }
