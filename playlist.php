@@ -133,7 +133,7 @@
     $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
     echo $query;
     $results = mysqli_query($mysqli, $query);
-    $row = mysqli_fetch_row($results);
+    $row = mysqli_fetch_array($results);
     $playlistName = $row['playlistName'];
     $isFavorite = $row['favorites'];
     mysqli_free_result($results);
