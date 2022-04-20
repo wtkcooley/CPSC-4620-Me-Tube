@@ -79,8 +79,8 @@
                     $query = "SELECT * FROM Subscription WHERE subscriber='$userID' AND subscribee='$channelID'";
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows == 0) {
-                        $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-                        ('{$userID}', '{$channelID}')";
+                        $query = "INSERT INTO Subscription (subscriber, subscribee, dateSubscribed) VALUES 
+                        ('{$userID}', '{$channelID}', NOW())";
                         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     }
                 } else {
@@ -102,7 +102,7 @@
                         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                         if($result->num_rows == 0) {
                             $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
-                            ('{$userID}', '{$channelID}', 1, '{NOW()}')";
+                            ('{$userID}', '{$channelID}', 1, NOW())";
                             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                         } else {
                             $query = "UPDATE Relation SET status = 1, dateModified=NOW() WHERE (uname1 = '$userID' AND uname2 = '$channelID')";
