@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Echo back path
             if($result->num_rows == 1) {
                 $title = $result -> fetch_assoc();
-                echo "$title";
+                echo "'{$title}'";;
             }
             ?></h5>
 
