@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mediaID = $_GET['mediaID'];
         $playlistID = $result['playlistID'];
         // create playlist
-        $query = "INSERT INTO Playlist (playlistName, createUser) VALUES ($playlistName, $user)";
+        $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ($playlistName, $user, 0)";
         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         // get playlist ID
         $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
