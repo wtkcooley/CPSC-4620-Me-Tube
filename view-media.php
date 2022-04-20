@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $desc = $result -> fetch_array();
 
             // Print query results
-            echo "$desc";
+            echo "$desc['description']";
             ?>
         </div>
 
