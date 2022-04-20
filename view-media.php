@@ -232,10 +232,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Query for path based on mediaID
             $query = "SELECT description FROM Media WHERE mediaID=$mediaID";
             $result = $mysqli->query($query);
-            // $desc = $result -> fetch_assoc();
+            $desc = $result -> fetch_array();
 
             // Print query results
-            echo "$result['description']";
+            echo "$desc['description']";
             ?>
         </div>
 
