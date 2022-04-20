@@ -202,8 +202,7 @@
             <!--PLAYLIST-->
             <!--<a class="waves-effect waves-light btn "><i class="material-icons left">playlist_add</i>Add to playlist</a>-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-                <textarea name="playlistName" id="playlistName" class="materialize-textarea"></textarea>
-                <label for="playlistName">Enter playlist name...</label>
+                <input name="playlistName" id="playlistName" type="text" placehodler="Enter playlist name...">
                 <button class="btn waves-effect waves-light" type="submit" name="action">Add to Playlist</button>
             </form>
         </div>
