@@ -13,12 +13,13 @@
 
     $channelID = -1;
     if (isset($_GET['channelID'])) {
-        $mediaID = $_GET['channelID'];
+        $channelID = $_GET['channelID'];
     } else {
         die("Could not get channelID! Is it valid?");
     }
 
     $subed = FALSE;
+    $media;
     $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$channelID')";
     $results = mysqli_query($mysqli, $query);
     if($results) {
