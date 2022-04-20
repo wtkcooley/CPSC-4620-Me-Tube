@@ -11,7 +11,11 @@
         exit();
     }
 
-    $mediaID = $_GET['mediaID'];
+    if(isset($_GET['mediaID'])) {
+        $mediaID = $_GET['mediaID'];
+    } else {
+        $mediaID = $_REQUEST['mediaID'];
+    }
 
     $query = "SELECT uploadUser, title, description, mediaType, path FROM Media WHERE mediaID = '$mediaID'";
     $result = mysqli_query($mysqli, $query);
