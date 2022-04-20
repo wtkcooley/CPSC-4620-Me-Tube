@@ -44,8 +44,8 @@
   }
 
   if (empty($form_errors)) {
-    setcookie("user", $values['username'], time() + 86400, "/~wcooley/metube"); //set a cookie that holds the current user; 86400 = 1 day
-    header("Location: /~wcooley/metube/profile-home.php", true, 301); //redirect to the profile home
+    setcookie("user", $values['username'], time() + 86400, "/~cguynup/metube"); //set a cookie that holds the current user; 86400 = 1 day
+    header("Location: /~cguynup/metube/profile-home.php", true, 301); //redirect to the profile home
     exit;
   }
 }
@@ -68,7 +68,7 @@
 
   <style>
     body {
-      background-image: url('/~wcooley/metube/images/main_bg.jpg');
+      background-image: url('/~cguynup/metube/images/main_bg.jpg');
       background-repeat: no-repeat;
     }
     div.centerform {
@@ -131,10 +131,10 @@
         </div>
         <div class="row">
           <input class="z-depth-5 formbtn"  type="submit" value="Login" />
-          <a class="z-depth-5 formbtn" href="/~wcooley/metube/createaccnt.php">Create Account</a>
+          <a class="z-depth-5 formbtn" href="/~cguynup/metube/createaccnt.php">Create Account</a>
         </div>
         <div class="row">
-          <a href="/~wcooley/metube/browse.php">
+          <a href="/~cguynup/metube/browse.php">
             <p6>Return home...</p6>
           </a>
         </div>

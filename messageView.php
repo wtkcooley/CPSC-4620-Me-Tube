@@ -9,7 +9,7 @@
 
   //if a user is not logged in
   if(!isset($_COOKIE["user"])){
-    header("Location: /~wcooley/metube/missingcookie.php", true, 301);
+    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     exit;
   }
 
