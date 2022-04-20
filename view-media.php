@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Echo back path
             if($result->num_rows == 1) {
                 $title = $result -> fetch_assoc();
-                echo "'{$title['title']}'";;
+                echo "{$title['title']}";;
             }
             ?></h5>
 
@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $desc = $result -> fetch_array();
 
             // Print query results
-            echo "'{$desc['description']}'";
+            echo "{$desc['description']}";
             ?>
         </div>
 
