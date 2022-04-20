@@ -143,11 +143,11 @@
             <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
             <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
             <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
+            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">

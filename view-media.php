@@ -17,29 +17,28 @@
 </head>
 
 <!--INSERT NAVBAR INCLUSION-->
-<ul id="page" class="dropdown-content">
-    <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-    <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-    <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-    <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-    <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
-</ul>
-<nav>
-    <div class="nav-wrapper row teal lighten-2">
-        <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
-        <?php
-            if(isset($_COOKIE['user'])) {
-                echo '<ul id="nav-mobile" class="right">
-                    <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>';
-            } else {
-                echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
-            }
-        ?>
-    </div>
-</nav>
-
 <body class="blue-grey darken-3">
+    <ul id="page" class="dropdown-content">
+            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper row teal lighten-2">
+                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                    }
+                ?>
+            </div>
+        </nav>
     <div class="view-media row">
         <!--MEDIA PLAYER-->
         <div class="row">
