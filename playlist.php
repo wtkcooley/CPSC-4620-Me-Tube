@@ -114,18 +114,18 @@
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_POST['formtype'] == 'nameChange') {
             $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
-            $results = mysqli_query($mysqli, $query);
+            mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'remove') {
             $mediaID = $_POST['mediaID'];
             $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID' AND mediaID = '$mediaID'";
-            $results = mysqli_query($mysqli, $query);
+            mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'deletePlaylist') {
             $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID'";
-            $results = mysqli_query($mysqli, $query);
+            mysqli_query($mysqli, $query);
             $query = "DELETE FROM Playlist WHERE playlistID = '$playlistID'";
-            $results = mysqli_query($mysqli, $query);
+            mysqli_query($mysqli, $query);
             $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
-            $results = mysqli_query($mysqli, $query);
+            mysqli_query($mysqli, $query);
         } 
 
     }
@@ -135,6 +135,7 @@
     $row = mysqli_fetch_row($results);
     $playlistName = $row['playlistName'];
     $isFavorite = $row['favorites'];
+    mysqli_free_result($results);
     $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
     while($row = mysqli_fetch_row($results)) {
