@@ -42,7 +42,7 @@
                                 </div>
                             </a>
                             <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
-                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="button" name="remove" value="Remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
                                 <input type="hidden" name="playlistID" value=' . $playlistID . '>
@@ -62,7 +62,7 @@
                                 </div>
                             </a>
                             <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
-                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="button" name="remove" value="Remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
                                 <input type="hidden" name="playlistID" value=' . $playlistID . '>
@@ -82,7 +82,7 @@
                                 </div>
                             </a>
                             <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
-                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="button" name="remove" value="Remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
                                 <input type="hidden" name="playlistID" value=' . $playlistID . '>
@@ -114,13 +114,12 @@
     $userID = $_COOKIE['user'];
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-        echo $_POST['formtype'];
         if ($_POST['formtype'] == 'nameChange') {
             $name =$_POST['playlistname'];
             $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
             mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'remove') {
-            $mediaID = $_POST['mediaID'];
+            $mediaID = $_POST['media'];
             $query = "DELETE FROM Playlist_Media WHERE playlistID = '$playlistID' AND mediaID = '$mediaID'";
             mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'deletePlaylist') {
@@ -207,9 +206,9 @@
                 <form method="POST" class="col 4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='button' disabled='disabled' name='deletePlaylist' onchange='this.form.submit()' value=''>";
+                            echo "<input type='button' disabled='disabled' name='deletePlaylist' onclick='this.form.submit()' value=''>";
                         else
-                            echo "<input type='button' name='deletePlaylist' onchange='this.form.submit()' value='Delete'>";
+                            echo "<input type='button' name='deletePlaylist' onclick='this.form.submit()' value='Delete'>";
                     ?>
                     <input type="hidden" name="formtype" value="deletePlaylist">
                     <?php echo "<input type='hidden' name='playlistID' value='$playlistID'>" ?>
