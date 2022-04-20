@@ -138,15 +138,15 @@
                                 <label>
                                     <?php
                                         if ($subed) {
-                                            echo "<input name='sub' type='checkbox' checked='checked'/>";
+                                            echo "<input onchange='this.form.submit()' name='sub' type='checkbox' checked='checked'/>";
                                         } else {
-                                            echo "<input name='sub' type='checkbox' />";
+                                            echo "<input onchange='this.form.submit()' name='sub' type='checkbox' />";
                                         }
                                     ?>
                                     <span>Subscribed</span>
                                 </label>
                             </p>
-                            <input type="submit" name="submit" value="Submit"/>
+                            <!--<input type="submit" name="submit" value="Submit"/>-->
                         </form>
                     </div>
                 </div>
