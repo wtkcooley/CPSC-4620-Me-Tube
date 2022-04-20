@@ -101,7 +101,7 @@
     }
 
     $querys = [];
-    $playlsitID = "";
+    $playlistID = "";
     $playlistName = "";
     $isFavorite = "";
     if (isset($_GET['playlistID'])) {
@@ -131,6 +131,7 @@
     }
 
     $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
+    echo $query;
     $results = mysqli_query($mysqli, $query);
     $row = mysqli_fetch_row($results);
     $playlistName = $row['playlistName'];
