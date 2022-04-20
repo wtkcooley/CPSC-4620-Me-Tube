@@ -1,7 +1,7 @@
 <?php
     // ensure user is logged in
     if(!isset($_COOKIE['user'])) {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        header("Location: /~wcooley/metube/missingcookie.php", true, 301);
     }
 
     //connect to our database
@@ -19,22 +19,21 @@
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
     function setPlaylist($querys, $mysqli) {
         $playlist = [];
-        //$querys = array_unique($querys);
+        $querys = array_unique($querys);
         foreach($querys as $query) {
             $results = mysqli_query($mysqli, $query);
             if($result) {
-                while ($row = $results->fetch_assoc()) {
+                while ($row = mysqli_fetch_array($results)) {
                     $playlistName = $row['playlistID'];
                     $playlistName = $row['playlistName'];
                     
                     $string = '
                         <div class="col s3">
-                            <div class="row" href="/~cguynup/metube/?playlistID=' . $playlistID . '">
-                                <image src="/~cguynup/metube/images/placehodler.png" class="col s12">
+                            <div class="row" href="/~wcooley/metube/playlist.php?playlistID=' . $playlistID . '">
+                                <image src="/~wcooley/metube/images/placehodler.png" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>
-                                    <p></p>
                                 </div>
                             </div>
                         </div>
@@ -46,29 +45,74 @@
         return array_unique($playlist);
     }
 
-    $userID = $_COOKIE['user'];
-    $querys = [];
-    $playlist = [];
-    $playlistIDs = [];
-    $query = "SELECT playlistID FROM User_Playlist WHERE (username = '$userID')";
-    $results = mysqli_query($mysqli, $query);
-    if($results) {
-        while($row = mysqli_fetch_array($results)) {
-            array_push($playlistIDs, $row['playlistID']);
-        }
-        foreach($playlistIDs as $playlistID) {
-            $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = '$playlistID'";
-            array_push($querys, $str);
-        }
-        $playlist = setPlaylist($querys, $mysqli);
-    }
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        $userID = $_COOKIE['user'];
+        $querys = [];
+        $media = [];
+        $mediaIDs = [];
+        $playlist = [];
+        $playlistIDs = [];
 
-    $query = "SELECT fname, lname, email FROM User WHERE username='$userID'";
-    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-    $array = mysqli_fetch_array($result);
-    $name = $array['fname'] . ' ' . $array['lname'];
-    $email = $array['email'];
-    
+        //get media
+        $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$userID')";
+        $results = mysqli_query($mysqli, $query);
+        if($results) {
+            while ($row = mysqli_fetch_array($results)) {
+                $mediaID = $row['mediaID'];
+                $mediaType = $row['mediaType'];
+                $path = $row['path'];
+                $title = $row['title'];
+                $desc = $row['description'];
+                if ($mediaType == "IMAGE") {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img src="' . $path . '" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                } else {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img src="/metube/images/videoThumbnail.png" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                }
+            }
+        }
+
+        //get playlists
+        $query = "SELECT playlistID FROM User_Playlist WHERE (username = '$userID')";
+        $results = mysqli_query($mysqli, $query);
+        if($results) {
+            while($row = mysqli_fetch_array($results)) {
+                array_push($playlistIDs, $row['playlistID']);
+            }
+            foreach($playlistIDs as $playlistID) {
+                $str = "SELECT playlistID, playlistName FROM Playlist WHERE playlistID = '$playlistID'";
+                array_push($querys, $str);
+            }
+            $playlist = setPlaylist($querys, $mysqli);
+        }
+
+        $query = "SELECT fname, lname, email FROM User WHERE username='$userID'";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        $array = mysqli_fetch_array($result);
+        $name = $array['fname'] . ' ' . $array['lname'];
+        $email = $array['email'];
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -85,42 +129,26 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-    <ul id="page" class="dropdown-content">
-        <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-        <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-        <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-        <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
-    </ul>
-    <nav>
-        <div class="nav-wrapper row teal lighten-2">
-            <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
-            <?php
-                if(isset($_COOKIE['user'])) {
-                    echo '<ul id="nav-mobile" class="right">
-                        <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
-                    </ul>';
-                } else {
-                    echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
-                }
-            ?>
-        </div>
-    </nav>
-
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.html">Upload</a></li>
+            <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
-                <ul id="nav-mobile" class="right">
-                    <li><a class="waves-effect waves-light" href="/profile-edit.html">Edit Profile</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="page">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<ul id="nav-mobile" class="right">
+                            <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>';
+                    } else {
+                        echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                    }
+                ?>
             </div>
         </nav>
         <div class="profile-home row">
@@ -140,15 +168,15 @@
                     <h4>My Playlist:</h4>
                     <div class="row">
                         <?php
-                                $i = 0;
-                                foreach($playlist as $p) {
-                                    $i++;
-                                    echo $p;
-                                    if($i == 4) {
-                                        echo "</div>\n<div class=row>\n";
-                                    }
+                            $i = 0;
+                            foreach($playlist as $p) {
+                                $i++;
+                                echo $p;
+                                if($i == 4) {
+                                    echo "</div>\n<div class=row>\n";
                                 }
-                            ?>
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -156,11 +184,20 @@
                 <div class="col s12">
                     <h4>My Media:</h4>
                     <div class="row">
-
+                        <?php
+                            $i = 0;
+                            foreach($media as $m) {
+                                $i++;
+                                echo $m;
+                                if($i == 4) {
+                                    echo "</div>\n<div class=row>\n";
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
-            <iframe src="/~cguynup/metube/contactlist.php"></iframe>
+            <iframe src="/~wcooley/metube/contactlist.php"></iframe>
         </div>
     </body>
     <script>

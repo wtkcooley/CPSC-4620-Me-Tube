@@ -13,29 +13,78 @@
 
     $channelID = -1;
     if (isset($_GET['channelID'])) {
-        $mediaID = $_GET['channelID'];
+        $channelID = $_GET['channelID'];
     } else {
         die("Could not get channelID! Is it valid?");
     }
 
+    $subed = FALSE;
+    $media= [];
+    $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$channelID')";
+    $results = mysqli_query($mysqli, $query);
+    if($results) {
+        while ($row = mysqli_fetch_array($results)) {
+            $mediaID = $row['mediaID'];
+            $mediaType = $row['mediaType'];
+            $path = $row['path'];
+            $title = $row['title'];
+            $desc = $row['description'];
+            if ($mediaType == "IMAGE") {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img src="' . $path . '" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4>
+                                <p></p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
+            } else {
+                $string = '
+                    <div class="col s3">
+                        <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img src="/metube/images/videoThumbnail.png" class="col s12">
+                            <div class="col s12">
+                                <h4>' . $title . '</h4>
+                                <p>' . $desc . '</p>
+                            </div>
+                        </a>
+                    </div>
+                ';
+                array_push($media, $string);
+            }
+        }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if(isset($_COOKIE['user'])) {
+            $userID = $_COOKIE['user'];
+            $sub = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
+            if($sub) {
+                $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
+                ('{$userID}', '{$channelID}')";
+                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            } else {
+                $query = "DELETE FROM Subscription WHERE 
+                subscriber = '$userID' AND subscribee = '$channelID'";
+                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            }
+        } else {
+            header("Location: /~wcooley/metube/missingcookie.php", true, 301);
+        }
+    }
     // Ensure user logged in before continuing
     if(isset($_COOKIE['user'])) {
         $userID = $_COOKIE['user'];
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-            ('{$channelID}', '{$userID}')";
-            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        }
-    } else {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        $query = "SELECT * FROM Subscription WHERE subscribee = '$channelID' AND subscriber = '$userID'";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+        if($result->num_rows >= 1)
+            $subed = TRUE;
     }
-
-    $query = "SELECT * FROM Subscription WHERE subscrbee=$channelID AND subscriber=$userID";
-    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-
-    $subed = FALSE;
-    if($result->num_rows >= 1)
-        $subed = TRUE;
 
 ?>
 <!DOCTYPE html>
@@ -55,22 +104,22 @@
     </head>
     <body class="blue-grey darken-3">
     <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/edit-profile.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Logout</a></li>
+            <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/index.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/index.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>
@@ -86,18 +135,18 @@
                         </h5>
                         <form class="col s6" method="POST">
                             <p>
-                            <label>
-                                <?php
-                                    if ($subed) {
-                                        echo "<input type='checkbox' checked='checked' onchange='this.form.submit()'/>
-                                        <span>Subscribed</span>";
-                                    } else {
-                                        echo "<input type='checkbox' onchange='this.form.submit()'/>
-                                        <span>Subscribed</span>";
-                                    }
-                                ?>
-                            </label>
+                                <label>
+                                    <?php
+                                        if ($subed) {
+                                            echo "<input onchange='this.form.submit()' name='sub' type='checkbox' checked='checked'/>";
+                                        } else {
+                                            echo "<input onchange='this.form.submit()' name='sub' type='checkbox' />";
+                                        }
+                                    ?>
+                                    <span>Subscribed</span>
+                                </label>
                             </p>
+                            <!--<input type="submit" name="submit" value="Submit"/>-->
                         </form>
                     </div>
                 </div>
@@ -105,11 +154,26 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        
+                        <?php
+                            $i = 0;
+                            foreach($media as $m) {
+                                $i++;
+                                echo $m;
+                                if($i == 4) {
+                                    echo "</div>\n<div class=row>\n";
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
             
         </div>
     </body>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
+        });
+    </script>
 </html>
