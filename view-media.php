@@ -107,9 +107,9 @@
                         echo "</video>";
                     } else {
                         echo "<audio controls>";
-                        echo "    <source src=".$path." type='video/mp4'>";
-                        echo "    <source src=".$path." type='video/mp3'>";
-                        echo "    <source src=".$path." type='video/wav'>";
+                        echo "    <source src=".$path." type='audio/mp4'>";
+                        echo "    <source src=".$path." type='audio/mp3'>";
+                        echo "    <source src=".$path." type='audio/wav'>";
                         echo "    File type not supported.               ";
                         echo "</audio>";
                     }
