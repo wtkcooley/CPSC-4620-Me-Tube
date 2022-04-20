@@ -267,7 +267,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uploadUser = $result -> fetch_array();
 
             // Echo profile link
-            echo "<a href="/~cguynup/metube/channel.php?channelID={$uploadUser['uploadUser']}">Upload User: {$uploadUser['uploadUser']}</a>";
+            $link_address = "/~cguynup/metube/channel.php?channelID={$uploadUser['uploadUser']}"
+            echo "<a href="'.$link_address.'">Upload User: {$uploadUser['uploadUser']}</a>";
             ?>
         </div>
 
