@@ -1,6 +1,6 @@
 <?php
 // Ensure user is logged in
-if(!isset$_COOKIE['user']) {
+if(!isset($_COOKIE['user'])) {
     header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 
