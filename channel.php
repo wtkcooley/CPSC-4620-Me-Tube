@@ -162,7 +162,7 @@
         if($result->num_rows >= 1)
             $friends = TRUE;
         
-        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 3)";
+        $query = "SELECT * FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 3)";
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         if($result->num_rows >= 1)
             $denied = TRUE;

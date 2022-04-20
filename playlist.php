@@ -20,75 +20,77 @@
     }
 
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
-    function setMedia($querys, $mysqli) {
+    function setMedia($querys, $mysqli, $playlistID) {
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
                 $mediaID = $row['mediaID'];
-            $mediaType = $row['mediaType'];
-            $path = $row['path'];
-            $title = $row['title'];
-            $desc = $row['description'];
-            if ($mediaType == "IMAGE") {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
-            } else if ($mediaType == "VIDEO") {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
-            } else {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
+                $mediaType = $row['mediaType'];
+                $path = $row['path'];
+                $title = $row['title'];
+                $desc = $row['description'];
+                if ($mediaType == "IMAGE") {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                } else if ($mediaType == "VIDEO") {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                } else {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
                 }
             }
         }
@@ -104,8 +106,8 @@
     $playlistID = "";
     $playlistName = "";
     $isFavorite = "";
-    if (isset($_GET['playlistID'])) {
-        $playlistID = $_GET['playlistID'];
+    if (isset($_REQUEST['playlistID'])) {
+        $playlistID = $_REQUEST['playlistID'];
     } else {
         die("Could not get playlist ID! Is it valid?");
     }
@@ -126,8 +128,7 @@
             mysqli_query($mysqli, $query);
             $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
             mysqli_query($mysqli, $query);
-        } 
-
+        }
     }
 
     $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
@@ -138,12 +139,13 @@
     mysqli_free_result($results);
     $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
-    while($row = mysqli_fetch_row($results)) {
+    $querys = [];
+    while($row = mysqli_fetch_array($results)) {
         $mediaID = $row['mediaID'];
-        $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
+        $query = "SELECT mediaID, mediaType, title, description, path FROM Media WHERE mediaID = '$mediaID'";
         array_push($querys, $query);
     }
-    $media = setMedia($querys, $mysqli);
+    $media = setMedia($querys, $mysqli, $playlistID);
     
 ?>
 <!DOCTYPE html>
@@ -194,6 +196,18 @@
                             echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
+                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
+                    <!--<input type="submit" name="submit" value="Change">-->
+                </form>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <?php
+                        if($isFavorite)
+                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                        else
+                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                    ?>
+                    <input type="hidden" name="formtype" value="nameChange">
+                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
             </div>
