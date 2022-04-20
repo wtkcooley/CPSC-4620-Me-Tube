@@ -192,15 +192,18 @@
             $downloadUser = '';
             if(isset($_COOKIE['user'])) {
                 $downloadUser = $_COOKIE['user'];
+                $downloadIP = $_SERVER['REMOTE_ADDR'];
+                $downloadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
+                // Set up query
+                $query = "INSERT INTO Download (mediaID, downloadUser, downloadIP, downloadTime) VALUES ('$mediaID', '$downloadUser', '$downloadIP', '$downloadTime')";
+                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             } else {
-                $downloadUser = NULL;
+                $downloadIP = $_SERVER['REMOTE_ADDR'];
+                $downloadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
+                // Set up query
+                $query = "INSERT INTO Download (mediaID, downloadIP, downloadTime) VALUES ('$mediaID', '$downloadIP', '$downloadTime')";
+                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             }
-            $downloadIP = $_SERVER['REMOTE_ADDR'];
-            $downloadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
-
-            // Set up query
-            $query = "INSERT INTO Download (mediaID, downloadUser, downloadIP, downloadTime) VALUES ('$mediaID', '$downloadUser', '$downloadIP', '$downloadTime')";
-            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
             echo $path; 
             ?> download><i class="material-icons left">download</i>Download</a>

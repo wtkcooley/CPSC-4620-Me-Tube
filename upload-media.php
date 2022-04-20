@@ -15,7 +15,7 @@ if(!isset($_COOKIE['user'])) {
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 // Setup
 $target_dir = "media/";
-$target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . trim(basename($_FILES["fileToUpload"]["name"])); // "media/DATETIME_FILENAME.EXT"
+$target_file = $target_dir . $_COOKIE['user'] . date("_YmdHis_") . trim(basename($_FILES['fileToUpload']['name'])); // "media/USER_DATETIME_FILENAME.EXT"
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 date_default_timezone_set("America/New_York"); // maybe later we could grab timezone from ip location
@@ -36,7 +36,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 // mp4, wav, mp3, mov, png, jpg, gif
 if($imageFileType != "mp4" && $imageFileType != "wav" && $imageFileType != "mp3"
 && $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "gif") {
-  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+  echo "Sorry, only the following files are supported: mp4, wav, mp3, mov, png, jpg, and gif";
   $uploadOk = 0;
 }
 
