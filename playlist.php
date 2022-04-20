@@ -24,7 +24,6 @@
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
-            echo $query;
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
                 $mediaID = $row['mediaID'];
@@ -42,10 +41,11 @@
                                     <p>' . $desc . '</p>
                                 </div>
                             </a>
-                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -61,10 +61,11 @@
                                     <p>' . $desc . '</p>
                                 </div>
                             </a>
-                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -80,10 +81,11 @@
                                     <p>' . $desc . '</p>
                                 </div>
                             </a>
-                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <form method="POST" action='. htmlspecialchars($_SERVER["PHP_SELF"]) . '>
                                 <input type="button" name="remove" onclick="this.form.submit()">
                                 <input type="hidden" name="media" value="' . $mediaID .'">
                                 <input type="hidden" name="formtype" value="remove">
+                                <input type="hidden" name="formtype" value=' . $playlistID . '>
                                 <!--<input type="submit" name="submit" value="Change">-->
                             </form>
                         </div>
@@ -104,8 +106,8 @@
     $playlistID = "";
     $playlistName = "";
     $isFavorite = "";
-    if (isset($_GET['playlistID'])) {
-        $playlistID = $_GET['playlistID'];
+    if (isset($_REQUEST['playlistID'])) {
+        $playlistID = $_REQUEST['playlistID'];
     } else {
         die("Could not get playlist ID! Is it valid?");
     }
@@ -126,8 +128,7 @@
             mysqli_query($mysqli, $query);
             $query = "DELETE FROM User_Playlist WHERE playlistID = '$playlistID'";
             mysqli_query($mysqli, $query);
-        } 
-
+        }
     }
 
     $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
@@ -195,6 +196,7 @@
                             echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
+                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
                     <!--<input type="submit" name="submit" value="Change">-->
                 </form>
             </div>
