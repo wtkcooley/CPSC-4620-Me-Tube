@@ -141,7 +141,7 @@
     $querys = [];
     while($row = mysqli_fetch_array($results)) {
         $mediaID = $row['mediaID'];
-        $query = "SELECT mediaID, mediaType, title, description FROM Media WHERE mediaID = '$mediaID'";
+        $query = "SELECT mediaID, mediaType, title, description, path FROM Media WHERE mediaID = '$mediaID'";
         array_push($querys, $query);
     }
     $media = setMedia($querys, $mysqli);
