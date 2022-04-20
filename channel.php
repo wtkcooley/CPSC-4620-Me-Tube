@@ -27,6 +27,9 @@
     }
 
     $subed = FALSE;
+    $friends = FALSE;
+    $pending = FALSE;
+    $denied = FALSE;
     $media= [];
     $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$channelID')";
     $results = mysqli_query($mysqli, $query);
@@ -70,16 +73,56 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if(isset($_COOKIE['user'])) {
             $userID = $_COOKIE['user'];
-            $sub = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
-            if($sub) {
-                $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-                ('{$userID}', '{$channelID}')";
-                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-            } else {
-                $query = "DELETE FROM Subscription WHERE 
-                subscriber = '$userID' AND subscribee = '$channelID'";
-                mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            if($_POST['formtype'] == 'sub') {
+                $sub = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
+                if($sub) {
+                    $query = "SELECT * FROM Subscription WHERE subscriber='$userID' AND subscribee='$channelID'";
+                    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    if($result->num_rows == 0) {
+                        $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
+                        ('{$userID}', '{$channelID}')";
+                        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    }
+                } else {
+                    $query = "SELECT * FROM Subscription WHERE subscriber='$userID' AND subscribee='$channelID'";
+                    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    if($result->num_rows > 0) {
+                        $query = "DELETE FROM Subscription WHERE 
+                        subscriber = '$userID' AND subscribee = '$channelID'";
+                        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    }
+                }
+            } elseif ($_POST['formtype'] == 'friends') {
+                $friend = filter_input(INPUT_POST, 'friend', FILTER_SANITIZE_STRING);
+                if($friend) {
+                    $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
+                    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    if($result->num_rows == 0) {
+                        $query = "SELECT * FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 3)";
+                        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        if($result->num_rows == 0) {
+                            $query = "INSERT INTO Relation (uname1, uname2, status, dateModified) VALUES 
+                            ('{$userID}', '{$channelID}', 1, '{NOW()}')";
+                            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        } else {
+                            $query = "UPDATE Relation SET status = 1, dateModified=NOW() WHERE (uname1 = '$userID' AND uname2 = '$channelID')";
+                            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                        }
+                    } else {
+                        $query = "UPDATE Relation SET status = 2, dateModified=NOW() WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
+                        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    }
+                } else {
+                    $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2)";
+                    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    if($result->num_rows > 0)
+                        $query = "DELETE FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2)";
+                    else
+                        $query = "DELETE FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 2)";
+                    mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                }
             }
+        
         } else {
             header("Location: /~cguynup/metube/missingcookie.php", true, 301);
         }
@@ -89,9 +132,23 @@
         $userID = $_COOKIE['user'];
         $query = "SELECT * FROM Subscription WHERE subscribee = '$channelID' AND subscriber = '$userID'";
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-
         if($result->num_rows >= 1)
             $subed = TRUE;
+        
+        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 1)";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        if($result->num_rows >= 1)
+            $pending = TRUE;
+        
+        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2) OR (uname2 = '$channelID' AND uname1 = '$userID' AND status = 2)";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        if($result->num_rows >= 1)
+            $friends = TRUE;
+        
+        $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 3)";
+        $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        if($result->num_rows >= 1)
+            $denied = TRUE;
     }
 
 ?>
@@ -141,7 +198,7 @@
                                 echo $channelID;
                             ?>
                         </h5>
-                        <form class="col s6" method="POST">
+                        <form class="col s3" method="POST">
                             <p>
                                 <label>
                                     <?php
@@ -154,6 +211,26 @@
                                     <span>Subscribed</span>
                                 </label>
                             </p>
+                            <input type='hidden' name='formtype' value='sub'>
+                            <!--<input type="submit" name="submit" value="Submit"/>-->
+                        </form>
+                        <form class="col s3" method="POST">
+                            <p>
+                                <label>
+                                    <?php
+                                        if ($friends) {
+                                            echo "<input onchange='this.form.submit()' name='friend' type='checkbox' checked='checked'/><span>Friends</span>";
+                                        } elseif($pending) {
+                                            echo "<input onchange='this.form.submit()' name='friend' type='checkbox' disabled='disabled'/><span>Friend Request Pending</span>";
+                                        } elseif($denied) {
+                                            echo "<input onchange='this.form.submit()' name='friend' type='checkbox' disabled='disabled'/><span>Friend Request Denied :(</span>";
+                                        } else {
+                                            echo "<input onchange='this.form.submit()' name='friend' type='checkbox'/><span>Friends</span>";
+                                        }
+                                    ?>
+                                </label>
+                            </p>
+                            <input type='hidden' name='formtype' value='friends'>
                             <!--<input type="submit" name="submit" value="Submit"/>-->
                         </form>
                     </div>

@@ -28,7 +28,7 @@
                         $string = '
                             <div class="col s3">
                                 <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <img src="' . $path . '" class="col s12">
+                                    <img  src="' . $path . '" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p></p>
@@ -41,7 +41,7 @@
                         $string = '
                             <div class="col s3">
                                 <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                                    <img src="/metube/images/videoThumbnail.png" class="col s12">
+                                    <img  src="/metube/images/videoThumbnail.png" class="col s12">
                                     <div class="col s12">
                                         <h4>' . $title . '</h4>
                                         <p>' . $desc . '</p>
