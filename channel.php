@@ -19,7 +19,7 @@
     }
 
     $subed = FALSE;
-    $media;
+    $media= [];
     $query = "SELECT mediaID, mediaType, title, path, description FROM Media WHERE (uploadUser = '$channelID')";
     $results = mysqli_query($mysqli, $query);
     if($results) {
@@ -135,9 +135,9 @@
                         <form class="col s6" method="POST">
                             <?php
                                 if ($subed) {
-                                    echo "<input name='sub' type='checkbox' value='yes' checked='checked'/>";
+                                    echo "<input name='sub' type='checkbox' checked='checked'/>";
                                 } else {
-                                    echo "<input name='sub' type='checkbox' value='yes' />";
+                                    echo "<input name='sub' type='checkbox' />";
                                 }
                             ?>
                             <label for='sub'>Subscribed</label>
