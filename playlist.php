@@ -20,7 +20,7 @@
     }
 
     // takes in an array of querys and pushes a media element for each non duplicated resulting row
-    function setMedia($querys, $mysqli) {
+    function setMedia($querys, $mysqli, $playlistID) {
         $media = [];
         //$querys = array_unique($querys);
         foreach($querys as $query) {
@@ -145,7 +145,7 @@
         $query = "SELECT mediaID, mediaType, title, description, path FROM Media WHERE mediaID = '$mediaID'";
         array_push($querys, $query);
     }
-    $media = setMedia($querys, $mysqli);
+    $media = setMedia($querys, $mysqli, $playlistID);
     
 ?>
 <!DOCTYPE html>
@@ -188,6 +188,17 @@
         </nav>
         <div class="profile-home row">
             <div class="row">
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <?php
+                        if($isFavorite)
+                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                        else
+                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                    ?>
+                    <input type="hidden" name="formtype" value="nameChange">
+                    <?php echo "<input type='hidden' name='formtype' value='$playlistID'>" ?>
+                    <!--<input type="submit" name="submit" value="Change">-->
+                </form>
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
