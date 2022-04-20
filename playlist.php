@@ -115,6 +115,7 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_POST['formtype'] == 'nameChange') {
+            $name =$_POST['playlistname'];
             $query = "UPDATE Playlist SET playlistName='$name' WHERE playlistID = '$playlistID'";
             mysqli_query($mysqli, $query);
         } elseif ($_POST['formtype'] == 'remove') {
