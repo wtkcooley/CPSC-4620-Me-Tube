@@ -141,6 +141,7 @@
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         if($result->num_rows >= 1)
             $denied = TRUE;
+        echo $denied;
     }
 
 ?>
