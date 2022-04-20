@@ -142,7 +142,37 @@
         </div>
         
         <div class="row" style="padding: 10px;">
-            <a class="waves-effect waves-light btn " href=<?php echo $path; ?> download><i class="material-icons left">download</i>Download</a>
+            <a class="waves-effect waves-light btn " href=<?php 
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Get info for download table
+            $downloadUser = '';
+            if(isset($_COOKIE['user'])) {
+                $downloadUser = $_COOKIE['user'];
+            } else {
+                $downloadUser = NULL;
+            }
+            $downloadIP = $_SERVER['REMOTE_ADDR'];
+            $downloadTime = date("Y-m-d H:i:s"); // format YYYY-MM-DD hh:mm:ss
+
+            // Set up query
+            $query = "INSERT INTO Download (mediaID, downloadUser, downloadIP, downloadTime) VALUES ('$mediaID', '$downloadUser', '$downloadIP', '$downloadTime')";
+            mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+            echo $path; 
+            ?> download><i class="material-icons left">download</i>Download</a>
         </div>
         
         <div class="row" style="padding: 10px;">
