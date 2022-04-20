@@ -28,67 +28,67 @@
             $results = mysqli_query($mysqli, $query);
             while ($row = $results->fetch_assoc()) {
                 $mediaID = $row['mediaID'];
-            $mediaType = $row['mediaType'];
-            $path = $row['path'];
-            $title = $row['title'];
-            $desc = $row['description'];
-            if ($mediaType == "IMAGE") {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
-            } else if ($mediaType == "VIDEO") {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
-            } else {
-                $string = '
-                    <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
-                            <div class="col s12">
-                                <h4>' . $title . '</h4><br>
-                                <p>' . $desc . '</p>
-                            </div>
-                        </a>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <input type="button" name="remove" onclick="this.form.submit()">
-                            <input type="hidden" name="media" value="' . $mediaID .'">
-                            <input type="hidden" name="formtype" value="remove">
-                            <!--<input type="submit" name="submit" value="Change">-->
-                        </form>
-                    </div>
-                ';
-                array_push($media, $string);
+                $mediaType = $row['mediaType'];
+                $path = $row['path'];
+                $title = $row['title'];
+                $desc = $row['description'];
+                if ($mediaType == "IMAGE") {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                } else if ($mediaType == "VIDEO") {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
+                } else {
+                    $string = '
+                        <div class="col s3">
+                            <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                                <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
+                                <div class="col s12">
+                                    <h4>' . $title . '</h4><br>
+                                    <p>' . $desc . '</p>
+                                </div>
+                            </a>
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                <input type="button" name="remove" onclick="this.form.submit()">
+                                <input type="hidden" name="media" value="' . $mediaID .'">
+                                <input type="hidden" name="formtype" value="remove">
+                                <!--<input type="submit" name="submit" value="Change">-->
+                            </form>
+                        </div>
+                    ';
+                    array_push($media, $string);
                 }
             }
         }
@@ -141,7 +141,7 @@
     $querys = [];
     while($row = mysqli_fetch_array($results)) {
         $mediaID = $row['mediaID'];
-        $query = "SELECT mediaID, mediaType, mediaTitle, description FROM Media WHERE mediaID = '$mediaID'";
+        $query = "SELECT mediaID, mediaType, title, description FROM Media WHERE mediaID = '$mediaID'";
         array_push($querys, $query);
     }
     $media = setMedia($querys, $mysqli);
