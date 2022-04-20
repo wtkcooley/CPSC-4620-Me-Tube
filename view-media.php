@@ -43,7 +43,7 @@
         $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
         $result = $mysqli->query($query);
         
-        if(in_array($playlistName, $result)) {
+        if($result) {
             // get ID of playlist
             $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName='$playlistName'";
             $result = $mysqli->query($query);
