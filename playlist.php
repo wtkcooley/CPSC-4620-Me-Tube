@@ -132,10 +132,9 @@
 
     $query = "SELECT playlistName, favorites FROM Playlist WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
-    while($row = mysqli_fetch_row($results)) {
-        $playlistName = $row['mediaID'];
-        $isFavorite = $row['favorites'];
-    }
+    $row = mysqli_fetch_row($results);
+    $playlistName = $row['playlistName'];
+    $isFavorite = $row['favorites'];
     $query = "SELECT mediaID FROM Playlist_Media WHERE playlistID = '$playlistID'";
     $results = mysqli_query($mysqli, $query);
     while($row = mysqli_fetch_row($results)) {
