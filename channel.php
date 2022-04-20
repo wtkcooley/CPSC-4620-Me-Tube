@@ -98,12 +98,11 @@
                     }
                 } else {
                     $query = "SELECT * FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2)";
-                    echo $query;
                     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                     if($result->num_rows > 0)
-                        $query = "DELETE FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 3)";
+                        $query = "DELETE FROM Relation WHERE (uname1 = '$channelID' AND uname2 = '$userID' AND status = 2)";
                     else
-                        $query = "DELETE FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 3)";
+                        $query = "DELETE FROM Relation WHERE (uname1 = '$userID' AND uname2 = '$channelID' AND status = 2)";
                     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 }
             }
