@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = $mysqli->query($query);
             
             // Echo back path
-            if($title->num_rows == 1) {
+            if($result->num_rows == 1) {
                 $title = $result -> fetch_assoc();
                 echo "$title";
             }
