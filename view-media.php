@@ -40,28 +40,28 @@
 
         // get playlists
         $user = $_COOKIE['user'];
-        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user'";
+        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user' AND playlistName='$playlistName'";
         $result = $mysqli->query($query);
         
-        if($result) {
-            // get ID of playlist
-            $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user' AND playlistName='$playlistName'";
-            $result = $mysqli->query($query);
+        if(mysqli_num_rows($result) > 0) {
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
             // add to playlist_media
             $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
         } else {
-            $mediaID = $_REQUEST['mediaID'];
             // create playlist
             $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ('$playlistName', '$user', 0)";
             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+            mysqli_free_result($result);
+
             // get playlist ID
             $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
             $result = $mysqli->query($query);
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
+            
             // insert into user playlist table
             $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
