@@ -9,7 +9,7 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
 // Ensure user is logged in
 if(!isset($_COOKIE['user'])) {
-    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    header("Location: /~wcooley/metube/missingcookie.php", true, 301);
 }
 
 // save DB info
