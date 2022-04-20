@@ -2,7 +2,7 @@
 // Ensure user is logged in before continuing
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(!isset($_COOKIE['user'])) {
-        header("Location: /~wcooley/metube/missingcookie.php", true, 301);
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
     }
     $playlistName = $_POST['playlistName'];
 
