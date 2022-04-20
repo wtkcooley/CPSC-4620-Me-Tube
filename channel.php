@@ -65,11 +65,11 @@
             $sub = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
             if($sub) {
                 $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-                ('{$channelID}', '{$_COOKIE['user']}')";
+                ('{$userID}', '{$channelID}')";
                 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             } else {
                 $query = "DELETE FROM Subscription WHERE 
-                subscriber = $channelID AND subscribee = $userID";
+                subscriber = $userID AND subscribee = $channelID";
                 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             }
         } else {
