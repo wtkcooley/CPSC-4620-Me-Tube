@@ -43,7 +43,7 @@
         $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
         $result = $mysqli->query($query);
         $rarray = [];
-        while($row = $mysqli->get_array($result)) {
+        while($row = $result->fetch_row()) {
             $rarray[] = $row['playlistName'];
         }
         
