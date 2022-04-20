@@ -77,7 +77,7 @@
     // Ensure user logged in before continuing
     if(isset($_COOKIE['user'])) {
         $userID = $_COOKIE['user'];
-        $query = "SELECT * FROM Subscription WHERE subscribee=$channelID AND subscriber=$userID";
+        $query = "SELECT * FROM Subscription WHERE subscribee = $channelID AND subscriber = $userID";
         $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
         if($result->num_rows >= 1)
