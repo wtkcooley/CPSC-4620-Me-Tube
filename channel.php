@@ -133,14 +133,18 @@
                             ?>
                         </h5>
                         <form class="col s6" method="POST">
-                            <?php
-                                if ($subed) {
-                                    echo "<input name='sub' type='checkbox' checked='checked'/>";
-                                } else {
-                                    echo "<input name='sub' type='checkbox' />";
-                                }
-                            ?>
-                            <label for='sub'>Subscribed</label>
+                            <p>
+                                <label>
+                                    <?php
+                                        if ($subed) {
+                                            echo "<input name='sub' type='checkbox' checked='checked'/>";
+                                        } else {
+                                            echo "<input name='sub' type='checkbox' />";
+                                        }
+                                    ?>
+                                    <span>Subscribed</span>
+                                </label>
+                            </p>
                             <input type="submit" name="submit" value="Submit"/>
                         </form>
                     </div>
