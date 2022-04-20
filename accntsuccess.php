@@ -1,6 +1,6 @@
 <?php
 
-header( "refresh:10; url=/~cguynup/metube/login.php" );
+header( "refresh:5; url=/~cguynup/metube/login.php" );
 
 ?>
 <!DOCTYPE html>

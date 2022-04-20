@@ -1,6 +1,6 @@
 <?php
 
-header( "refresh:15; url=/~cguynup/metube/browse.php" );
+header( "refresh:10; url=/~cguynup/metube/browse.php" );
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ header( "refresh:15; url=/~cguynup/metube/browse.php" );
     <body style="background-image: url('/~cguynup/metube/images/main_bg.jpg');background-repeat: no-repeat">
         <div class="z-depth-5" style="color: #37474f; background-color: white; padding: 50px; border-radius: 15px 50px; margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); text-align: center;">
             <h4>Welcome to MeTube!</h4><br>
-            <p>This site uses cookies. You will be redirected to the home page in 15 seconds.</p>
+            <p>This site uses cookies. You will be redirected to the home page in 10 seconds.</p>
             <p>By entering the homepage you agree to the use of cookies!</p>
             <a href="/~cguynup/metube/browse.php"> Click here if it did not load...</a>
         </div>

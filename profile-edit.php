@@ -31,14 +31,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
      * table in our database. That's just too much. */
 
     // Get info from POST
-    $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
-    $fname = $_POST['first_name'];
-    $lname = $_POST['last_name'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
 
     // Set up query
-    $query = "UPDATE User SET password='$password', email='$email', fname='$fname', lname='$lname' WHERE username='$username'";
+    $query = "UPDATE User SET password='$password', email='$email', fname='$fname', lname='$lname' WHERE username='{$_COOKIE['user']}'";
 
     // Send query
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
@@ -64,6 +63,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .formbtn {
+            border: none; 
+            color: white; 
+            padding: 16px 32px; 
+            text-decoration: none; 
+            margin: 4px 2px; 
+            cursor: pointer; 
+            border-radius: 3px;
+        }
+    </style>
     </head>
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
@@ -87,46 +97,39 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
             </div>
         </nav>
-        <div class="profile-info row">
-            <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+        <div class="profile-info row" style="text-align: center;">
+        <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="row">
-                    <h4>Edit Profile</h4>
+                    <h4 style="color: white;">Edit Profile</h4>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="first_name" name="first_name" type="text" class="validate">
-                        <label for="first_name">First Name</label>
+                        <i class="material-icons prefix">person</i>
+                        <input name="fname" id="fname" type="text" class="validate" required>
+                        <label for="fname">First Name</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="last_name" name="last_name" type="text" class="validate">
-                        <label for="last_name">Last Name</label>
+                        <i class="material-icons prefix">person</i>
+                        <input name="lname" id="lname" type="text" class="validate" required>
+                        <label for="lname">Last Name</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" name="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input name="email" id="email" type="email" class="validate" required validate>
+                        <label for="email">Email</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="username" name="username" type="text" class="validate">
-                            <label for="username">Username</label>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input name="password" id="password" type="password" class="validate" required>
+                        <label for="password">Password</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="password" name="password" type="password" class="validate">
-                            <label for="password">Password</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <input type="submit"
-                            class="waves-effect waves-light btn col s12">
-                            Submit</input>
-                    </div>
+                </div>
+                <div class="row">
+                    <input class="z-depth-5 formbtn teal lighten-2" type="submit" value="Update Profile" />
                 </div>
             </form>
         </div>
