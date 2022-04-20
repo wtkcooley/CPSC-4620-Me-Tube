@@ -126,25 +126,6 @@
             </div>
         </div>
         <div class="row" style="padding: 10px;">
-            <a class="waves-effect waves-light btn " href=<?php echo $path; ?> download><i class="material-icons left">download</i>Download</a>
-        </div>
-        <div class="row">
-            <form class="col s12" action="/~cguynup/metube/submitComment.php" method="POST">
-                <div class="row">
-                    <div class="input-field col s11">
-                        <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
-                        <label for="comment">Add a comment...</label>
-                    </div>
-                    <div class="col s1">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit Comment</button>
-                    </div>
-                </div>
-                <!--hidden media id parameter-->
-                <input type="hidden" name="mediaID" value="<?php echo "$mediaID"; ?>">
-            </form>
-        </div>
-        
-        <div class="row" style="padding: 10px;">
             <a class="waves-effect waves-light btn " href=<?php 
             // Save DB info
             $db_host = 'mysql1.cs.clemson.edu';
@@ -176,6 +157,21 @@
 
             echo $path; 
             ?> download><i class="material-icons left">download</i>Download</a>
+        </div>
+        <div class="row">
+            <form class="col s12" action="/~cguynup/metube/submitComment.php" method="POST">
+                <div class="row">
+                    <div class="input-field col s11">
+                        <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
+                        <label for="comment">Add a comment...</label>
+                    </div>
+                    <div class="col s1">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit Comment</button>
+                    </div>
+                </div>
+                <!--hidden media id parameter-->
+                <input type="hidden" name="mediaID" value="<?php echo "$mediaID"; ?>">
+            </form>
         </div>
         
         <div class="row" style="padding: 10px;">
