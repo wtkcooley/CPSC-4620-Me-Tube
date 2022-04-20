@@ -64,6 +64,9 @@
         $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
         mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     }
+
+    // redirect back to page
+    header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
 }
 ?>
 
