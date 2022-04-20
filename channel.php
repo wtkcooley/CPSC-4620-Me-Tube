@@ -61,10 +61,11 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if(isset($_COOKIE['user'])) {
-            $subed = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
+            $userID = $_COOKIE['user'];
+            $sub = filter_input(INPUT_POST, 'sub', FILTER_SANITIZE_STRING);
             if($sub) {
                 $query = "INSERT INTO Subscription (subscriber, subscribee) VALUES 
-                ('{$channelID}', '{$userID}')";
+                ('{$channelID}', '{$_COOKIE['user']}')";
                 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             } else {
                 $query = "DELETE FROM Subscription WHERE 
