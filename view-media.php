@@ -1,3 +1,59 @@
+<?php
+// save DB info
+$db_host = 'mysql1.cs.clemson.edu';
+$db_username = 'MeTube_sjoz';
+$db_password = '4620Project!';
+$db_name = 'MeTube_24dp';
+
+// Connect to DB and handle error
+$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+if (mysqli_connect_errno()) {
+    // Connection failed!
+    echo "Connection failed: " . mysqli_connect_error();
+    exit();
+}
+
+// Ensure user is logged in before continuing
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    if(!isset($_COOKIE['user'])) {
+        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    }
+    $playlistName = $_POST['playlistName'];
+
+    // get playlists
+    $user = $_GET['user'];
+    $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
+    $result = $mysqli->query($query);
+    
+    if(in_array($playlistName, $result)) {
+        // get ID of playlist
+        $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName=$playlistName";
+        $result = $mysqli->query($query);
+        // add to playlist_media
+        $mediaID = $_GET['mediaID'];
+        $playlistID = $result['playlistID'];
+        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    } else {
+        $mediaID = $_GET['mediaID'];
+        $playlistID = $result['playlistID'];
+        // create playlist
+        $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ($playlistName, $user, 0)";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        // get playlist ID
+        $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
+        $result = $mysqli->query($query);
+        // insert into user playlist table
+        $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+        // insert into playlist media table
+        $query = "INSERT INTO Playlist_Media (playlistID, mediaID) VALUES ('$playlistID', '$mediaID')";
+        mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -79,8 +135,42 @@
             </iframe>
         </div>
 
+        <!--TITLE-->
         <div class="row">
-            <h5 class="col s6">Title</h5>
+            <h5 class="col s6"><?php 
+            // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                die("Could not get mediaID! Is it valid?");
+            }
+
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Query for title based on mediaID
+            $query = "SELECT title FROM Media WHERE mediaID=$mediaID";
+            $result = $mysqli->query($query);
+            
+            // Echo back path
+            if($result->num_rows == 1) {
+                $title = $result -> fetch_assoc();
+                echo "{$title['title']}";;
+            }
+            ?></h5>
+
             <div class="col s6">
                 <!--DOWNLOAD/PLAYLIST BUTTONS-->
                 <div class="right">
@@ -145,6 +235,42 @@
             </div>
         </div>
 
+        <!--CHANNEL-->
+        <div class="row">
+            <?php
+            // Get mediaID from URL sent by video browse page
+            $mediaID = -1;
+            if (isset($_GET['mediaID'])) {
+                $mediaID = $_GET['mediaID'];
+            } else {
+                echo "Could not get mediaID! Is it valid?";
+                die();
+            }
+
+            // Save DB info
+            $db_host = 'mysql1.cs.clemson.edu';
+            $db_username = 'MeTube_sjoz';
+            $db_password = '4620Project!';
+            $db_name = 'MeTube_24dp';
+
+            // Connect to DB and handle error
+            $mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+            if (mysqli_connect_errno()) {
+                // Connection failed!
+                echo "Connection failed: " . mysqli_connect_error();
+                exit();
+            }
+
+            // Query for channel name based on mediaID
+            $query = "SELECT uploadUser FROM Media WHERE mediaID=$mediaID";
+            $result = $mysqli->query($query);
+            $uploadUser = $result -> fetch_array();
+
+            // Echo profile link
+            echo "<a href='/~cguynup/metube/channel.php?channelID=" . $uploadUser['uploadUser'] . "'>Upload User: " . $uploadUser['uploadUser'] . "</a>";
+            ?>
+        </div>
+
         <!--DESCRIPTION FETCH-->
         <div class="row">
             <p class="col s12">Description</p>
@@ -176,10 +302,10 @@
             // Query for path based on mediaID
             $query = "SELECT description FROM Media WHERE mediaID=$mediaID";
             $result = $mysqli->query($query);
-            $desc = $result -> fetch_assoc();
+            $desc = $result -> fetch_array();
 
             // Print query results
-            echo "$desc";
+            echo "{$desc['description']}";
             ?>
         </div>
 
@@ -240,7 +366,9 @@
         while($row = mysqli_fetch_array($result)) {
             $commentUser = $row['commentUser'];
             $comment = $row['comment'];
-            echo "User $commentUser: $comment";
+            echo "$commentUser says: $comment";
+            echo "<br />";
+            echo "<br />";
         }
         ?>
 

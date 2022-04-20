@@ -88,8 +88,7 @@
             array_push($querys, $query);
         }
         $media = setMedia($querys, $mysqli);
-
-
+      
         // foreach($_GET['category'] as $category) {
         //     $words = explode(' ', $_GET['search']);
         //     foreach($words as $word) {

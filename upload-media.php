@@ -226,6 +226,7 @@ exit();
                             <option value="0" disabled selected>Choose your media type</option>
                             <option value="VIDEO">Video</option>
                             <option value="IMAGE">Image or GIF</option>
+                            <option value="AUDIO">Audio</option>
                         </select>
                         <label>Media Type</label>
                     </div>

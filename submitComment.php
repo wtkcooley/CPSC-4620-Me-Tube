@@ -12,6 +12,20 @@ if(!isset($_COOKIE['user'])) {
     header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 
+// save DB info
+$db_host = 'mysql1.cs.clemson.edu';
+$db_username = 'MeTube_sjoz';
+$db_password = '4620Project!';
+$db_name = 'MeTube_24dp';
+
+// Connect to DB and handle error
+$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);
+if (mysqli_connect_errno()) {
+    // Connection failed!
+    echo "Connection failed: " . mysqli_connect_error();
+    exit();
+}
+
 // Setup
 date_default_timezone_set("America/New_York"); // maybe later we could grab timezone from ip location
 $comment = "";
@@ -42,9 +56,10 @@ $commentTime = date("Y-m-d H:i:s");
 
 // Setup query
 $query = "INSERT INTO Comment (commentUser, mediaID, commentTime, comment)
-    VALUES ($commentUser, $mediaID, $commentTime, $comment)";
+    VALUES ('$commentUser', '$mediaID', '$commentTime', '$comment')";
 
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-exit();
+
+header("Location: /~ckharts/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
 
 ?>
