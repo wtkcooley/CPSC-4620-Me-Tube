@@ -43,7 +43,7 @@
         $query = "SELECT playlistName, playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user' AND playlistName='$playlistName'";
         $result = $mysqli->query($query);
         
-        if(mysqli_num_rows($result) != 0) {
+        if($result != false) {
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
             // add to playlist_media
