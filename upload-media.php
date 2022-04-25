@@ -12,6 +12,12 @@ if(!isset($_COOKIE['user'])) {
     header("Location: /~cguynup/metube/missingcookie.php", true, 301);
 }
 
+//set ini to allow for larger uploads in this script
+ini_set('upload_max_filesize', '50M');
+ini_set('post_max_size', '50M');
+ini_set('max_input_time', 300);
+ini_set('max_execution_time', 300);
+
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 // Setup
 $target_dir = "media/";
@@ -35,7 +41,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 // Code to allow certain file formats
 // mp4, wav, mp3, mov, png, jpg, gif
 if($imageFileType != "mp4" && $imageFileType != "wav" && $imageFileType != "mp3"
-&& $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "gif") {
+&& $imageFileType != "mov" && $imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "gif") {
   echo "Sorry, only the following files are supported: mp4, wav, mp3, mov, png, jpg, and gif";
   $uploadOk = 0;
 }

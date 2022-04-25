@@ -40,14 +40,10 @@
 
         // get playlists
         $user = $_COOKIE['user'];
-        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user";
+        $query = "SELECT playlistName FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username='$user' AND playlistName='$playlistName'";
         $result = $mysqli->query($query);
         
-        if($result != false) {
-            // PLAYLIST EXISTS
-            // get ID of playlist
-            $query = "SELECT playlistID FROM User_Playlist INNER JOIN Playlist ON User_Playlist.playlistID = Playlist.playlistID WHERE username=$user AND playlistName='$playlistName'";
-            $result = $mysqli->query($query);
+        if(mysqli_num_rows($result) != 0) {
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
             // add to playlist_media
@@ -59,11 +55,15 @@
             // create playlist
             $query = "INSERT INTO Playlist (playlistName, createUser, favorites) VALUES ('$playlistName', '$user', 0)";
             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+            mysqli_free_result($result);
+
             // get playlist ID
             $query = "SELECT playlistID FROM Playlist WHERE playlistName='$playlistName' AND createUser='$user'";
             $result = $mysqli->query($query);
             $rarray = $result->fetch_assoc();
             $playlistID = $rarray['playlistID'];
+            
             // insert into user playlist table
             $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('$user', '$playlistID')";
             mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
@@ -170,6 +170,12 @@
                     echo "<p>Uploaded by:</p>";
                     echo "<a href='/~cguynup/metube/channel.php?channelID=$uuser'>$uuser</a><br>";
                     echo "<p>$desc</p>";
+
+                    $query = "SELECT word FROM Media_Keyword WHERE mediaID='$mediaID'";
+                    $results = mysqli_query($mysqli, $query);
+                    while($row = mysqli_fetch_array($results)){
+                        echo "<div class='col s6 teal lighten-2 z-depth-2'>".$row['word']."</div>";
+                    }
 
                 ?>
             </div>

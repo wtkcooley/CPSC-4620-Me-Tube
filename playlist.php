@@ -193,9 +193,9 @@
                 <form method="POST" class="col 8" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <?php
                         if($isFavorite)
-                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                            echo "<input type='text' disabled='disabled' name='playlistname' onchange='this.form.submit()' value=\"" . $playlistName . "\">";
                         else
-                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value='$playlistName'>";
+                            echo "<input type='text' name='playlistname' onchange='this.form.submit()' value=\"" . $playlistName . "\">";
                     ?>
                     <input type="hidden" name="formtype" value="nameChange">
                     <?php echo "<input type='hidden' name='playlistID' value='$playlistID'>" ?>

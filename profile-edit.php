@@ -97,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                 ?>
             </div>
         </nav>
-        <div class="profile-info row" style="text-align: center;">
+        <div class="profile-info row" style="text-align: center; color: white;">
         <form class="col s12" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="row">
                     <h4 style="color: white;">Edit Profile</h4>
@@ -105,26 +105,29 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">person</i>
-                        <input name="fname" id="fname" type="text" class="validate" required>
+                        <input name="fname" pattern="[a-zA-Z -]{1,20}" maxlength="20" id="fname" type="text" class="validate" required>
                         <label for="fname">First Name</label>
+                        <span class='helper-text'>Names can use letters, spaces, and dashes.</span>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">person</i>
-                        <input name="lname" id="lname" type="text" class="validate" required>
+                        <input name="lname" pattern="[a-zA-Z -]{1,20}" maxlength="20" id="lname" type="text" class="validate" required>
                         <label for="lname">Last Name</label>
+                        <span class='helper-text'>Names can use letters, spaces, and dashes.</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input name="email" id="email" type="email" class="validate" required validate>
+                        <input name="email" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}" maxlength="35" id="email" type="email" class="validate" required validate>
                         <label for="email">Email</label>
+                        <span class='helper-text'>Emails must be in xxx@xxx.xxx format.</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input name="password" id="password" type="password" class="validate" required>
+                        <input name="password" maxlength="20" id="password" type="password" class="validate" required>
                         <label for="password">Password</label>
                     </div>
                 </div>

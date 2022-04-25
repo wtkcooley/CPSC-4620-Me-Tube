@@ -77,6 +77,7 @@
                 foreach($_GET['category'] as $category) {
                     $words = explode(' ', $_GET['search']);
                     foreach($words as $word) {
+                        strtolower($word);
                         array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM ((Media
                         INNER JOIN Media_Category ON Media.mediaID = Media_Category.mediaID) INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID)
                             WHERE (Media_Keyword.word = '$word') AND (Media_Category.categoryID = '$category')");
@@ -91,6 +92,7 @@
         } elseif (isset($_GET['search']) && $_GET['search'] !== "") {
             $words = explode(' ', $_GET['search']);
             foreach($words as $word) {
+                strtolower($word);
                 array_push($querys, "SELECT Media.mediaID, Media.mediaType, Media.title, Media.description, Media.path FROM (Media
                     INNER JOIN Media_Keyword ON Media.mediaID = Media_Keyword.mediaID) WHERE (Media_Keyword.word = '$word')");
             }
