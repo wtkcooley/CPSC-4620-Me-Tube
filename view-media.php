@@ -34,7 +34,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
     
         if(!isset($_COOKIE['user'])) {
-            header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+            header("Location: /~ckharts/metube/missingcookie.php", true, 301);
         }
         $playlistName = $_POST['playlistName'];
 
@@ -73,7 +73,7 @@
         }
 
         // redirect back to page
-        header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
+        header("Location: /~ckharts/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
     }
 ?>
 
@@ -123,22 +123,22 @@
     </head>
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+            <li><a href="/~ckharts/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~ckharts/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~ckharts/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~ckharts/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~ckharts/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~ckharts/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~ckharts/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>
@@ -168,7 +168,7 @@
                 <?php
                     echo "<h4>$title</h4><br>";
                     echo "<p>Uploaded by:</p>";
-                    echo "<a href='/~cguynup/metube/channel.php?channelID=$uuser'>$uuser</a><br>";
+                    echo "<a href='/~ckharts/metube/channel.php?channelID=$uuser'>$uuser</a><br>";
                     echo "<p>$desc</p>";
 
                     $query = "SELECT word FROM Media_Keyword WHERE mediaID='$mediaID'";
@@ -228,7 +228,7 @@
         </div>
 
         <div class="row">
-            <form class="col s12" action="/~cguynup/metube/submitComment.php" method="POST">
+            <form class="col s12" action="/~ckharts/metube/submitComment.php" method="POST">
                 <div class="row">
                     <div class="input-field col s11">
                         <textarea name="comment" id="comment" class="materialize-textarea"></textarea>
