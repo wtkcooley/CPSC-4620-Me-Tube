@@ -9,7 +9,7 @@
 
     // ensure user is logged in
     if(!isset($_COOKIE['user'])) {
-        header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+        header("Location: /~wcooley/metube/missingcookie.php", true, 301);
     }
 
     //connect to our database
@@ -37,8 +37,8 @@
                     
                     $string = '
                         <div class="col s3">
-                            <a class="row" href="/~cguynup/metube/playlist.php?playlistID=' . $playlistID . '">
-                                <image src="/~cguynup/metube/images/list_icon.jpg" class="col s12">
+                            <a class="row" href="/~wcooley/metube/playlist.php?playlistID=' . $playlistID . '">
+                                <image src="/~wcooley/metube/images/list_icon.jpg" class="col s12">
                                 </image>
                                 <div class="col s12">
                                     <h4>' . $playlistName . '</h4>
@@ -74,8 +74,8 @@
             if ($mediaType == "IMAGE") {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
+                        <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~wcooley/metube/images/img_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -87,8 +87,8 @@
             } else if ($mediaType == "VIDEO") {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                        <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~wcooley/metube/images/video_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -100,8 +100,8 @@
             } else {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
+                        <a href="/~wcooley/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~wcooley/metube/images/audio_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -180,22 +180,22 @@
     </head>
     <body class="blue-grey darken-3" style="overflow: hidden;">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+            <li><a href="/~wcooley/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~wcooley/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~wcooley/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~wcooley/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~wcooley/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~wcooley/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~wcooley/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>
@@ -255,7 +255,7 @@
                 </div>
             </div>
             <div class="rightwindow">
-                <iframe src="/~cguynup/metube/contactlist.php"></iframe>
+                <iframe src="/~wcooley/metube/contactlist.php"></iframe>
             </div>
         </div>
     </body>

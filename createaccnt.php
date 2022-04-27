@@ -55,7 +55,7 @@ if (mysqli_connect_errno()) {
     $query = "INSERT INTO User_Playlist (username, playlistID) VALUES ('{$values["username"]}', '$playlistID')";
     mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
-    header("Location: /~cguynup/metube/accntsuccess.php", true, 301);
+    header("Location: /~wcooley/metube/accntsuccess.php", true, 301);
     exit;
   }
 }
@@ -79,7 +79,7 @@ if (mysqli_connect_errno()) {
 
         <style>
     body {
-      background-image: url('/~cguynup/metube/images/main_bg.jpg');
+      background-image: url('/~wcooley/metube/images/main_bg.jpg');
       background-repeat: no-repeat;
     }
     div.centerform {
@@ -159,7 +159,7 @@ if (mysqli_connect_errno()) {
                 </div>
                 <div class="row">
                     <input class="z-depth-5 formbtn" type="submit" value="Create Account" />
-                    <br><a href="/~cguynup/metube/login.php">Return to log in...</a>
+                    <br><a href="/~wcooley/metube/login.php">Return to log in...</a>
                     <!--<a type="submit" class="modal-close waves-effect waves-light btn col s12">Create Account</a>-->
                 </div>
             </form>
