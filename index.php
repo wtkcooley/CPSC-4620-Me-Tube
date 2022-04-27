@@ -1,3 +1,3 @@
 <?php
-    header("Location: /~cguynup/metube/cookiesAccept.php", true, 301);
+    header("Location: /~ckharts/metube/cookiesAccept.php", true, 301);
 ?>

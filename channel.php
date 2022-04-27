@@ -8,7 +8,7 @@
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
     if(isset($_COOKIE['user']) && $_GET['channelID'] == $_COOKIE['user']) {
-        header("Location: /~cguynup/metube/profile-home.php", true, 301);
+        header("Location: /~ckharts/metube/profile-home.php", true, 301);
     }
     
     //connect to our database
@@ -47,8 +47,8 @@
             if ($mediaType == "IMAGE") {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/img_icon.jpg" class="col s12">
+                        <a href="/~ckharts/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~ckharts/metube/images/img_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -60,8 +60,8 @@
             } else if ($mediaType == "VIDEO") {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/video_icon.jpg" class="col s12">
+                        <a href="/~ckharts/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~ckharts/metube/images/video_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -73,8 +73,8 @@
             } else {
                 $string = '
                     <div class="col s3">
-                        <a href="/~cguynup/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
-                            <img  src="/~cguynup/metube/images/audio_icon.jpg" class="col s12">
+                        <a href="/~ckharts/metube/view-media.php?mediaID=' . $mediaID . '" class="row">
+                            <img  src="/~ckharts/metube/images/audio_icon.jpg" class="col s12">
                             <div class="col s12">
                                 <h4>' . $title . '</h4><br>
                                 <p>' . $desc . '</p>
@@ -141,7 +141,7 @@
             }
         
         } else {
-            header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+            header("Location: /~ckharts/metube/missingcookie.php", true, 301);
         }
     }
     // Ensure user logged in before continuing
@@ -186,22 +186,22 @@
     </head>
     <body class="blue-grey darken-3">
         <ul id="page" class="dropdown-content">
-            <li><a href="/~cguynup/metube/profile-home.php">Profile</a></li>
-            <li><a href="/~cguynup/metube/profile-edit.php">Edit Profile</a></li>
-            <li><a href="/~cguynup/metube/messageScreen.php">Messages</a></li>
-            <li><a href="/~cguynup/metube/upload-media.php">Upload</a></li>
-            <li><a href="/~cguynup/metube/logout.php">Logout</a></li>
+            <li><a href="/~ckharts/metube/profile-home.php">Profile</a></li>
+            <li><a href="/~ckharts/metube/profile-edit.php">Edit Profile</a></li>
+            <li><a href="/~ckharts/metube/messageScreen.php">Messages</a></li>
+            <li><a href="/~ckharts/metube/upload-media.php">Upload</a></li>
+            <li><a href="/~ckharts/metube/logout.php">Logout</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper row teal lighten-2">
-                <a href="/~cguynup/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
+                <a href="/~ckharts/metube/browse.php" class="brand-logo left col-s1">MeTube</a>
                 <?php
                     if(isset($_COOKIE['user'])) {
                         echo '<ul id="nav-mobile" class="right">
                             <li><a class="dropdown-trigger" href="#!" data-target="page">' . $_COOKIE['user'] . '<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>';
                     } else {
-                        echo '<li><a href="/~cguynup/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
+                        echo '<li><a href="/~ckharts/metube/login.php" class="waves-effect waves-light btn right">Login</a></li>';
                     }
                 ?>
             </div>

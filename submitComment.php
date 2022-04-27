@@ -9,7 +9,7 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 
 // Ensure user is logged in
 if(!isset($_COOKIE['user'])) {
-    header("Location: /~cguynup/metube/missingcookie.php", true, 301);
+    header("Location: /~ckharts/metube/missingcookie.php", true, 301);
 }
 
 // save DB info
@@ -60,6 +60,6 @@ $query = "INSERT INTO Comment (commentUser, mediaID, commentTime, comment)
 
 mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
-header("Location: /~cguynup/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
+header("Location: /~ckharts/metube/view-media.php?mediaID=" . htmlspecialchars($mediaID));
 
 ?>
